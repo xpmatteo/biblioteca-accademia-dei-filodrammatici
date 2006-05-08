@@ -14,7 +14,7 @@ test:
 
 production:
   adapter: mysql
-  database: filo_production
-  username: root
-  password: 
+  database: filodr
+  username: matteo
+  password: PivNabMa
   host: localhost
