@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>Accademia dei Filodrammatici<% if @page_title %> &mdash; <%= @page_title %><% end %></title>  
+  <%= stylesheet_link_tag "filo" %>
+  <meta name="description" content="L'Accademia dei Filodrammatici di Milano è la più antica scuola diteatro italiana. Informazioni sull'offerta formativa, sul concorso e data base degli attori diplomati.">
+  <meta name="keywords" content="Accademia dei Filodrammatici, accademia teatro milano, scuola recitazione milano">
+  <style type="text/css" media="screen">
+  /* <![CDATA[ */
+    #pic {
+      background-image: url("<%= @content.full_image_url %>");
+      background-repeat: no-repeat;
+      background-position: 0 0; 
+    }
+  /* ]]> */
+  </style>
+</head>
+<body>
+  <div id="page" align='center'>
+    <table border="1">
+      <tr>
+        <td id='head' colspan='2'><a href="/"><%= image_tag 'logo.gif', :alt => 'home' %></a></td>
+      </tr>
+      <tr>
+        <td id='navigation'> 
+          <ul>
+            <% for nav in @navigation_items %>
+              <li><%= link_to_unless_current nav.title, :controller => 'content', :action => 'page', :name => nav.name %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td id='pic'>&nbsp;</td>      
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td id='content'><%= yield %></td>      
+      </tr>
+      <tr>
+        <td id='foot' colspan='2'>
+          &copy; 2005-6 Accademia dei Filodrammatici | <a href="/crediti.html">Crediti</a>      
+        </td>
+      </tr>
+    </table>    
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+welcome:
+  id: 1
+  name: welcome
+  title: Welcome
+  body: Welcome, my friends, to the show that never ends
+  image_url: foo.gif
+  sort_value: aaa
+  show_in_navigation: false
+foobar:
+  id: 2
+  name: foobar
+  title: Foobar
+  body: Foo, _bar_, *baz*
+  image_url: bar.gif
+  sort_value: zzz
+  show_in_navigation: true
+zork:
+  id: 3
+  name: zork
+  title: Zork
+  body: The Great Underground Empire...
+  image_url: zork.gif
+  sort_value: bbb
+  show_in_navigation: true
+  
