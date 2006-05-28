@@ -4,6 +4,6 @@ class Content < ActiveRecord::Base
   validates_presence_of :title, :name, :body
   
   def full_image_url
-    "/images/" + image_url
+    "/upload/" + image_url
   end
 end

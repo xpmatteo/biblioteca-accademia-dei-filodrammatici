@@ -11,7 +11,7 @@
 # form the root of the application path.
 
 set :application, "filo"
-set :repository, "http://matteo.textdriven.com/svn/#{application}/trunk"
+set :repository, "https://matteo.textdriven.com/svn/#{application}/trunk"
 
 # =============================================================================
 # ROLES
@@ -24,17 +24,15 @@ set :repository, "http://matteo.textdriven.com/svn/#{application}/trunk"
 
 role :web, "pendrell.textdrive.com"
 role :app, "pendrell.textdrive.com"
-role :db,  "pendrell.textdrive.com"
+role :db,  "pendrell.textdrive.com", :primary => true
 
 # =============================================================================
 # OPTIONAL VARIABLES
 # =============================================================================
-set :deploy_to, "/home/matteo/apps/filo" # defaults to "/u/apps/#{application}"
-# set :user, "flippy"            # defaults to the currently logged in user
-# set :scm, :darcs               # defaults to :subversion
+set :deploy_to, "/home/matteo/domains/accademiadeifilodrammatici.it/versions"
+set :user, "matteo"
+set :use_sudo, false
 # set :svn, "/path/to/svn"       # defaults to searching the PATH
-# set :darcs, "/path/to/darcs"   # defaults to searching the PATH
-# set :cvs, "/path/to/cvs"       # defaults to searching the PATH
 # set :gateway, "gate.host.com"  # default to no gateway
 
 # =============================================================================
@@ -103,19 +101,13 @@ task :helper_demo do
   delete "#{shared_path}/system/maintenance.html"
 end
 
-# You can use "transaction" to indicate that if any of the tasks within it fail,
-# all should be rolled back (for each task that specifies an on_rollback
-# handler).
+# crea la dir per le immagini uploadate in fase di setup
+task :after_setup, :roles => [:app, :web] do
+  run "mkdir -p #{shared_path}/public/upload" 
+end
 
-desc "A task demonstrating the use of transactions."
-task :long_deploy do
-  transaction do
-    update_code
-    disable_web
-    symlink
-    migrate
-  end
-
-  restart
-  enable_web
+# crea i link simbolici ogni volta che fai il deploy
+# vedi http://lists.rubyonrails.org/pipermail/rails/2006-March/023544.html
+task :after_symlink, :roles => [:app, :web] do
+  run "ln -nfs #{shared_path}/public/upload #{current_path}/public/upload"
 end
