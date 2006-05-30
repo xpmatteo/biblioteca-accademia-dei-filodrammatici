@@ -7,7 +7,10 @@ class ContentController < ApplicationController
 
   def page
     @content = Content.find_by_name(params[:name])
-    @navigation_items = Content.find(:all, :conditions => 'show_in_navigation', :order => 'sort_value')
-    redirect_to "/404.html" unless @content
+    if @content
+      @image_url = @content.full_image_url
+    else
+      redirect_to "/404.html"
+    end
   end
 end

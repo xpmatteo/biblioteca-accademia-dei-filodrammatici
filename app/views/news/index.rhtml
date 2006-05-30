@@ -1,0 +1,9 @@
+
+<h2>Info e casting dell'Accademia dei Filodrammatici</h2>
+
+<% for news in @news %>
+  <div class='news'>
+    <p class='news-date'><%= news.created_at.to_s(:short) %></p>
+    <p><%= link_to news.title, :action => 'show', :id => news %></p>
+  </div>
+<% end %>

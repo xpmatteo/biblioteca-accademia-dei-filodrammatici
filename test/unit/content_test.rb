@@ -6,7 +6,7 @@ class ContentTest < Test::Unit::TestCase
   # Replace this with your real tests.
   def test_image_url
     c = Content.find(1)
-    assert_equal "/images/foo.gif", c.full_image_url
+    assert_equal "/upload/foo.gif", c.full_image_url
   end
   
   def test_find_by_name

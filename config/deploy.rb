@@ -103,11 +103,11 @@ end
 
 # crea la dir per le immagini uploadate in fase di setup
 task :after_setup, :roles => [:app, :web] do
-  run "mkdir -p #{shared_path}/public/upload" 
+  run "mkdir -p #{shared_path}/upload" 
 end
 
 # crea i link simbolici ogni volta che fai il deploy
 # vedi http://lists.rubyonrails.org/pipermail/rails/2006-March/023544.html
 task :after_symlink, :roles => [:app, :web] do
-  run "ln -nfs #{shared_path}/public/upload #{current_path}/public/upload"
+  run "ln -nfs #{shared_path}/upload #{current_path}/public/upload"
 end

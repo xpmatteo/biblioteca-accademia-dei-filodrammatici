@@ -17,21 +17,14 @@ class ContentControllerTest < Test::Unit::TestCase
     get 'index'
     assert_response :success
     assert_equal contents(:welcome), assigns(:content)
-    assert_tag :tag => 'style', :content => %r{url\(./images/foo.gif.\)}
+    assert_tag :tag => 'style', :content => %r{url\(./upload/foo.gif.\)}
     assert_tag :content => /Welcome, my friends/
-    test_navigation_items
-  end
-  
-  def test_navigation_items 
-    assert assigns(:navigation_items)
-    assert_equal ['zork', 'foobar'], assigns(:navigation_items).map { |c| c.name }
   end
   
   def test_page_foobar
     get 'page', :name => 'foobar'
     assert_response :success
-    assert_tag :tag => 'style', :content => %r{url\(./images/bar.gif.\)}
-    test_navigation_items
+    assert_tag :tag => 'style', :content => %r{url\(./upload/bar.gif.\)}
   end
   
   def test_content_body_is_textilized

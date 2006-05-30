@@ -6,8 +6,12 @@ body {
 
 p, blockquote, li, h1, h2, h3, h4, td {
   font-family: Georgia, "Times New Roman", Times, serif;
-  color: #595959;
+  color: #595959; /* classy gray */
   font-size: 10pt;
+}
+
+h1, h2, h3, h4 {
+	color: #BF982E; /* sepia */
 }
 
 img {
@@ -20,14 +24,51 @@ td#head, td#content {
 }
 
 td#navigation {
-  width: 15em;
+  width: 19em;
   text-align: left;
-  vertical-align: top
+  vertical-align: top;
+  background: #BF982E; /* sepia */
+}
+
+#navigation ul {
+  margin-top: 1em;
+  padding-left: 2em;
+  margin-left: 0;
+}
+
+#navigation a {
+  color: white;
+  text-decoration: none;
+  font-style: italic;
+  display: block;
+}
+
+#navigation a:hover {
+  background: #916D0B; /* darker brown */
+}
+
+#navigation li {
+  list-style: none;
+  margin: 0;
+  padding: 0.25em 0em;
+  font-style: italic;
+  color: black;
 }
 
 td#pic {
   width: 499px;
   height: 251px;
+}
+
+td#content {
+  width: 499px;
+  padding-left: 1em;
+  padding-top: 1em;
+}
+
+td#filler {
+	background-color: #E4BE55; /* lighter sepia */
+	height: 106px;
 }
 
 div#page {
