@@ -3,19 +3,13 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <title>Accademia dei Filodrammatici<% if @page_title %> &mdash; <%= @page_title %><% end %></title>  
+
   <%= stylesheet_link_tag "filo" %>
-  <meta name="description" content="L'Accademia dei Filodrammatici di Milano è la più antica scuola diteatro italiana. Informazioni sull'offerta formativa, sul concorso e data base degli attori diplomati.">
+
+  <meta name="description" content="L'Accademia dei Filodrammatici di Milano è la più antica scuola di teatro italiana. Informazioni sull'offerta formativa, sul concorso e data base degli attori diplomati.">
   <meta name="keywords" content="Accademia dei Filodrammatici, accademia teatro milano, scuola recitazione milano">
-  <style type="text/css" media="screen">
-  /* <![CDATA[ */
-    #pic {
-      background-image: url("<%= @image_url %>");
-      background-repeat: no-repeat;
-      background-position: 0 0; 
-    }
-  /* ]]> */
-  </style>
 </head>
+
 <body>
   <div id="page" align='center'>
     <table border="0" cellspacing="0" cellpadding="0">
@@ -23,30 +17,25 @@
         <td id='head' colspan='2'><a href="/"><%= image_tag 'logo.gif', :alt => 'home' %></a></td>
       </tr>
       <tr>
-        <td id='navigation'> 
+        <td id='navigation' valign='top'> 
           <ul>
-            <li><%= link_to_unless_current 'Info &amp; casting', :controller => 'news' %></li>
-            <% for nav in navigation_items %>
-              <li><%= link_to_unless_current nav.title, :controller => 'content', :action => 'page', :name => nav.name %></li>
-            <% end %>
+            <li><%= link_to_unless_current 'La scuola', 
+                    :controller => 'content', :action => 'page', :name => 'zork' %></li>
+            <li><%= link_to_unless_current 'Profilo storico', 
+                    :controller => 'content', :action => 'page', :id => 2 %></li>
+            <li><%= link_to_unless_current 'Bla, bla e bla', 
+                    :controller => 'content', :action => 'page', :id => 3 %></li>
           </ul>
         </td>
-        <td id='pic'>&nbsp;</td>      
+        <td id='content' valign='top'><%= yield %></td>      
       </tr>
-      <tr>
-        <td id='filler'>&nbsp;</td>
-        <td id='content' rowspan='2'><%= yield %></td>      
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-      </tr>
-      <!-- 
       <tr>
         <td id='foot' colspan='2'>
-          &copy; 2005-6 Accademia dei Filodrammatici | <%= link_to 'crediti', :controller => 'content', :action => 'page', :name => 'crediti' %>
+          &copy; 2005-6 Accademia dei Filodrammatici 
+          | <%= link_to 'crediti', :controller => 'content', :action => 'page', :name => 'crediti' %>
+          | <a href='http://validator.w3.org/check/referer'>valida</a>
         </td>
       </tr>
-      -->
     </table>    
   </div>
 </body>

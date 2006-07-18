@@ -13,4 +13,17 @@ class ContentController < ApplicationController
       redirect_to "/404.html"
     end
   end
+
+  def edit
+    if request.post?
+      @content = Content.find(params[:id])
+      @content.title = params[:content][:title]
+      @content.body = params[:content][:body]
+      if @content.save
+        redirect_to :action => 'page', :name => @content.name
+      end
+    else    
+      @content = Content.find(params[:id])
+    end
+  end
 end
