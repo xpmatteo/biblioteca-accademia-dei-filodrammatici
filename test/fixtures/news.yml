@@ -4,3 +4,9 @@ first:
   title: Prima notizia
   body: Corpo della prima notizia
   created_at: 2006/02/01
+second:
+  id: 2
+  title: Seconda notizia
+  body: Corpo della seconda notizia
+  created_at: 2006/04/04
+  

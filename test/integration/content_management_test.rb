@@ -2,7 +2,7 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ContentManagementTest < ActionController::IntegrationTest
   fixtures :contents, :news
-
+  
   def test_home_page
     get_home_page
   end
@@ -33,21 +33,6 @@ private
     # non so perché falliscono.  il msg di errore è assurdo
 #    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici &mdash; Pistacchio'
 #    assert_tag :content => 'We changed it'
-  end
-
-  def get_content_page(sym)
-    content = contents(sym)
-    get '/pagina/' + content.name
-    assert_response :success
-    assert_template 'content/page'
-    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici &mdash; ' + content.title
-  end
-
-  def get_home_page
-    get '/'
-    assert_response :success
-    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici'
-#    assert_template 'content/page'
   end
 
 end

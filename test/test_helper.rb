@@ -29,4 +29,20 @@ class Test::Unit::TestCase
   def assert_false(cond, msg=nil)
     assert !cond, msg
   end
+  
+  def get_content_page(sym)
+    content = contents(sym)
+    get '/pagina/' + content.name
+    assert_response :success
+    assert_template 'content/page'
+    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici &mdash; ' + content.title
+  end
+
+  def get_home_page
+    get '/'
+    assert_response :success
+    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici'
+#    assert_template 'content/page'
+  end
+
 end
