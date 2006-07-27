@@ -6,7 +6,7 @@ class CreateGraduates < ActiveRecord::Migration
       t.column :first_name,       :string
       t.column :last_name,        :string
       t.column :image_url,        :string
-      t.column :born_on,          :string
+      t.column :born_on,          :date
       t.column :fiscal_code,      :string, :limit => 16
 
       t.column :graduation_year,  :integer

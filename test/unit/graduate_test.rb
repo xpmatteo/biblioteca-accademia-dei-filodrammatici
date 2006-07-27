@@ -14,8 +14,8 @@ class GraduateTest < Test::Unit::TestCase
   def test_initials_ignores_case                  
     g = graduates(:pippo)
     g.last_name = 'de Pippis'
-    g.save
+    assert g.save
     assert_equal ['D', 'G'], Graduate.initials
   end                                         
-  
+
 end

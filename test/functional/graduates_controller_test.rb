@@ -100,7 +100,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   def test_create
     num_graduates = Graduate.count
 
-    post :create, :graduate => {}
+    post :create, :graduate => graduates(:gino).attributes
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
