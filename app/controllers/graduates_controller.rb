@@ -18,7 +18,10 @@ class GraduatesController < ApplicationController
     else
       conditions = nil
     end
-    @graduate_pages, @graduates = paginate :graduates, :per_page => 100, :conditions => conditions, :order => 'last_name'
+    @graduate_pages, @graduates = paginate :graduates, 
+      :per_page => 100, 
+      :conditions => conditions, 
+      :order => 'last_name, first_name'
   end
 
   def show
