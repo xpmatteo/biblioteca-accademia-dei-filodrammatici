@@ -10,11 +10,15 @@ foobar:
   name: foobar
   title: Foobar
   body: Foo, _bar_, *baz*
-  image_url: bar.gif
+  image_url: foobar.gif
 zork:
   id: 3
   name: zork
   title: Zork
   body: The Great Underground Empire
   image_url: zork.gif
-  
+no_image_url:
+  id: 4
+  name: senza-immagine
+  title: Non ho la pic
+  body: eccetera 

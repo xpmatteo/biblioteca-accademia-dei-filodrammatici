@@ -32,7 +32,7 @@ class ContentControllerTest < Test::Unit::TestCase
   
   def test_page_nonexistent
     get 'page', :name => 'nonexistent'
-    assert_redirected_to '/404.html'
+    assert_response 404
   end
   
   def test_edit_button
@@ -76,6 +76,11 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_tag :content => "Title can't be blank"
     assert_unchanged old_content
+  end     
+  
+  def test_content_without_image
+    get 'page', :name => 'senza-immagine'
+    assert_response :success
   end
   
 private

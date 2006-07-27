@@ -1,0 +1,30 @@
+<h1>Diplomati</h1>
+
+<div id="initials">
+  <% for initial in @initials %>
+    <%= link_to_unless_current initial, :action => "list", :initial => initial %>
+  <% end %>
+</div>
+    
+<div id="graduation-years">
+  <% for year in @graduation_years %>
+    <%= link_to_unless_current year, :action => "list", :year => year %>
+  <% end %>
+</div>                                
+
+<ul>
+<% for graduate in @graduates %>
+  <li>
+    <%= link_to (graduate.last_name.upcase + ' ' + graduate.first_name), :action => 'show', :id => graduate %>
+    <%= link_to 'Edit', :action => 'edit', :id => graduate %>
+    <%= link_to 'Destroy', { :action => 'destroy', :id => graduate }, :confirm => 'Are you sure?', :post => true %>
+  </li>
+<% end %>
+</ul>
+
+<%= link_to 'Previous page', { :page => @graduate_pages.current.previous } if @graduate_pages.current.previous %>
+<%= link_to 'Next page', { :page => @graduate_pages.current.next } if @graduate_pages.current.next %> 
+
+<br />
+
+<%= link_to 'Inserisci diplomato', :action => 'new' %>

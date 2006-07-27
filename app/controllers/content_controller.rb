@@ -9,8 +9,9 @@ class ContentController < ApplicationController
     @content = Content.find_by_name(params[:name])
     if @content
       @image_url = @content.full_image_url
-    else
-      redirect_to "/404.html"
+    else              
+      path = "#{File.dirname(__FILE__)}/../../public/404.html"
+      render :file => path, :status => 404
     end
   end
 
