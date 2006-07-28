@@ -8,6 +8,10 @@
 
   <meta name="description" content="L'Accademia dei Filodrammatici di Milano è la più antica scuola di teatro italiana. Informazioni sull'offerta formativa, sul concorso e data base degli attori diplomati.">
   <meta name="keywords" content="Accademia dei Filodrammatici, accademia teatro milano, scuola recitazione milano">
+
+  <% # Include TinyMCE before other JS to avoid problems -%>
+  <%= javascript_include_tiny_mce_if_used %>
+  <%= tiny_mce if using_tiny_mce? %>
 </head>
 
 <body>

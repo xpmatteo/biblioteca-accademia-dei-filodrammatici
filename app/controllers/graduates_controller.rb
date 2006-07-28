@@ -1,4 +1,6 @@
 class GraduatesController < ApplicationController
+  uses_tiny_mce
+
   def index
     list
     render :action => 'list'

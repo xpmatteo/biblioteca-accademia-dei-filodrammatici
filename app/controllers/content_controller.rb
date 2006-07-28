@@ -1,4 +1,6 @@
 class ContentController < ApplicationController
+  uses_tiny_mce
+  
   def index
     params[:name] = 'welcome'
     page
