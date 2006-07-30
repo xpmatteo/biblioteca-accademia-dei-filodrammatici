@@ -5,16 +5,24 @@ gino:
   last_name: Ginotti
   graduation_year: 2003
   email: gino@example.org
+  size: 52
+  weight_kg: 80
+  height_cm: 180
 pippo:
   id: 2
   first_name: Pippo
   last_name: De Pippis
   graduation_year: 2003
   email: pippo@example.org
+  size: 52
+  weight_kg: 80
+  height_cm: 180
 geppo:
   id: 3
   first_name: Geppo
   last_name: De Geppis
   graduation_year: 2005
   email: geppo@geppo.net
-                
+  size: 52
+  weight_kg: 80
+  height_cm: 180

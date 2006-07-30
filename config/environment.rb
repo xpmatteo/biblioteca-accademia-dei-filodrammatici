@@ -56,3 +56,7 @@ end
 class RedCloth
   def hard_breaks; false end
 end
+
+# vedi http://lists.rubyonrails.org/pipermail/rails/2006-March/027685.html
+# i campi con errori li voglio dentro a 'span', non 'div'
+ActionView::Base.field_error_proc = Proc.new {|html_tag, instance|  %(<span class="field-with-errors">#{html_tag}</span>)}

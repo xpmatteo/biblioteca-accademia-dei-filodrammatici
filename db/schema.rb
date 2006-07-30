@@ -11,6 +11,24 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "image_url", :string
   end
 
+  create_table "diplomati", :id => false, :force => true do |t|
+    t.column "Id", :integer, :null => false
+    t.column "nome", :string, :limit => 50, :default => "", :null => false
+    t.column "cognome", :string, :limit => 100, :default => "", :null => false
+    t.column "img", :string, :limit => 50, :default => "", :null => false
+    t.column "datanascita", :date, :null => false
+    t.column "indirizzo", :string, :limit => 100
+    t.column "citta", :string, :limit => 50
+    t.column "altridati", :binary
+    t.column "caratteristiche", :binary, :default => "", :null => false
+    t.column "annodiploma", :integer, :limit => 4, :default => 0, :null => false
+    t.column "altricorsi", :binary, :default => "", :null => false
+    t.column "curr", :binary, :default => "", :null => false
+    t.column "web", :string, :default => "", :null => false
+    t.column "profilo", :string, :limit => 0, :default => "N", :null => false
+    t.column "visibile", :string, :limit => 0, :default => "Y", :null => false
+  end
+
   create_table "graduates", :force => true do |t|
     t.column "first_name", :string
     t.column "last_name", :string

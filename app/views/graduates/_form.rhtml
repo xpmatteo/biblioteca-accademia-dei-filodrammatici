@@ -1,76 +1,88 @@
 <%= error_messages_for 'graduate' %>
 
-<!--[form:graduate]-->
-<p><label for="graduate_first_name">First name</label><br/>
-<%= text_field 'graduate', 'first_name'  %></p>
+<fieldset>
+  <legend>Dati anagrafici</legend>
+  <p>
+    <label for="graduate_first_name">Nome</label>
+    <%= text_field 'graduate', 'first_name'  %>
 
-<p><label for="graduate_last_name">Last name</label><br/>
-<%= text_field 'graduate', 'last_name'  %></p>
+    <label for="graduate_last_name">Cognome</label>
+    <%= text_field 'graduate', 'last_name'  %>
+  </p>
+  <p>
+    <label for="graduate_graduation_year">Anno di diploma</label><%= text_field 'graduate', 'graduation_year', :size => 4  %>
+    <label for="graduate_born_on">Nato il</label><%= date_select 'graduate', 'born_on'  %>
+    <label for="graduate_fiscal_code">Codice fiscale</label><%= text_field 'graduate', 'fiscal_code', :size => 16  %>
+  </p>
+</fieldset>
 
-<p><label for="graduate_image_url">Image url</label><br/>
-<%= text_field 'graduate', 'image_url'  %></p>
+<fieldset>
+  <legend>Riferimenti</legend>
+  <p>
+    <label for="graduate_home_page_url">Home page</label>
+    <%= text_field 'graduate', 'home_page_url'  %>
 
-<p><label for="graduate_born_on">Born on</label><br/>
-<%= date_select 'graduate', 'born_on'  %></p>
+    <label for="graduate_email">Email</label>
+    <%= text_field 'graduate', 'email'  %>
+  </p>
+  <p>
+    <label for="graduate_address">Indirizzo</label>
+    <%= text_field 'graduate', 'address', :size => 80  %>
+  </p>
+  <p>
+    <label for="graduate_phone">Telefono</label>
+    <%= text_field 'graduate', 'phone'  %>
 
-<p><label for="graduate_fiscal_code">Fiscal code</label><br/>
-<%= text_field 'graduate', 'fiscal_code'  %></p>
+    <label for="graduate_fax">Fax</label>
+    <%= text_field 'graduate', 'fax'  %>
 
-<p><label for="graduate_graduation_year">Graduation year</label><br/>
-<%= text_field 'graduate', 'graduation_year'  %></p>
+    <label for="graduate_mobile">Cellulare</label>
+    <%= text_field 'graduate', 'mobile'  %>
+  </p>
 
-<p><label for="graduate_home_page_url">Home page url</label><br/>
-<%= text_field 'graduate', 'home_page_url'  %></p>
+  <p>
+    <label for="graduate_agency">Agenzia</label>
+    <%= text_field 'graduate', 'agency'  %>
+  </p>
+</fieldset>
 
-<p><label for="graduate_email">Email</label><br/>
-<%= text_field 'graduate', 'email'  %></p>
+<fieldset>
+  <legend>Altri dati</legend>
+  <p>
+    <label for="graduate_height_cm">Altezza (cm)</label>
+    <%= text_field 'graduate', 'height_cm', :size => 3  %>
 
-<p><label for="graduate_address">Address</label><br/>
-<%= text_field 'graduate', 'address'  %></p>
+    <label for="graduate_weight_kg">Peso (Kg)</label>
+    <%= text_field 'graduate', 'weight_kg', :size => 3  %>
 
-<p><label for="graduate_phone">Phone</label><br/>
-<%= text_field 'graduate', 'phone'  %></p>
+    <label for="graduate_size">Taglia</label>
+    <%= text_field 'graduate', 'size', :size => 3  %>
+  </p>
+  <p>
+    <label for="graduate_eyes">Occhi</label>
+    <%= text_field 'graduate', 'eyes'  %>
 
-<p><label for="graduate_fax">Fax</label><br/>
-<%= text_field 'graduate', 'fax'  %></p>
+    <label for="graduate_hair">Capelli</label>
+    <%= text_field 'graduate', 'hair'  %>
+  </p>
+  <p>
+    <label for="graduate_sport">Sport</label>
+    <%= text_field 'graduate', 'sport'  %>
 
-<p><label for="graduate_mobile">Mobile</label><br/>
-<%= text_field 'graduate', 'mobile'  %></p>
+    <label for="graduate_languages">Lingue</label>
+    <%= text_field 'graduate', 'languages'  %>
 
-<p><label for="graduate_agency">Agency</label><br/>
-<%= text_field 'graduate', 'agency'  %></p>
+    <label for="graduate_dialects">Dialetti</label>
+    <%= text_field 'graduate', 'dialects'  %>
+  </p>
+  <p>
+    <label for="graduate_notes">Notes</label>
+    <%= text_field 'graduate', 'notes', :size => 80  %>
+  </p>
+</fieldset>
 
-<p><label for="graduate_height_cm">Height cm</label><br/>
-<%= text_field 'graduate', 'height_cm'  %></p>
-
-<p><label for="graduate_weight_kg">Weight kg</label><br/>
-<%= text_field 'graduate', 'weight_kg'  %></p>
-
-<p><label for="graduate_eyes">Eyes</label><br/>
-<%= text_field 'graduate', 'eyes'  %></p>
-
-<p><label for="graduate_hair">Hair</label><br/>
-<%= text_field 'graduate', 'hair'  %></p>
-
-<p><label for="graduate_size">Size</label><br/>
-<%= text_field 'graduate', 'size'  %></p>
-
-<p><label for="graduate_waist">Waist</label><br/>
-<%= text_field 'graduate', 'waist'  %></p>
-
-<p><label for="graduate_sport">Sport</label><br/>
-<%= text_field 'graduate', 'sport'  %></p>
-
-<p><label for="graduate_languages">Languages</label><br/>
-<%= text_field 'graduate', 'languages'  %></p>
-
-<p><label for="graduate_dialects">Dialects</label><br/>
-<%= text_field 'graduate', 'dialects'  %></p>
-
-<p><label for="graduate_notes">Notes</label><br/>
-<%= text_field 'graduate', 'notes'  %></p>
-
-<p><label for="graduate_curriculum">Curriculum</label><br/>
-<%= text_area 'graduate', 'curriculum'  %></p>
-<!--[eoform:graduate]-->
+<fieldset>
+  <legend>Curriculum</legend>
+  <%= text_area 'graduate', 'curriculum', :cols=>80, :rows => 30  %>
+</fieldset>
 

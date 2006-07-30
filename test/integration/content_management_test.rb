@@ -30,7 +30,7 @@ class ContentManagementTest < ActionController::IntegrationTest
 private
 
   def get_content_page(name)
-    get '/pagina/' + name
+    get name
     assert_response :success
     assert_template 'content/page'
   end

@@ -46,6 +46,7 @@ class GraduatesController < ApplicationController
 
   def edit
     @graduate = Graduate.find(params[:id])
+    render :layout => 'admin'
   end
 
   def update
@@ -54,7 +55,7 @@ class GraduatesController < ApplicationController
       flash[:notice] = 'Graduate was successfully updated.'
       redirect_to :action => 'show', :id => @graduate
     else
-      render :action => 'edit'
+      render :action => 'edit', :layout => 'admin'
     end
   end
 

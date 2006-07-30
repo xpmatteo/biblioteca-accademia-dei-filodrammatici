@@ -42,7 +42,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   def test_list_view_contains_links_to_details
     get :list, :year => 2003 
     assert_tag :tag => 'a', :content => 'DE PIPPIS Pippo', 
-      :attributes => { :href => '/graduates/show/2'}
+      :attributes => { :href => '/diplomati/show/2'}
   end                                         
   
   def test_list_view_contains_list_of_years
@@ -51,6 +51,16 @@ class GraduatesControllerTest < Test::Unit::TestCase
     assert_tag :attributes => { :id => 'graduation-years' }
     assert_view_contains_link_to_year 2003
     assert_view_contains_link_to_year 2005
+  end
+  
+  def test_form_contains_all_text_fields    
+    get :edit, :id => 1
+
+    fields = Graduate::ANAGRAPHIC_ATTRIBUTES.merge(Graduate::ADDRESS_ATTRIBUTES).merge(Graduate::OTHER_ATTRIBUTES)
+    for name in fields.keys
+      assert_tag :tag => 'input',
+        :attributes => { :type => 'text', :name => "graduate[#{name.to_s}]" }
+    end
   end
 
   def test_list_view_contains_list_of_initials
@@ -144,12 +154,12 @@ private
   
   def assert_view_contains_link_to_year(year)
     assert_tag :content => year.to_s, :tag => 'a',
-      :attributes => { :href => "/graduates/list?year=#{year}" }
+      :attributes => { :href => "/diplomati/list?year=#{year}" }
   end
 
   def assert_view_contains_link_to_initial(initial)
     assert_tag :content => initial, :tag => 'a',
-      :attributes => { :href => "/graduates/list?initial=#{initial}" }
+      :attributes => { :href => "/diplomati/list?initial=#{initial}" }
   end
 
   def insert_graduate_with_last_name(last)
