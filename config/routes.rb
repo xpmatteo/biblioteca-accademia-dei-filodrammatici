@@ -13,8 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "news"
 
-  map.connect ':name', :controller => "content", :action => 'page'
   map.connect 'diplomati/:action/:id', :controller => "graduates"
+  map.connect ':name', :controller => "content", :action => 'page'
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'
