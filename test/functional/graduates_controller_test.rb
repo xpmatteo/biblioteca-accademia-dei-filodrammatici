@@ -12,11 +12,11 @@ class GraduatesControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
-
+  
   def test_index
     get :index
     assert_response :success
-    assert_template 'list'
+    assert_template 'index'
   end
 
   def test_list_by_year
@@ -47,10 +47,13 @@ class GraduatesControllerTest < Test::Unit::TestCase
   
   def test_list_view_contains_list_of_years
     get :list
-    assert_equal [2003, 2005], assigns(:graduation_years)
-    assert_tag :attributes => { :id => 'graduation-years' }
-    assert_view_contains_link_to_year 2003
-    assert_view_contains_link_to_year 2005
+    assert_view_contains_list_of_years
+  end
+
+  def test_list_view_contains_list_of_initials
+    get :list
+    assert_equal [], assigns(:initials)
+    assert_tag :attributes => { :id => 'initials' }
   end
   
   def test_form_contains_all_text_fields    
@@ -171,5 +174,12 @@ private
   
   def last_names_of_assigned_graduates
     assigns(:graduates).map { |g| g.last_name }
+  end
+  
+  def assert_view_contains_list_of_years
+    assert_equal [2003, 2005], assigns(:graduation_years)
+    assert_tag :attributes => { :id => 'graduation-years' }
+    assert_view_contains_link_to_year 2003
+    assert_view_contains_link_to_year 2005
   end
 end

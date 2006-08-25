@@ -25,11 +25,6 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_response :success
   end
   
-  def test_content_body_is_textilized
-    test_page_foobar
-    assert_tag :tag => 'strong', :content => 'baz'
-  end
-  
   def test_page_nonexistent
     get 'page', :name => 'nonexistent'
     assert_response 404
