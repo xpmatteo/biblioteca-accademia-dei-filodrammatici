@@ -22,3 +22,10 @@ no_image_url:
   name: senza-immagine
   title: Non ho la pic
   body: eccetera 
+graduates:
+  id: 5
+  name: spazio-diplomati
+  title: Spazio Diplomati
+  body: bla bla, i diplomati eccoli qua
+  
+

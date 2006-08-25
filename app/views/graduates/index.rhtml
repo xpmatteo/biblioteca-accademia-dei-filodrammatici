@@ -1,1 +1,8 @@
-foo and bar
+<h1>Diplomati</h1>
+
+<%= render :partial => 'years_and_initials' %>
+
+<%= @content.body %>
+<br />
+<%= link_to 'edit', :controller => 'content', :action => 'edit', :id => @content %>
+

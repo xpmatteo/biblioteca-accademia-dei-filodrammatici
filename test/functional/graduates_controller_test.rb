@@ -5,7 +5,7 @@ require 'graduates_controller'
 class GraduatesController; def rescue_action(e) raise e end; end
 
 class GraduatesControllerTest < Test::Unit::TestCase
-  fixtures :graduates
+  fixtures :graduates, :contents
 
   def setup
     @controller = GraduatesController.new
@@ -17,8 +17,23 @@ class GraduatesControllerTest < Test::Unit::TestCase
     get :index
     assert_response :success
     assert_template 'index'
+    
+    assert_view_contains_list_of_initials
+    assert_view_contains_list_of_years
+    
+    assert_equal contents(:graduates), assigns(:content)
+    assert_tag :content => assigns(:content).body
+    assert_tag :tag => 'a', :attributes => { :href => '/content/edit/5' }
   end
 
+  def test_list
+    get :list
+    assert_response :success
+    assert_template 'list'
+    assert_view_contains_list_of_initials
+    assert_view_contains_list_of_years
+  end
+  
   def test_list_by_year
     get :list, :year => 2003 
     assert_number_of_graduates_assigned_equals 2
@@ -44,17 +59,6 @@ class GraduatesControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'DE PIPPIS Pippo', 
       :attributes => { :href => '/diplomati/show/2'}
   end                                         
-  
-  def test_list_view_contains_list_of_years
-    get :list
-    assert_view_contains_list_of_years
-  end
-
-  def test_list_view_contains_list_of_initials
-    get :list
-    assert_equal [], assigns(:initials)
-    assert_tag :attributes => { :id => 'initials' }
-  end
   
   def test_form_contains_all_text_fields    
     get :edit, :id => 1
@@ -181,5 +185,10 @@ private
     assert_tag :attributes => { :id => 'graduation-years' }
     assert_view_contains_link_to_year 2003
     assert_view_contains_link_to_year 2005
+  end
+  
+  def assert_view_contains_list_of_initials
+    assert_equal ["D", "G"], assigns(:initials)
+    assert_tag :attributes => { :id => 'initials' }
   end
 end

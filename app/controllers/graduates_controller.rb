@@ -1,13 +1,14 @@
 class GraduatesController < ApplicationController
   uses_tiny_mce
 
-  def index
-    list
-  end
-
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
+
+  def index
+    list
+    @content = Content.find_by_name('spazio-diplomati')
+  end
 
   def list          
     @graduation_years = Graduate.graduation_years 
