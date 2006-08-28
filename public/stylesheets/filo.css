@@ -18,64 +18,68 @@ img {
   border: 0px;
 }
 
-/* structure */
-td#head, td#content {
-  text-align: left;
-}
-
-td#navigation {
-  width: 19em;
-  text-align: left;
-  vertical-align: top;
-  background: #BF982E; /* sepia */
-}
-
-#navigation ul {
-  margin-top: 1em;
-  padding-left: 2em;
-  margin-left: 0;
-}
-
-#navigation a {
-  color: white;
-  text-decoration: none;
-  font-style: italic;
-  display: block;
-}
-
-#navigation a:hover {
-  background: #916D0B; /* darker brown */
-}
-
-#navigation li {
-  list-style: none;
-  margin: 0;
-  padding: 0.25em 0em;
-  font-style: italic;
-  color: black;
-}
-
-td#pic {
-  width: 499px;
-  height: 251px;
-}
-
-td#content {
-  width: 499px;
-  padding-left: 1em;
-  padding-top: 1em;
-}
-
-td#filler {
-	background-color: #E4BE55; /* lighter sepia */
-	height: 106px;
-}
-
 div#page {
   vertical-align: top;
 }
 
-/* end structure */ 
+#head td {
+  padding-right: 1em;
+}
+
+#head td, td#content {
+  text-align: left;
+}
+
+td#content {
+  width: 700px;
+  border-color: #fff300;
+  border-width: 2px 0 0 2px;
+  border-style: solid;
+  margin-left: 0;
+  padding: 2em;
+}
+
+/* navigation */
+td#navigation {
+  width: 15em;
+  text-align: left;
+  vertical-align: top;
+}
+
+#navigation ul {
+  margin: 0 0 1em 0;
+  padding-left: 1em;
+}
+
+#navigation li {
+  list-style: none;
+}
+
+#menuitem-current {
+  display:  block;
+  white-space: nowrap;
+  background: url(/images/menuitem-bg.png) repeat-x left top;
+  padding: .1em .2em .2em 1em;  
+}
+
+#navigation a {
+  white-space: nowrap;
+  text-decoration: none;
+  display: block;
+  background: url(/images/menuitem-bg.png) repeat-x left top;
+  padding: .1em .2em .2em 1em;
+  /* stacca il menuitem da destra */
+  margin: .3em 2em 0 0;
+}
+
+#navigation a:hover {
+  text-decoration: underline;
+}
+
+#submenu-storico {
+  display: none;
+}
+/* end navigation */ 
 
 /* begin forms */
 fieldset {
@@ -86,3 +90,11 @@ label {
   margin: 0 0 0 1em;
 }
 /* end forms */
+
+/* static content pages */
+#the-verbose-content #realcont {
+  /* questi funzionano solo se si carica un file js apposta */
+  column-count: 2;
+  column-gap: 30px;
+}
+/* end static content pages */

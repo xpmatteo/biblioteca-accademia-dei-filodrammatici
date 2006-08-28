@@ -1,8 +1,9 @@
 <h1>Diplomati</h1>
+<%= link_to 'nuovo diplomato/a', :controller => 'graduates', :action => 'new' %>
 
 <%= render :partial => 'years_and_initials' %>
 
 <%= @content.body %>
 <br />
-<%= link_to 'edit', :controller => 'content', :action => 'edit', :id => @content %>
+<%= link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content %>
 

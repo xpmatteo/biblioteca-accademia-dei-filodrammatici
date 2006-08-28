@@ -11,11 +11,14 @@
   </p>
   <p>
     <label for="graduate_graduation_year">Anno di diploma</label><%= text_field 'graduate', 'graduation_year', :size => 4  %>
-    <label for="graduate_born_on">Nato il</label><%= date_select 'graduate', 'born_on'  %>
+    <label for="graduate_born_on">Data di nascita</label><%= date_select 'graduate', 'born_on'  %>
     <label for="graduate_fiscal_code">Codice fiscale</label><%= text_field 'graduate', 'fiscal_code', :size => 16  %>
   </p>
+  <p>
+    <label for="graduate_image">Immagine</label><%= file_column_field "graduate", "image" %>
+    <%= image_tag url_for_file_column(@graduate, "image") if @graduate.image %>
+  </p>
 </fieldset>
-
 <fieldset>
   <legend>Riferimenti</legend>
   <p>

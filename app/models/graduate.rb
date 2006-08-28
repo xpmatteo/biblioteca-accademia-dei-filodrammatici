@@ -5,6 +5,11 @@ class Graduate < ActiveRecord::Base
     :only_integer => true, :allow_nil => true
   validates_format_of :email, :with => /^([^@\s]+@([^@\s]+\.)+[a-z]{2,})?$/i
   
+  file_column :image, 
+    :magick => { :geometry => "400x400>" },
+    :root_path => File.join(RAILS_ROOT, "public", "upload"), 
+    :web_root => "upload/"
+  
   ANAGRAPHIC_ATTRIBUTES = {      
       :first_name => 'Nome',
       :last_name  => 'Cognome',      

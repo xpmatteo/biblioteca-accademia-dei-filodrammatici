@@ -1,3 +1,5 @@
+
+<%= image_tag url_for_file_column(@graduate, "image") if @graduate.image %>
 <% for column in Graduate.content_columns %>
 <p>
   <b><%= column.human_name %>:</b> <%= @graduate.send(column.name) %>

@@ -1,6 +1,6 @@
 <h1>Editing graduate</h1>
 
-<%= start_form_tag :action => 'update', :id => @graduate %>
+<%= form_tag({:action => 'update', :id => @graduate}, {:multipart => true}) %>
   <%= render :partial => 'form' %>
   <%= submit_tag 'Edit' %>
 <%= end_form_tag %>

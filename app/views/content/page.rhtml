@@ -1,3 +1,6 @@
 <% @page_title = @content.title %>
-<%= @content.body %>
+<h2><%= @content.title %></h2>
+<div id='the-verbose-content'>
+  <%= @content.body %>
+</div>
 <%= link_to 'edit', :action => 'edit', :id => @content %>

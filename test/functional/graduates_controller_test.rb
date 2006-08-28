@@ -23,7 +23,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
     
     assert_equal contents(:graduates), assigns(:content)
     assert_tag :content => assigns(:content).body
-    assert_tag :tag => 'a', :attributes => { :href => '/content/edit/5' }
+    assert_tag :tag => 'a', :attributes => { :href => "/content/edit/#{assigns(:content).id}" }
   end
 
   def test_list
@@ -32,6 +32,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
     assert_template 'list'
     assert_view_contains_list_of_initials
     assert_view_contains_list_of_years
+    assert_number_of_graduates_assigned_equals Graduate.count
   end
   
   def test_list_by_year
@@ -70,14 +71,6 @@ class GraduatesControllerTest < Test::Unit::TestCase
     end
   end
 
-  def test_list_view_contains_list_of_initials
-    get :list
-    assert_equal ['D', 'G'], assigns(:initials)
-    assert_tag :attributes => { :id => 'initials' }
-    assert_view_contains_link_to_initial 'D'
-    assert_view_contains_link_to_initial 'G'
-  end
-
   def test_find_by_initial_orders_by_last_name
     insert_graduate_with_last_name 'Zzz'
     insert_graduate_with_last_name 'Zbb'
@@ -85,15 +78,6 @@ class GraduatesControllerTest < Test::Unit::TestCase
     get :list, :initial => 'Z'
     assert_equal ['Zaa', 'Zbb', 'Zzz'], last_names_of_assigned_graduates
   end                                                        
-  
-  def test_list
-    get :list
-
-    assert_response :success
-    assert_template 'list'
-
-    assert_number_of_graduates_assigned_equals Graduate.count
-  end
 
   def test_show
     get :show, :id => 1
@@ -190,5 +174,7 @@ private
   def assert_view_contains_list_of_initials
     assert_equal ["D", "G"], assigns(:initials)
     assert_tag :attributes => { :id => 'initials' }
+    assert_view_contains_link_to_initial 'D'
+    assert_view_contains_link_to_initial 'G'
   end
 end
