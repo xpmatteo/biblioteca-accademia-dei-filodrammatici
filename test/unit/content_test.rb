@@ -3,12 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ContentTest < Test::Unit::TestCase
   fixtures :contents
 
-  # Replace this with your real tests.
-  def test_image_url
-    c = Content.find(1)
-    assert_equal "/upload/foo.gif", c.full_image_url
-  end
-  
   def test_find_by_name
     assert_equal Content.find_by_name('welcome'), Content.find(1)
     assert_equal Content.find_by_name('foobar'), Content.find(2)

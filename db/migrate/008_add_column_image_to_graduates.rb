@@ -5,5 +5,6 @@ class AddColumnImageToGraduates < ActiveRecord::Migration
 
   def self.down
     remove_column :graduates, :image
+  rescue
   end
 end

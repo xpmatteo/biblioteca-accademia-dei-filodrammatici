@@ -92,8 +92,12 @@ label {
 /* end forms */
 
 /* static content pages */
+/* questi funzionano solo se si carica un file js apposta */
+#the-verbose-content {
+  column-count: 2;
+  column-gap: 30px;
+}
 #the-verbose-content #realcont {
-  /* questi funzionano solo se si carica un file js apposta */
   column-count: 2;
   column-gap: 30px;
 }

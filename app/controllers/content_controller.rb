@@ -9,9 +9,7 @@ class ContentController < ApplicationController
 
   def page
     @content = Content.find_by_name(params[:name])
-    if @content
-      @image_url = @content.full_image_url
-    else              
+    unless @content
       path = "#{File.dirname(__FILE__)}/../../public/404.html"
       render :file => path, :status => 404
     end
@@ -20,9 +18,7 @@ class ContentController < ApplicationController
   def edit
     if request.post?
       @content = Content.find(params[:id])
-      @content.title = params[:content][:title]
-      @content.body = params[:content][:body]
-      if @content.save
+      if @content.update_attributes(params[:content])
         redirect_to :action => 'page', :name => @content.name
       end
     else    

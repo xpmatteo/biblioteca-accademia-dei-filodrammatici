@@ -10,4 +10,12 @@ module ApplicationHelper
       "<span id='menuitem-current'>#{text}</span>"
     end
   end
+  
+  def upper_right_image
+    if @content && @content.image
+      url_for_file_column(@content, "image")
+    else
+      'front-home.jpg'
+    end
+  end
 end

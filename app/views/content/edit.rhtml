@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'content' %>
 
-<%= start_form_tag :action => 'edit', :id => @content %>
+<%= start_form_tag({:action => 'edit', :id => @content}, {:multipart => true}) %>
 
   <p><label for="content_title">Title</label><br/>
   <%= text_field 'content', 'title'  %></p>
@@ -10,6 +10,14 @@
   <p><label for="content_body">Body</label><br/>
   <%= text_area 'content', 'body'  %></p>
 
+  
+  <p><label for="content_image">Immagine (pref. 500x98)</label><br/>
+  <%= file_column_field "content", "image" %></p>
+
+  <br/>
+  <%= image_tag url_for_file_column(@content, "image") if @content.image %><br/>
+
+  <br/>
   <%= submit_tag 'Modifica' %>
 <%= end_form_tag %>
 

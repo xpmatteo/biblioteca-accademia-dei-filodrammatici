@@ -11,6 +11,11 @@ class ContentControllerTest < Test::Unit::TestCase
     @controller = ContentController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    setup_fixture_files
+  end
+
+  def tear_down
+    teardown_fixture_files
   end
 
   def test_index
@@ -60,6 +65,22 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_equal old_content.name, updated_content.name
     assert_equal 'Perbacco!', updated_content.title
     assert_equal 'Ciumbia.',  updated_content.body
+  end
+  
+  def test_update_with_pic
+    old_content = Content.find(2)
+    assert_nil old_content.image
+    
+    post :edit, :id => 2, :content => {
+      :image => upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg'),
+      :title => 'Perbacco!',
+      :body => 'Ciumbia.'
+    }
+    
+    assert_redirected_to :action => 'page', :name => old_content.name
+    updated_content = Content.find(2)
+    assert_not_nil updated_content.image, "non ha caricato l'immagine"
+    assert_equal '2/animal.jpg', updated_content.image_relative_path
   end
   
   def test_bad_update

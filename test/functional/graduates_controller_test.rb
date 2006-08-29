@@ -125,6 +125,17 @@ class GraduatesControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'show', :id => 1
   end
 
+  def test_update_picture
+    post :update, :id => 1, :graduate => {
+      :image => upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg'),
+    }
+    assert_response :redirect
+    assert_redirected_to :action => 'show', :id => 1
+    updated_graduate = Graduate.find(1)
+    assert_not_nil updated_graduate.image, "non ha caricato l'immagine"
+    assert %r(public/upload/graduate/image/1/animal.jpg$) =~ updated_graduate.image, "Il pathname non corrisponde"
+  end
+
   def test_destroy
     assert_not_nil Graduate.find(1)
 
