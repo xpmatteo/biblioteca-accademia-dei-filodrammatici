@@ -1,0 +1,8 @@
+<% for column in Teacher.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @teacher.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @teacher %> |
+<%= link_to 'Back', :action => 'list' %>

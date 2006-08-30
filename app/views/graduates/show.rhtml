@@ -1,10 +1,29 @@
 
-<%= image_tag url_for_file_column(@graduate, "image") if @graduate.image %>
-<% for column in Graduate.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%= @graduate.send(column.name) %>
-</p>
-<% end %>
+<h3 id="graduate-name"><%= @graduate.first_name + " " + @graduate.last_name.upcase %></h3>
 
-<%= link_to 'Edit', :action => 'edit', :id => @graduate %> |
-<%= link_to 'Back', :action => 'list' %>
+<strong>Diplomato/a nel <%= @graduate.graduation_year %></strong><br />
+
+<%= image_tag url_for_file_column(@graduate, "image"), 
+      :alt => '', :id => 'graduate-portrait' if @graduate.image %>
+
+<%= graduate_attribute 'Nato/a il: ', @graduate.born_on, :format_birth_date %>
+<%= graduate_attribute 'Sito Web: ', @graduate.home_page_url %>
+<%= graduate_attribute 'Email: ', mail_to(@graduate.email) unless @graduate.email.blank? %>
+<%= graduate_attribute 'Indirizzo: ', @graduate.address %>
+<%= graduate_attribute 'Telefono: ', @graduate.phone %>
+<%= graduate_attribute 'Fax: ', @graduate.fax %>
+<%= graduate_attribute 'Cellulare: ', @graduate.mobile %>
+<%= graduate_attribute 'Agenzia: ', @graduate.agency %>
+<%= graduate_attribute 'Altezza: ', @graduate.height_cm %>
+<%= graduate_attribute 'Peso: ', @graduate.weight_kg %>
+<%= graduate_attribute 'Occhi: ', @graduate.eyes %>
+<%= graduate_attribute 'Capelli: ', @graduate.hair %>
+<%= graduate_attribute 'Taglia: ', @graduate.size %>
+<%= graduate_attribute 'Sport: ', @graduate.sport %>
+<%= graduate_attribute 'Lingue: ', @graduate.languages %>
+<%= graduate_attribute 'Dialetti: ', @graduate.dialects %>
+<%= graduate_attribute 'Note: ', @graduate.notes %>
+<%= graduate_attribute 'Curriculum: ', @graduate.curriculum %>
+
+<%= link_to 'Modifica', :action => 'edit', :id => @graduate %> |
+<%= link_to 'Torna indietro', :action => 'list' %>

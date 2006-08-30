@@ -30,6 +30,11 @@ class Test::Unit::TestCase
     assert !cond, msg
   end
   
+  def assert_contains(needle, haystack)
+    message = "looking for '#{needle}', not found in ''#{haystack}'"
+    fail(message) unless Regexp.new(Regexp.escape(needle)) =~ haystack
+  end
+  
   def get_content_page(sym)
     content = contents(sym)
     get '/pagina/' + content.name

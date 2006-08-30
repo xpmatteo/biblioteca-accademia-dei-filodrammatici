@@ -146,7 +146,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
     assert_raise(ActiveRecord::RecordNotFound) {
       Graduate.find(1)
     }
-  end
+  end  
   
 private
   def assert_number_of_graduates_assigned_equals(expected)

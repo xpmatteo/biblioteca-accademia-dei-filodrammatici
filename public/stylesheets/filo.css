@@ -97,8 +97,27 @@ label {
   column-count: 2;
   column-gap: 30px;
 }
+
+/* realcont e' un id di una div creata a volte incollando test ricco */
 #the-verbose-content #realcont {
   column-count: 2;
   column-gap: 30px;
 }
 /* end static content pages */
+
+/* graduates */
+#graduate-name {
+  text-align: right;
+  color: black;
+  font-size: 14pt;
+}
+#graduate-portrait {
+  float: right;
+}
+form {
+  white-space: nowrap;
+}
+label {
+  margin-right: .2em;
+}
+/* end graduates */
