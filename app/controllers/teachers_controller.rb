@@ -1,15 +1,18 @@
 class TeachersController < ApplicationController
-  def index
-    list
-    render :action => 'list'
-  end
+  uses_tiny_mce
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
+  def index
+    list
+    render :action => 'list'
+  end
+
   def list
-    @teacher_pages, @teachers = paginate :teachers, :per_page => 10
+    @teachers         = Teacher.find(:all, :conditions => 'not for_seminar', :order => 'last_name')
+    @teachers_seminar = Teacher.find(:all, :conditions => 'for_seminar',     :order => 'last_name')
   end
 
   def show

@@ -1,9 +1,9 @@
-<h1>Editing teacher</h1>
+<h1>Modifica docente</h1>
 
-<%= start_form_tag :action => 'update', :id => @teacher %>
+<%= start_form_tag({:action => 'update', :id => @teacher}, {:multipart => true}) %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
+  <%= submit_tag 'Modifica' %>
 <%= end_form_tag %>
 
-<%= link_to 'Show', :action => 'show', :id => @teacher %> |
-<%= link_to 'Back', :action => 'list' %>
+<%= link_to 'Annulla', :action => 'show', :id => @teacher %> |
+<%= link_to 'Torna alla lista', :action => 'list' %>

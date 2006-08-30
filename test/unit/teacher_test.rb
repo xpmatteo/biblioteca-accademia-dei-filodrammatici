@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TeacherTest < Test::Unit::TestCase
   fixtures :teachers
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_name
+    teacher = teachers(:clough)
+    assert_equal 'Peter CLOUGH', teacher.name
   end
 end

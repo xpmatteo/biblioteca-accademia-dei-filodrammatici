@@ -6,6 +6,7 @@ class CreateTeachers < ActiveRecord::Migration
       t.column :last_name, :string
       t.column :course_name, :string
       t.column :curriculum, :text
+      t.column :for_seminar, :boolean
       t.column :image, :string
     end
   end

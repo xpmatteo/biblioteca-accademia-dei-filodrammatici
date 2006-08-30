@@ -8,6 +8,7 @@
   <title>Accademia dei Filodrammatici<% if @page_title %> &mdash; <%= @page_title %><% end %></title>  
 
   <%= stylesheet_link_tag "filo" %>
+  <%= stylesheet_link_tag "scaffold" %>
 
   <% # Include TinyMCE before other JS to avoid problems -%>
   <%= javascript_include_tiny_mce_if_used %>
@@ -37,10 +38,15 @@
                 <li><%= menuitem_tag 'Ugo Foscolo',     :name => 'ugo-foscolo' %></li>
               </ul>
             </li>
+            
             <li><%= menuitem_tag 'Offerta formativa', :name => 'offerta-formativa' %></li>
-            <li><%= menuitem_tag 'Corpo docente',     :name => 'xxx' %></li>
+            
+            <li><%= menuitem_tag 'Corpo docente',     
+                    :controller => 'teachers', :action => 'index' %></li>
+            
             <li><%= menuitem_tag 'Spazio diplomati',
                     :controller => 'graduates', :action => 'index' %></li>
+            
             <li><%= menuitem_tag 'Progetto GEIE',     :name => 'progetto-geie' %></li>                    
             <li><%= menuitem_tag 'Bando 2007',        :name => 'bando-2007' %></li>
           </ul>

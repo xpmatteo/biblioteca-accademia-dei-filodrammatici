@@ -1,27 +1,48 @@
-<h1>Listing teachers</h1>
+<% @page_title = 'Corpo docente' %>
 
-<table>
+<div class='teachers'>
+
+<table class='blurb'>
   <tr>
-  <% for column in Teacher.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+    <td>
+      Il programma della nostra scuola di teatro intende incoraggiare i futuri attori ad essere artisti duttili ed esplorativi. Scopo dei corsi è stimolare gli allievi ad elaborare idee personali, fornendo loro gli strumenti adatti ad esprimerle nei contesti più diversi.     
+    </td>
+    <td>
+      Tanto i corsi quanto i seminari si tengono nella sede storica dell’Accademia, in Via Filodrammatici 1 a Milano.
+    </td>
   </tr>
-  
-<% for teacher in @teachers %>
-  <tr>
-  <% for column in Teacher.content_columns %>
-    <td><%=h teacher.send(column.name) %></td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => teacher %></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => teacher %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => teacher }, :confirm => 'Are you sure?', :post => true %></td>
-  </tr>
-<% end %>
 </table>
 
-<%= link_to 'Previous page', { :page => @teacher_pages.current.previous } if @teacher_pages.current.previous %>
-<%= link_to 'Next page', { :page => @teacher_pages.current.next } if @teacher_pages.current.next %> 
+<h2 class='teachers'>I docenti dei corsi</h2>
+
+<table class='teachers'>
+  <% for i in (0...@teachers.size) %>
+    <% teacher = @teachers[i] %>
+    <% if i % 3 == 0 %><tr><% end %>
+      <td>
+        <%= link_to teacher.name, :action => 'show', :id => teacher %>
+      </td>
+    <% if i % 3 == 2 %></tr><% end %>
+  <% end %>
+</table>
+
+
+<h2 class='teachers'>I docenti dei seminari</h2>
+
+<table class='teachers'>
+  <% for teacher in @teachers_seminar %>
+    <tr>
+      <td></td>
+      <td>
+        <%= link_to teacher.name, :action => 'show', :id => teacher %>
+      </td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>
 
 <br />
 
-<%= link_to 'New teacher', :action => 'new' %>
+<%= link_to 'Inserisci nuovo docente', :action => 'new' %>
+
+</div>

@@ -1,8 +1,8 @@
-<h1>New teacher</h1>
+<h1>Nuovo docente</h1>
 
-<%= start_form_tag :action => 'create' %>
+<%= start_form_tag({:action => 'create'}, {:multipart => true}) %>
   <%= render :partial => 'form' %>
-  <%= submit_tag "Create" %>
+  <%= submit_tag "Crea" %>
 <%= end_form_tag %>
 
 <%= link_to 'Back', :action => 'list' %>

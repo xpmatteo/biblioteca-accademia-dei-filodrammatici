@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "last_name", :string
     t.column "course_name", :string
     t.column "curriculum", :text
+    t.column "for_seminar", :boolean
     t.column "image", :string
   end
 

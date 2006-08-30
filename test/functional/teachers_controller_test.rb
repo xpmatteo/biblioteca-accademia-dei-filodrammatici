@@ -26,6 +26,9 @@ class TeachersControllerTest < Test::Unit::TestCase
     assert_template 'list'
 
     assert_not_nil assigns(:teachers)
+    assert_equal [teachers(:gatto)], assigns(:teachers)
+    assert_not_nil assigns(:teachers_seminar), 'non ha assegnato i docenti dei seminari'
+    assert_equal [teachers(:clough)], assigns(:teachers_seminar)
   end
 
   def test_show
@@ -50,7 +53,25 @@ class TeachersControllerTest < Test::Unit::TestCase
   def test_create
     num_teachers = Teacher.count
 
-    post :create, :teacher => {}
+    post :create, :teacher => {
+        :first_name => 'Gino',
+        :last_name => 'Ginotti',
+    }
+
+    assert_response :redirect
+    assert_redirected_to :action => 'list'
+
+    assert_equal num_teachers + 1, Teacher.count
+  end
+
+  def test_create_with_image
+    num_teachers = Teacher.count
+
+    post :create, :teacher => {
+        :first_name => 'Pino',
+        :last_name => 'Pinotti',
+        :image => fake_upload,
+    }
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
@@ -72,6 +93,20 @@ class TeachersControllerTest < Test::Unit::TestCase
     post :update, :id => 1
     assert_response :redirect
     assert_redirected_to :action => 'show', :id => 1
+  end
+  
+  def test_update_with_image
+    old_teacher = Teacher.find(2)
+    assert_nil old_teacher.image
+    
+    post :update, :id => 2, :teacher => {
+      :image => fake_upload,
+    }
+    
+    assert_redirected_to :action => 'show', :id => 2
+    updated_teacher = Teacher.find(2)
+    assert_not_nil updated_teacher.image, "non ha caricato l'immagine"
+    assert_equal '2/animal.jpg', updated_teacher.image_relative_path
   end
 
   def test_destroy

@@ -25,5 +25,7 @@
 <%= graduate_attribute 'Note: ', @graduate.notes %>
 <%= graduate_attribute 'Curriculum: ', @graduate.curriculum %>
 
-<%= link_to 'Modifica', :action => 'edit', :id => @graduate %> |
-<%= link_to 'Torna indietro', :action => 'list' %>
+<div class='buttons'>
+  <%= link_to 'Modifica', :action => 'edit', :id => @graduate %> |
+  <%= link_to 'Torna alla lista', :action => 'list' %>
+</div>

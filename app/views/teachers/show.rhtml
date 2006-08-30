@@ -1,8 +1,15 @@
-<% for column in Teacher.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @teacher.send(column.name) %>
-</p>
-<% end %>
 
-<%= link_to 'Edit', :action => 'edit', :id => @teacher %> |
-<%= link_to 'Back', :action => 'list' %>
+<h3 id="teacher-name"><%= @teacher.name %></h3>
+
+<%= image_tag url_for_file_column(@teacher, "image"), 
+      :alt => '', :id => 'teacher-portrait' if @teacher.image %>
+
+<strong>Corso di</strong>
+<h3 id="teacher-course-name"><%= @teacher.course_name.upcase %></h3>
+
+<%= @teacher.curriculum %>
+
+<div class='buttons'>
+  <%= link_to 'Modifica', :action => 'edit', :id => @teacher %> |
+  <%= link_to 'Torna alla lista', :action => 'index' %>
+</div>

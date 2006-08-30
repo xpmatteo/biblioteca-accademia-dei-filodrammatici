@@ -47,7 +47,10 @@ class Test::Unit::TestCase
     get '/'
     assert_response :success
     assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici'
-#    assert_template 'content/page'
+  end
+  
+  def fake_upload
+    upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg')
   end
 
 end

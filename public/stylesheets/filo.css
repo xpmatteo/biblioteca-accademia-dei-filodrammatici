@@ -85,9 +85,14 @@ td#navigation {
 fieldset {
   margin: 1em 0;
 }
-
 label {
-  margin: 0 0 0 1em;
+  margin: 0 .2em 0 1em;
+}
+form {
+  white-space: nowrap;
+}
+div.buttons {
+  margin-top: 2em;
 }
 /* end forms */
 
@@ -114,10 +119,34 @@ label {
 #graduate-portrait {
   float: right;
 }
-form {
-  white-space: nowrap;
-}
-label {
-  margin-right: .2em;
-}
 /* end graduates */
+
+/* teachers */
+div.teachers {
+  text-align: center;
+}
+.blurb td {
+  width: 40%;
+  text-align: justify;
+  vertical-align: top;
+  padding: 0 1em;
+}
+table.teachers {
+  width: 100%;
+}
+table.teachers td {
+  width: 30%;
+}
+#teacher-name {
+  text-align: right;
+  color: black;
+  font-size: 14pt;
+}
+#teacher-portrait {
+  float: right;
+}
+#teacher-course-name {
+  margin-top: 0;
+}
+/* end teachers */
+
