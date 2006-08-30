@@ -32,6 +32,7 @@ role :db,  "pendrell.textdrive.com", :primary => true
 set :deploy_to, "/home/matteo/domains/accademiadeifilodrammatici.it/versions"
 set :user, "matteo"
 set :use_sudo, false
+set :keep_releases, 2
 # set :svn, "/path/to/svn"       # defaults to searching the PATH
 # set :gateway, "gate.host.com"  # default to no gateway
 
