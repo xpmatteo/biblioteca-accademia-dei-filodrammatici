@@ -3,4 +3,4 @@
 <div id='the-verbose-content'>
   <%= @content.body %>
 </div>
-<%= link_to 'edit', :action => 'edit', :id => @content %>
+<%= link_to 'edit', :action => 'edit', :id => @content if authorized? %>

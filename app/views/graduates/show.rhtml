@@ -1,5 +1,5 @@
 
-<h3 id="graduate-name"><%= @graduate.first_name + " " + @graduate.last_name.upcase %></h3>
+<h3 id="graduate-name"><%= @graduate.name %></h3>
 
 <strong>Diplomato/a nel <%= @graduate.graduation_year %></strong><br />
 
@@ -26,6 +26,7 @@
 <%= graduate_attribute 'Curriculum: ', @graduate.curriculum %>
 
 <div class='buttons'>
-  <%= link_to 'Modifica', :action => 'edit', :id => @graduate %> |
-  <%= link_to 'Torna alla lista', :action => 'list' %>
+  <%= link_to 'Modifica', :action => 'edit', :id => @graduate if authorized? %> 
+  <%= link_to 'Cancella', { :action => 'destroy', :id => @graduate }, :confirm => 'Are you sure?', :post => true if authorized? %>
+  <%= link_to 'Torna alla lista', :action => 'index' %>
 </div>

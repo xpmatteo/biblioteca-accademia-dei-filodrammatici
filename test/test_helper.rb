@@ -53,4 +53,30 @@ class Test::Unit::TestCase
     upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg')
   end
 
+  def get_authenticated(action, params=nil)
+    get action, params, { :authenticated => true }
+  end
+
+  def post_authenticated(action, params=nil)
+    post action, params, { :authenticated => true }
+  end
+  
+  def assert_protected(action)
+    get action
+    assert_redirected_to :controller => "login"
+    assert_protected_post action
+  end
+  
+  def assert_protected_post(action)
+    post action
+    assert_redirected_to :controller => "login"
+  end
+  
+  def assert_modifications_are_protected
+    assert_protected :edit
+    assert_protected_post :update
+    assert_protected :new
+    assert_protected_post :create
+    assert_protected_post :destroy
+  end
 end

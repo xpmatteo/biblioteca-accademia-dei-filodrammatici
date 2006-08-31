@@ -12,4 +12,15 @@ class RoutesTest < ActionController::IntegrationTest
     get '/docenti'
     assert_response :success    
   end
+  
+  def test_home_page_contains_link_to_login
+    get_home_page
+    assert_tag :tag => 'a', :attributes => { :href => '/login' }
+  end
+  
+  def test_login_link
+    get '/login'
+    assert_response :success
+    assert_template 'login/login'
+  end
 end

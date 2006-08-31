@@ -14,7 +14,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   end
   
   def test_index
-    get :index
+    get_authenticated :index
     assert_response :success
     assert_template 'index'
     
@@ -62,7 +62,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   end                                         
   
   def test_form_contains_all_text_fields    
-    get :edit, :id => 1
+    get_authenticated :edit, :id => 1
 
     fields = Graduate::ANAGRAPHIC_ATTRIBUTES.merge(Graduate::ADDRESS_ATTRIBUTES).merge(Graduate::OTHER_ATTRIBUTES)
     for name in fields.keys
@@ -87,10 +87,11 @@ class GraduatesControllerTest < Test::Unit::TestCase
 
     assert_not_nil assigns(:graduate)
     assert assigns(:graduate).valid?
+    assert_tag :content => assigns(:graduate).name
   end
 
   def test_new
-    get :new
+    get_authenticated :new
 
     assert_response :success
     assert_template 'new'
@@ -101,7 +102,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   def test_create
     num_graduates = Graduate.count
 
-    post :create, :graduate => graduates(:gino).attributes
+    post_authenticated :create, :graduate => graduates(:gino).attributes
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
@@ -110,7 +111,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    get :edit, :id => 1
+    get_authenticated :edit, :id => 1
 
     assert_response :success
     assert_template 'edit'
@@ -120,13 +121,13 @@ class GraduatesControllerTest < Test::Unit::TestCase
   end
 
   def test_update
-    post :update, :id => 1
+    post_authenticated :update, :id => 1
     assert_response :redirect
     assert_redirected_to :action => 'show', :id => 1
   end
 
   def test_update_picture
-    post :update, :id => 1, :graduate => {
+    post_authenticated :update, :id => 1, :graduate => {
       :image => upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg'),
     }
     assert_response :redirect
@@ -139,7 +140,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
   def test_destroy
     assert_not_nil Graduate.find(1)
 
-    post :destroy, :id => 1
+    post_authenticated :destroy, :id => 1
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
@@ -147,6 +148,10 @@ class GraduatesControllerTest < Test::Unit::TestCase
       Graduate.find(1)
     }
   end  
+
+  def test_protection
+    assert_modifications_are_protected
+  end
   
 private
   def assert_number_of_graduates_assigned_equals(expected)

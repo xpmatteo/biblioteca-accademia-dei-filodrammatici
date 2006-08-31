@@ -51,13 +51,20 @@
             <li><%= menuitem_tag 'Bando 2007',        :name => 'bando-2007' %></li>
           </ul>
         </td>
-        <td id='content' valign='top'><%= yield %></td>      
+        <td id='content' valign='top'>
+          <% if flash[:notice] %>
+            <p id='flash'><%= flash[:notice] %></p>
+          <% end %>
+          <%= yield %>
+        </td>      
       </tr>
       <tr>
         <td id='foot' colspan='2'>
           &copy; 2005-6 Accademia dei Filodrammatici 
           | <%= link_to 'crediti', :name => 'crediti' %>
           | <a href='http://validator.w3.org/check/referer'>valida</a>
+          | <%= link_to 'area privata', :controller => 'login' if !authorized? %>
+            <%= link_to 'logout', :controller => 'login', :action => 'logout' if authorized? %>
         </td>
       </tr>
     </table>    

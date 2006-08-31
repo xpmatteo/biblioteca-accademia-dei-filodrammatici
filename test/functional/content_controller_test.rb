@@ -25,6 +25,29 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_tag :content => /Welcome, my friends/
   end
   
+  def test_link_to_edit_is_not_present_unless_authenticated
+    get :page, :name => Content.find(1).name
+    assert_response :success
+    assert_no_tag :tag => 'a', :attributes => { :href => '/content/edit/1' }
+
+    get_authenticated :page, :name => Content.find(1).name
+    assert_response :success
+    assert_tag :tag => 'a', :attributes => { :href => '/content/edit/1' }
+  end
+  
+  def test_edit_is_protected
+    get :edit, :id => 2
+    assert_redirected_to :controller => 'login'
+    
+    old_content = Content.find(2)
+    post :edit, :id => 2, :content => {
+      :title => 'Perbacco!',
+      :body => 'Ciumbia.'
+    }
+    assert_redirected_to :controller => 'login'
+    assert_unchanged old_content
+  end
+  
   def test_page_foobar
     get 'page', :name => 'foobar'
     assert_response :success
@@ -35,14 +58,8 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_response 404
   end
   
-  def test_edit_button
-    get 'page', :name => 'foobar'
-    assert_response :success
-    assert_tag :tag => 'a', :attributes => { :href => '/content/edit/2' }
-  end
-  
   def test_get_edit
-    get :edit, :id => 1
+    get_authenticated :edit, :id => 1
 
     assert_response :success
     assert_template 'edit'
@@ -56,7 +73,7 @@ class ContentControllerTest < Test::Unit::TestCase
   
   def test_update
     old_content = Content.find(2)
-    post :edit, :id => 2, :content => {
+    post_authenticated :edit, :id => 2, :content => {
       :title => 'Perbacco!',
       :body => 'Ciumbia.'
     }
@@ -71,7 +88,7 @@ class ContentControllerTest < Test::Unit::TestCase
     old_content = Content.find(2)
     assert_nil old_content.image
     
-    post :edit, :id => 2, :content => {
+    post_authenticated :edit, :id => 2, :content => {
       :image => upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg'),
       :title => 'Perbacco!',
       :body => 'Ciumbia.'
@@ -85,7 +102,7 @@ class ContentControllerTest < Test::Unit::TestCase
   
   def test_bad_update
     old_content = Content.find(2)
-    post :edit, :id => 2, :content => {
+    post_authenticated :edit, :id => 2, :content => {
       :title => '',
       :body => 'Ciumbia.'
     }
@@ -93,11 +110,6 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_tag :content => "Title can't be blank"
     assert_unchanged old_content
   end     
-  
-  def test_content_without_image
-    get 'page', :name => 'senza-immagine'
-    assert_response :success
-  end
   
 private
   def assert_unchanged(content)

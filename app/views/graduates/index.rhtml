@@ -5,5 +5,5 @@
 
 <%= @content.body %>
 <br />
-<%= link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content %>
+<%= link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content if authorized? %>
 

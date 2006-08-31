@@ -3,3 +3,9 @@
   <h3><%= @news.title %></h3>
   <%= textilize @news.body %>
 </div>
+
+<div class='buttons'>
+  <%= admin_link_to 'Modifica', :action => :edit, :id => @news %>
+  <%= admin_link_to 'Cancella', { :action => :destroy, :id => @news }, :confirm => 'Sei sicuro?', :post => true %>
+  <%= link_to 'Torna alla lista', :action => :index %>
+</div>

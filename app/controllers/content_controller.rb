@@ -1,5 +1,6 @@
 class ContentController < ApplicationController
   uses_tiny_mce
+  before_filter :check_user_is_admin, :only => 'edit'
   
   def index
     params[:name] = 'welcome'

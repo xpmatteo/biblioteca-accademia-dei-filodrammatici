@@ -51,4 +51,8 @@ class Graduate < ActiveRecord::Base
       g.initial
     end
   end
+  
+  def name
+    first_name + " " + last_name.upcase
+  end
 end

@@ -18,4 +18,8 @@ module ApplicationHelper
       'front-home.jpg'
     end
   end
+  
+  def admin_link_to(name, options = {}, html_options = nil, *parameters_for_method_reference)   
+    link_to(name, options, html_options, *parameters_for_method_reference) if authorized?
+  end
 end

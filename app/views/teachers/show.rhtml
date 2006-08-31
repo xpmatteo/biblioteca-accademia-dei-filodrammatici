@@ -10,6 +10,7 @@
 <%= @teacher.curriculum %>
 
 <div class='buttons'>
-  <%= link_to 'Modifica', :action => 'edit', :id => @teacher %> |
+  <%= admin_link_to 'Modifica', :action => 'edit', :id => @teacher %>
+  <%= admin_link_to 'Cancella', { :action => 'destroy', :id => @teacher }, :confirm => 'Are you sure?', :post => true %>
   <%= link_to 'Torna alla lista', :action => 'index' %>
 </div>

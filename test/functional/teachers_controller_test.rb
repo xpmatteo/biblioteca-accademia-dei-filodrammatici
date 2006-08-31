@@ -42,7 +42,7 @@ class TeachersControllerTest < Test::Unit::TestCase
   end
 
   def test_new
-    get :new
+    get_authenticated :new
 
     assert_response :success
     assert_template 'new'
@@ -53,7 +53,7 @@ class TeachersControllerTest < Test::Unit::TestCase
   def test_create
     num_teachers = Teacher.count
 
-    post :create, :teacher => {
+    post_authenticated :create, :teacher => {
         :first_name => 'Gino',
         :last_name => 'Ginotti',
     }
@@ -67,7 +67,7 @@ class TeachersControllerTest < Test::Unit::TestCase
   def test_create_with_image
     num_teachers = Teacher.count
 
-    post :create, :teacher => {
+    post_authenticated :create, :teacher => {
         :first_name => 'Pino',
         :last_name => 'Pinotti',
         :image => fake_upload,
@@ -80,7 +80,7 @@ class TeachersControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    get :edit, :id => 1
+    get_authenticated :edit, :id => 1
 
     assert_response :success
     assert_template 'edit'
@@ -90,7 +90,7 @@ class TeachersControllerTest < Test::Unit::TestCase
   end
 
   def test_update
-    post :update, :id => 1
+    post_authenticated :update, :id => 1
     assert_response :redirect
     assert_redirected_to :action => 'show', :id => 1
   end
@@ -99,7 +99,7 @@ class TeachersControllerTest < Test::Unit::TestCase
     old_teacher = Teacher.find(2)
     assert_nil old_teacher.image
     
-    post :update, :id => 2, :teacher => {
+    post_authenticated :update, :id => 2, :teacher => {
       :image => fake_upload,
     }
     
@@ -112,7 +112,7 @@ class TeachersControllerTest < Test::Unit::TestCase
   def test_destroy
     assert_not_nil Teacher.find(1)
 
-    post :destroy, :id => 1
+    post_authenticated :destroy, :id => 1
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
@@ -120,4 +120,9 @@ class TeachersControllerTest < Test::Unit::TestCase
       Teacher.find(1)
     }
   end
+  
+  def test_protection
+    assert_modifications_are_protected
+  end
+  
 end
