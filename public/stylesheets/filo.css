@@ -39,6 +39,13 @@ td#content {
   padding: 2em;
 }
 
+#flash {
+  font-size: 12pt;
+  color: white;
+  background: orange;
+  padding-left: 1em;
+}
+
 /* navigation */
 td#navigation {
   width: 15em;
@@ -75,10 +82,6 @@ td#navigation {
 #navigation a:hover {
   text-decoration: underline;
 }
-
-#submenu-storico {
-  display: none;
-}
 /* end navigation */ 
 
 /* begin forms */
@@ -101,6 +104,9 @@ div.buttons {
 #the-verbose-content {
   column-count: 2;
   column-gap: 30px;
+  -moz-column-gap: 30px;
+  -moz-column-count: 2;
+  text-align: justify;
 }
 
 /* realcont e' un id di una div creata a volte incollando test ricco */

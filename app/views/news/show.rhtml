@@ -1,7 +1,7 @@
-<p><%= @news.created_at.to_s(:short) %></p>
 <div>
   <h3><%= @news.title %></h3>
-  <%= textilize @news.body %>
+  <p class='news-date'><%= @news.created_at.to_s(:short) %></p>
+  <%=h @news.body %>
 </div>
 
 <div class='buttons'>

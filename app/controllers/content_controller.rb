@@ -9,6 +9,7 @@ class ContentController < ApplicationController
   end
 
   def page
+    @submenu_storico = %w(profilo-storico carlo-porta giuseppe-verdi ugo-foscolo).member?(params[:name])
     @content = Content.find_by_name(params[:name])
     unless @content
       path = "#{File.dirname(__FILE__)}/../../public/404.html"
