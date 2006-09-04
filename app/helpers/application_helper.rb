@@ -4,11 +4,17 @@ module ApplicationHelper
     # default options
     options[:controller] = 'content' unless options[:controller]
     options[:action] = 'page' unless options[:action]
+    if options[:sub]
+      options[:sub] = nil
+      klass = ' class="submenuitem"'
+    end
     
     # if not a link, then give it a meaningful id
-    link_to_unless_current(text, options) do |text|
+    item = link_to_unless_current(text, options) do |text|
       "<span id='menuitem-current'>#{text}</span>"
     end
+    
+    "<tr><td#{klass}>#{item}</td></tr>"
   end
   
   def upper_right_image

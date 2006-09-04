@@ -32,7 +32,7 @@ div#page {
 
 td#content {
   width: 700px;
-  border-color: #fff300;
+  border-color: #fff300; /* yellow */
   border-width: 2px 0 0 2px;
   border-style: solid;
   margin-left: 0;
@@ -42,7 +42,7 @@ td#content {
 #flash {
   font-size: 12pt;
   color: white;
-  background: orange;
+  background: #ff8000; /* orange */
   padding-left: 1em;
 }
 
@@ -52,31 +52,32 @@ td#navigation {
   text-align: left;
   vertical-align: top;
 }
-
-#navigation ul {
-  margin: 0 0 1em 0;
-  padding-left: 1em;
+#navigation table {
+  width: 100%;
 }
-
-#navigation li {
-  list-style: none;
+#navigation a {
+  background: url(/images/menuitem-bg.png) repeat-x left top;
+  white-space: nowrap;
+  text-decoration: none;
+  display: block;
+  width: 80%;
+  padding: .2em 0 .2em 1em;
 }
-
+#navigation .submenuitem a {
+  background-image: none;
+  padding-left: 3em;
+}
 #menuitem-current {
   display:  block;
   white-space: nowrap;
   background: url(/images/menuitem-bg.png) repeat-x left top;
-  padding: .1em .2em .2em 1em;  
+  padding: .2em 0 .2em 1em; 
+  margin: 0;
+  width: 95%;
 }
-
-#navigation a {
-  white-space: nowrap;
-  text-decoration: none;
-  display: block;
-  background: url(/images/menuitem-bg.png) repeat-x left top;
-  padding: .1em .2em .2em 1em;
-  /* stacca il menuitem da destra */
-  margin: .3em 2em 0 0;
+#navigation .submenuitem #menuitem-current {
+  background-image: none;
+  padding-left: 3em;
 }
 
 #navigation a:hover {
@@ -100,19 +101,10 @@ div.buttons {
 /* end forms */
 
 /* static content pages */
-/* questi funzionano solo se si carica un file js apposta */
 #the-verbose-content {
-  column-count: 2;
-  column-gap: 30px;
   -moz-column-gap: 30px;
   -moz-column-count: 2;
   text-align: justify;
-}
-
-/* realcont e' un id di una div creata a volte incollando test ricco */
-#the-verbose-content #realcont {
-  column-count: 2;
-  column-gap: 30px;
 }
 /* end static content pages */
 
@@ -155,4 +147,3 @@ table.teachers td {
   margin-top: 0;
 }
 /* end teachers */
-

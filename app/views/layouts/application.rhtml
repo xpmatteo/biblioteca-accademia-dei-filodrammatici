@@ -13,8 +13,6 @@
   <% # Include TinyMCE before other JS to avoid problems -%>
   <%= javascript_include_tiny_mce_if_used %>
   <%= tiny_mce if using_tiny_mce? %>
-  
-  <%= javascript_include_tag 'css3-multi-column' %>
 </head>
 
 <body>
@@ -27,31 +25,23 @@
     </table>
     <table border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td id='navigation' valign='top'> 
-          <ul>
-            <li><%= menuitem_tag 'La scuola',         :name => 'la-scuola' %></li>
-            <li><%= menuitem_tag 'Profilo storico',   :name => 'profilo-storico' %></li>
+        <td id='navigation' valign='top'>
+          <table border='0' cellspacing='0'>
+            <%= menuitem_tag 'La scuola',         :name => 'la-scuola' %>
+            <%= menuitem_tag 'Profilo storico',   :name => 'profilo-storico' %>
             <% if @submenu_storico %>
-            <li>
-              <ul>
-                <li><%= menuitem_tag 'Carlo Porta',     :name => 'carlo-porta' %></li>
-                <li><%= menuitem_tag 'Giuseppe Verdi',  :name => 'giuseppe-verdi' %></li>
-                <li><%= menuitem_tag 'Ugo Foscolo',     :name => 'ugo-foscolo' %></li>
-              </ul>
-            </li>
-            <% end %>
-            
-            <li><%= menuitem_tag 'Offerta formativa', :name => 'offerta-formativa' %></li>
-            
-            <li><%= menuitem_tag 'Corpo docente',     
-                    :controller => 'teachers', :action => 'index' %></li>
-            
-            <li><%= menuitem_tag 'Spazio diplomati',
-                    :controller => 'graduates', :action => 'index' %></li>
-            
-            <li><%= menuitem_tag 'Progetto GEIE',     :name => 'progetto-geie' %></li>                    
-            <li><%= menuitem_tag 'Bando 2007',        :name => 'bando-2007' %></li>
-          </ul>
+                <%= menuitem_tag 'Carlo Porta',     :name => 'carlo-porta',     :sub => true %>
+                <%= menuitem_tag 'Giuseppe Verdi',  :name => 'giuseppe-verdi',  :sub => true %>
+                <%= menuitem_tag 'Ugo Foscolo',     :name => 'ugo-foscolo',     :sub => true %>
+            <% end %>          
+            <%= menuitem_tag 'Offerta formativa', :name => 'offerta-formativa' %>
+            <%= menuitem_tag 'Corpo docente',     
+                    :controller => 'teachers', :action => 'index' %>
+            <%= menuitem_tag 'Spazio diplomati',
+                    :controller => 'graduates', :action => 'index' %>
+            <%= menuitem_tag 'Progetto GEIE',     :name => 'progetto-geie' %>
+            <%= menuitem_tag 'Bando 2007',        :name => 'bando-2007' %>
+          </table>
         </td>
         <td id='content' valign='top'>
           <% if flash[:notice] %>
