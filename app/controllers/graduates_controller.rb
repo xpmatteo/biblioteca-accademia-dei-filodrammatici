@@ -1,5 +1,5 @@
 class GraduatesController < ApplicationController
-  uses_tiny_mce
+  uses_tiny_mce MCE_OPTIONS
   before_filter :check_user_is_admin, :except => [:index, :list, :show]
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)

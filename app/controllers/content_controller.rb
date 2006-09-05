@@ -1,5 +1,5 @@
 class ContentController < ApplicationController
-  uses_tiny_mce(:options => {:theme => 'advanced'})
+  uses_tiny_mce MCE_OPTIONS
   before_filter :check_user_is_admin, :only => 'edit'
   
   def index

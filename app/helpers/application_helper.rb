@@ -9,6 +9,10 @@ module ApplicationHelper
       klass = ' class="submenuitem"'
     end
     
+    if options[:name] && (content = Content.find_by_name(options[:name]))
+      text = content.title
+    end
+    
     # if not a link, then give it a meaningful id
     item = link_to_unless_current(text, options) do |text|
       "<span id='menuitem-current'>#{text}</span>"
