@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  name: Hemingway, Ernest
+  id_sbn: blabla123
+another:
+  id: 2
+  name: Steinbeck, John
+  id_sbn: foobar321

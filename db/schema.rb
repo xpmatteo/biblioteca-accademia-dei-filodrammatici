@@ -2,7 +2,12 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 13) do
+ActiveRecord::Schema.define(:version => 14) do
+
+  create_table "authors", :force => true do |t|
+    t.column "name", :string
+    t.column "id_sbn", :string
+  end
 
   create_table "contents", :force => true do |t|
     t.column "title", :string
@@ -30,14 +35,14 @@ ActiveRecord::Schema.define(:version => 13) do
   end
 
   create_table "documents", :force => true do |t|
-    t.column "sbn_record_id", :string
+    t.column "author_id", :integer
+    t.column "id_sbn", :string
     t.column "insertion", :datetime
     t.column "version", :datetime
     t.column "language", :string
     t.column "title", :string
     t.column "title_without_article", :string
     t.column "subtitles", :string
-    t.column "responsibility", :string
     t.column "sub_responsibility", :string
     t.column "fingerprint", :string
     t.column "country_of_publication", :string

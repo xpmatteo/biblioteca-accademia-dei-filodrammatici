@@ -1,0 +1,6 @@
+
+<p id="initials">
+  <% for initial in @author_initials %>
+    <%= link_to_unless_current initial, :initial => initial %>
+  <% end %>
+</p>

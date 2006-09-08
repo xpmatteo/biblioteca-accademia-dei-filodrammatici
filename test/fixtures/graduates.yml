@@ -17,6 +17,7 @@ pippo:
   size: 52
   weight_kg: 80
   height_cm: 180
+  curriculum: Ne ha viste di cotte e di crude
 geppo:
   id: 3
   first_name: Geppo

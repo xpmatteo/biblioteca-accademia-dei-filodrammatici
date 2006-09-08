@@ -11,10 +11,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '', :controller => "news"
 
-  map.connect 'diplomati/:action/:id',  :controller => "graduates"
-  map.connect 'docenti/:action/:id',    :controller => "teachers"
-  map.connect 'login',                  :controller => "login", :action => "login"
-  map.connect ':name',                  :controller => "content", :action => 'page'
+  map.connect 'diplomati/:action/:id',    :controller => "graduates"
+  map.connect 'docenti/:action/:id',      :controller => "teachers"
+  map.connect 'biblio/iniziali/:initial', :controller => "documents", :action => "index"
+  map.connect 'biblio/:action/:id',       :controller => "documents"
+
+  map.connect 'login',                    :controller => "login", :action => "login"
+  map.connect ':name',                    :controller => "content", :action => 'page'
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'

@@ -23,4 +23,18 @@ class RoutesTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'login/login'
   end
+  
+  def test_biblio
+    get '/biblio'
+    assert_response :success
+    assert_template 'documents/index'
+
+    get '/biblio/index'
+    assert_response :success
+    assert_template 'documents/index'
+    
+    get '/biblio/iniziali/M'
+    assert_response :success
+    assert_template 'documents/index'
+  end
 end
