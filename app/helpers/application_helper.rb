@@ -29,7 +29,12 @@ module ApplicationHelper
     end
   end
   
-  def admin_link_to(name, options = {}, html_options = nil, *parameters_for_method_reference)   
-    link_to(name, options, html_options, *parameters_for_method_reference) if authorized?
+  def admin_link_to(name, options = {}, html_options = {}, *parameters_for_method_reference)   
+    html_options[:class] = 'admin-link'
+    if authorized? 
+      "&nbsp;" + 
+        link_to(name, options, html_options, *parameters_for_method_reference) +
+        "&nbsp;" 
+    end
   end
 end

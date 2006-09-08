@@ -47,6 +47,11 @@ td#content {
   padding-left: 1em;
 }
 
+a.admin-link {
+  color: #ff5929; /* orange */
+  font-size: 9pt;
+}
+
 /* navigation */
 td#navigation {
   width: 15em;

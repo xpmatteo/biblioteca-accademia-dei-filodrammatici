@@ -26,7 +26,7 @@
 <%= graduate_attribute 'Curriculum: ', @graduate.curriculum %>
 
 <div class='buttons'>
-  <%= link_to 'Modifica', :action => 'edit', :id => @graduate if authorized? %> 
-  <%= link_to 'Cancella', { :action => 'destroy', :id => @graduate }, :confirm => 'Are you sure?', :post => true if authorized? %>
+  <%= admin_link_to 'Modifica', :action => 'edit', :id => @graduate if authorized? %> 
+  <%= admin_link_to 'Cancella', { :action => 'destroy', :id => @graduate }, :confirm => 'Are you sure?', :post => true if authorized? %>
   <%= link_to 'Torna alla lista', :action => 'index' %>
 </div>

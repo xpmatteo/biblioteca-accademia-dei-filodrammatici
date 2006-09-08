@@ -35,8 +35,15 @@ ActiveRecord::Schema.define(:version => 13) do
     t.column "version", :datetime
     t.column "language", :string
     t.column "title", :string
+    t.column "title_without_article", :string
+    t.column "subtitles", :string
+    t.column "responsibility", :string
+    t.column "sub_responsibility", :string
     t.column "fingerprint", :string
     t.column "country_of_publication", :string
+    t.column "place_of_publication", :string
+    t.column "date_of_publication", :string
+    t.column "publisher", :string
   end
 
   create_table "graduates", :force => true do |t|
