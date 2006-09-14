@@ -1,24 +1,16 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
-require "#{File.dirname(__FILE__)}/../../db/migrate/005_populate_content"
 
 class ContentManagementTest < ActionController::IntegrationTest
+  fixtures :contents
 
-  def setup
-     PopulateContent.up
-  end
-  
-  def test_home_page
-    get_home_page
-  end
-  
   def test_content_pages 
-    get_content_page "la-scuola"
-    get_content_page "bando-2007"
-    get_content_page "spazio-diplomati"
+    get_content_page "welcome"
+    get_content_page "foobar"
+    get_content_page "zork"
   end                           
   
   def test_content_missing
-     get "pagina/piciopacio"
+     get "piciopacio"
      assert_response 404
   end
 

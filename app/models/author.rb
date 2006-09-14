@@ -1,5 +1,5 @@
 class Author < ActiveRecord::Base
-  has_many :documents
+  has_many :documents, :order => 'title_without_article'
   validates_presence_of :name, :id_sbn
   
   def self.initials

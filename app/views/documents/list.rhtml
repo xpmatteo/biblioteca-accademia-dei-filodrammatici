@@ -1,0 +1,6 @@
+
+<li>
+  <% for document in @author.documents %>
+    <li><%= link_to document.title, :action => 'show', :id => document %></li>
+  <% end %>
+</li>

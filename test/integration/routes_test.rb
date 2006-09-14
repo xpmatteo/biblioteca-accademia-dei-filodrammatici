@@ -33,8 +33,8 @@ class RoutesTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'documents/index'
     
-    get '/biblio/iniziali/M'
+    get '/biblio/autori/M'
     assert_response :success
-    assert_template 'documents/index'
+    assert_template 'documents/authors'
   end
 end

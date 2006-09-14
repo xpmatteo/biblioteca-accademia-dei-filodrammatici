@@ -7,8 +7,4 @@ class Document < ActiveRecord::Base
   def self.import_unimarc(filename)
     Unimarc::do_import(filename)
   end
-  
-  def self.author_initials
-    Author.initials
-  end
 end

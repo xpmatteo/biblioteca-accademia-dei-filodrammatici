@@ -1,5 +1,23 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
+il_vecchio_e_il_mare: 
   id: 1
-another:
+  author_id: 1
+  title: Il vecchio e il mare
+  title_without_article: vecchio e il mare
+  language: ita
+  date_of_publication: 1950-01-01
+  insertion: 1950-01-01
+  id_sbn: IT\ICCU\CFI\0084113
+  publisher: Edizioni di Acidalia
+  country_of_publication: 
+  version: 
+  fingerprint: 
+  subtitles: 
+  place_of_publication: Brescia
+
+per_chi_suona_la_campana:
   id: 2
+  author_id: 1
+  title: Per chi suona la campana
+  title_without_article: Per chi suona la campana
+  
+  
