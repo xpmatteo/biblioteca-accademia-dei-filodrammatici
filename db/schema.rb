@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 14) do
+ActiveRecord::Schema.define(:version => 15) do
 
   create_table "authors", :force => true do |t|
     t.column "name", :string
@@ -14,24 +14,6 @@ ActiveRecord::Schema.define(:version => 14) do
     t.column "name", :string
     t.column "body", :text
     t.column "image", :string
-  end
-
-  create_table "diplomati", :id => false, :force => true do |t|
-    t.column "Id", :integer, :null => false
-    t.column "nome", :string, :limit => 50, :default => "", :null => false
-    t.column "cognome", :string, :limit => 100, :default => "", :null => false
-    t.column "img", :string, :limit => 50, :default => "", :null => false
-    t.column "datanascita", :date, :null => false
-    t.column "indirizzo", :string, :limit => 100
-    t.column "citta", :string, :limit => 50
-    t.column "altridati", :binary
-    t.column "caratteristiche", :binary, :default => "", :null => false
-    t.column "annodiploma", :integer, :limit => 4, :default => 0, :null => false
-    t.column "altricorsi", :binary, :default => "", :null => false
-    t.column "curr", :binary, :default => "", :null => false
-    t.column "web", :string, :default => "", :null => false
-    t.column "profilo", :string, :limit => 0, :default => "N", :null => false
-    t.column "visibile", :string, :limit => 0, :default => "Y", :null => false
   end
 
   create_table "documents", :force => true do |t|
@@ -75,6 +57,14 @@ ActiveRecord::Schema.define(:version => 14) do
     t.column "notes", :string
     t.column "curriculum", :text
     t.column "image", :string
+  end
+
+  create_table "menu_items", :force => true do |t|
+    t.column "parent_id", :integer
+    t.column "title", :string
+    t.column "controller", :string
+    t.column "item_id", :integer
+    t.column "position", :integer
   end
 
   create_table "news", :force => true do |t|

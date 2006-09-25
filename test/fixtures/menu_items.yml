@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+root:
+  id: 1
+
+first:
+  id: 2
+  parent_id: 1
+  title: First Item
+  controller: teachers
+  position: 200
+  
+profilo_storico:
+  id: 3
+  parent_id: 1
+  title: Profilo Storico
+  controller: diplomati
+  item_id: 1
+  position: 100
+  
+carlo_porta:
+  id: 4
+  parent_id: 3
+  title: Carlo Porta
+  controller: content
+  item_id: 1
+  position: 100
+  
+giuseppe_verdi:
+  id: 5
+  parent_id: 3
+  title: Giuseppe Verdi  
+  controller: content
+  item_id: 1
+  position: 1
+  
+  
+  

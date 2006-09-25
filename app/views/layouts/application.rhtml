@@ -27,20 +27,12 @@
       <tr>
         <td id='navigation' valign='top'>
           <table border='0' cellspacing='0'>
-            <%= menuitem_tag 'La scuola',         :name => 'la-scuola' %>
-            <%= menuitem_tag 'Profilo storico',   :name => 'profilo-storico' %>
-            <% if @submenu_storico %>
-                <%= menuitem_tag 'Carlo Porta',     :name => 'carlo-porta',     :sub => true %>
-                <%= menuitem_tag 'Giuseppe Verdi',  :name => 'giuseppe-verdi',  :sub => true %>
-                <%= menuitem_tag 'Ugo Foscolo',     :name => 'ugo-foscolo',     :sub => true %>
-            <% end %>          
-            <%= menuitem_tag 'Offerta formativa', :name => 'offerta-formativa' %>
-            <%= menuitem_tag 'Corpo docente',     
-                    :controller => 'teachers', :action => 'index' %>
-            <%= menuitem_tag 'Spazio diplomati',
-                    :controller => 'graduates', :action => 'index' %>
-            <%= menuitem_tag 'Progetto GEIE',     :name => 'progetto-geie' %>
-            <%= menuitem_tag 'Bando 2007',        :name => 'bando-2007' %>
+            <% for menuitem in MenuItem.root.children %>
+              <%= menuitem_tag menuitem %>
+              <% for child in menuitem.children %>
+                <%= menuitem_tag child, :sub => true %>
+              <% end %>              
+            <% end %>
           </table>
         </td>
         <td id='content' valign='top'>

@@ -1,0 +1,19 @@
+<%= error_messages_for 'menu_item' %>
+
+<!--[form:menu_item]-->
+<p><label for="menu_item_title">Title</label><br/>
+<%= text_field 'menu_item', 'title'  %></p>
+
+<p><label for="menu_item_controller">Controller</label><br/>
+<%= text_field 'menu_item', 'controller'  %></p>
+
+<p><label for="menu_item_position">Position</label><br/>
+<%= text_field 'menu_item', 'position'  %></p>
+
+<p><label for="menu_item_item_id">Item</label><br/>
+<%= select 'menu_item', 'item_id', Content.find(:all).map {|c| [c.name, c.id]}, { :include_blank => true } %></p>
+
+<p><label for="menu_item_parent_id">Parent</label><br/>
+<%= select 'menu_item', 'parent_id', MenuItem.find(:all).map {|m| [m.title, m.id]} %></p>
+<!--[eoform:menu_item]-->
+

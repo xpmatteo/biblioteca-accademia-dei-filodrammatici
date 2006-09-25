@@ -7,12 +7,13 @@ body {
 p, blockquote, li, h1, h2, h3, h4, td {
 /*  font-family: Georgia, "Times New Roman", Times, serif; */
   font-family: Verdana, Arial, sans-serif;
-  color: #595959; /* classy gray */
+/*  color: #595959;*/ /* classy gray */
+  color: #3E3E3E; /* darker gray */
   font-size: 10pt;
 }
 
 h1, h2, h3, h4 {
-	color: #BF982E; /* sepia */
+  color: #BF982E; /* sepia */
 }
 
 img {
@@ -33,7 +34,7 @@ div#page {
 
 td#content {
   width: 700px;
-  border-color: #fff300; /* yellow */
+  border-color: #FFCC00; /* yellow */
   border-width: 2px 0 0 2px;
   border-style: solid;
   margin-left: 0;
@@ -62,7 +63,7 @@ td#navigation {
   width: 100%;
 }
 #navigation a {
-  background: url(/images/menuitem-bg.png) repeat-x left top;
+  background-color: #FFCC00; /* yellow */
   white-space: nowrap;
   text-decoration: none;
   display: block;
@@ -70,19 +71,19 @@ td#navigation {
   padding: .2em 0 .2em 1em;
 }
 #navigation .submenuitem a {
-  background-image: none;
+  background-color: white;
   padding-left: 3em;
 }
 #menuitem-current {
   display:  block;
   white-space: nowrap;
-  background: url(/images/menuitem-bg.png) repeat-x left top;
+  background-color: #FFCC00; /* yellow */
   padding: .2em 0 .2em 1em; 
   margin: 0;
   width: 95%;
 }
 #navigation .submenuitem #menuitem-current {
-  background-image: none;
+  background-color: white;
   padding-left: 3em;
 }
 

@@ -5,7 +5,7 @@ require 'teachers_controller'
 class TeachersController; def rescue_action(e) raise e end; end
 
 class TeachersControllerTest < Test::Unit::TestCase
-  fixtures :teachers
+  fixtures :teachers, :menu_items
 
   def setup
     @controller = TeachersController.new

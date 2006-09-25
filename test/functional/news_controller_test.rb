@@ -5,7 +5,7 @@ require 'news_controller'
 class NewsController; def rescue_action(e) raise e end; end
 
 class NewsControllerTest < Test::Unit::TestCase
-  fixtures :news
+  fixtures :news, :menu_items
   
   def setup
     @controller = NewsController.new

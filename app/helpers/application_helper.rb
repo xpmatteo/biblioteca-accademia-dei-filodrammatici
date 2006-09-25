@@ -1,16 +1,17 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def menuitem_tag(text, options)
-    # default options
-    options[:controller] = 'content' unless options[:controller]
-    options[:action] = 'page' unless options[:action]
+  def menuitem_tag(menuitem, options={})
+    options[:controller] = menuitem.controller
+    options[:action] = 'index'
     if options[:sub]
       options[:sub] = nil
       klass = ' class="submenuitem"'
     end
     
-    if options[:name] && (content = Content.find_by_name(options[:name]))
+    if 'content' == options[:controller] && (content = Content.find(menuitem.item_id))
       text = content.title
+      options[:name] = content.name
+      options[:action] = 'page'
     end
     
     # if not a link, then give it a meaningful id

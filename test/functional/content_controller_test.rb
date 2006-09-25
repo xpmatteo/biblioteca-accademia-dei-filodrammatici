@@ -5,7 +5,7 @@ require 'content_controller'
 class ContentController; def rescue_action(e) raise e end; end
 
 class ContentControllerTest < Test::Unit::TestCase
-  fixtures :contents
+  fixtures :contents, :menu_items
   
   def setup
     @controller = ContentController.new
@@ -110,7 +110,7 @@ class ContentControllerTest < Test::Unit::TestCase
     assert_tag :content => "Title can't be blank"
     assert_unchanged old_content
   end     
-  
+
 private
   def assert_unchanged(content)
     assert_equal Content.find(content.id), content
