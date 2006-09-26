@@ -13,8 +13,8 @@ profilo_storico:
   id: 3
   parent_id: 1
   title: Profilo Storico
-  controller: diplomati
-  item_id: 1
+  controller: content
+  item_id: 6
   position: 100
   
 carlo_porta:
@@ -22,7 +22,7 @@ carlo_porta:
   parent_id: 3
   title: Carlo Porta
   controller: content
-  item_id: 1
+  item_id: 7
   position: 100
   
 giuseppe_verdi:
@@ -30,8 +30,14 @@ giuseppe_verdi:
   parent_id: 3
   title: Giuseppe Verdi  
   controller: content
-  item_id: 1
+  item_id: 8
   position: 1
   
-  
+zork:
+  id: 6
+  parent_id: 1
+  title: Zork
+  controller: content
+  item_id: 3
+  position: 300
   

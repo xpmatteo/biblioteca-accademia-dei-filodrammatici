@@ -25,4 +25,20 @@ graduates:
   title: Spazio Diplomati
   body: bla bla, i diplomati eccoli qua
   
-
+profilo_storico:
+  id: 6
+  name: profilo-storico
+  title: Profilo Storico
+  body: xxx
+  
+carlo_porta:
+  id: 7
+  name: carlo-porta
+  title: Carlo Porta
+  body: xxx
+  
+giuseppe_verdi:
+  id: 8
+  name: giuseppe-verdi
+  title: Giuseppe Verdi
+  body: xxx

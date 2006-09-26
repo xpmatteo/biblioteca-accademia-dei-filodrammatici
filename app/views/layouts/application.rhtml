@@ -29,9 +29,11 @@
           <table border='0' cellspacing='0'>
             <% for menuitem in MenuItem.root.children %>
               <%= menuitem_tag menuitem %>
-              <% for child in menuitem.children %>
-                <%= menuitem_tag child, :sub => true %>
-              <% end %>              
+              <% if menuitem_is_current_section?(menuitem) %>
+                <% for child in menuitem.children %>
+                  <%= menuitem_tag child, :sub => true %>
+                <% end %>
+              <% end %>
             <% end %>
           </table>
         </td>

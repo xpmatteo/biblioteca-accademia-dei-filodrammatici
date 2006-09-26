@@ -1,5 +1,23 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  
+  def menuitem_is_current?(menuitem)
+    return false if params[:controller] != menuitem.controller
+    return true if menuitem.controller != 'content'
+    return false unless content = Content.find_by_name(params[:name])
+    return content.id == menuitem.item_id
+  end
+  
+  def menuitem_is_current_section?(menuitem)
+    return false if params[:controller] != menuitem.controller
+    return true if menuitem.controller != 'content'
+    return true if menuitem_is_current?(menuitem)
+    # subitem?
+    return false unless content = Content.find_by_name(params[:name])
+    return false unless current = MenuItem.find_by_item_id(content.id)
+    menuitem.children.member?(current)
+  end
+  
   def menuitem_tag(menuitem, options={})
     options[:controller] = menuitem.controller
     options[:action] = 'index'
@@ -7,7 +25,8 @@ module ApplicationHelper
       options[:sub] = nil
       klass = ' class="submenuitem"'
     end
-    
+        
+    text = menuitem.title
     if 'content' == options[:controller] && (content = Content.find(menuitem.item_id))
       text = content.title
       options[:name] = content.name
