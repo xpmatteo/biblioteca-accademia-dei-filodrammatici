@@ -1,11 +1,12 @@
+<p id="graduation-years">
+  <% for year in @graduation_years %>
+    <%= link_to_unless_current year, :action => "list", :year => year %>
+  <% end %>
+</p>                                
+
 <p id="initials">
   <% for initial in @initials %>
     <%= link_to_unless_current initial, :action => "list", :initial => initial %>
   <% end %>
 </p>
     
-<p id="graduation-years">
-  <% for year in @graduation_years %>
-    <%= link_to_unless_current year, :action => "list", :year => year %>
-  <% end %>
-</p>                                
