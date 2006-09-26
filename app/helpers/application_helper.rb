@@ -5,20 +5,18 @@ module ApplicationHelper
     return false if params[:controller] != menuitem.controller
     return true if menuitem.controller != 'content'
     return false unless content = Content.find_by_name(params[:name])
-    return content.id == menuitem.item_id
+    content.id == menuitem.item_id
   end
   
   def menuitem_is_current_section?(menuitem)
-    return false if params[:controller] != menuitem.controller
-    return true if menuitem.controller != 'content'
     return true if menuitem_is_current?(menuitem)
-    # subitem?
-    return false unless content = Content.find_by_name(params[:name])
-    return false unless current = MenuItem.find_by_item_id(content.id)
-    menuitem.children.member?(current)
+    for sub_item in menuitem.children
+      return true if menuitem_is_current?(sub_item)
+    end
+    false
   end
   
-  def menuitem_tag(menuitem, options={})
+  def menuitem_tag(menuitem, options={}, html_options={})
     options[:controller] = menuitem.controller
     options[:action] = 'index'
     if options[:sub]
@@ -34,7 +32,7 @@ module ApplicationHelper
     end
     
     # if not a link, then give it a meaningful id
-    item = link_to_unless_current(text, options) do |text|
+    item = link_to_unless_current(text, options, html_options) do |text|
       "<span id='menuitem-current'>#{text}</span>"
     end
     

@@ -5,7 +5,8 @@ class MenuItemTest < Test::Unit::TestCase
 
   def test_children
     assert_equal [], menu_items(:first).children
-    assert_equal [menu_items(:giuseppe_verdi), menu_items(:carlo_porta)], menu_items(:profilo_storico).children
+    assert_equal [menu_items(:giuseppe_verdi), menu_items(:carlo_porta), menu_items(:graduates)], 
+                  menu_items(:profilo_storico).children
   end
   
   def test_parent

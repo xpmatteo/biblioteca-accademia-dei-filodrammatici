@@ -7,7 +7,6 @@ body {
 p, blockquote, li, h1, h2, h3, h4, td {
 /*  font-family: Georgia, "Times New Roman", Times, serif; */
   font-family: Verdana, Arial, sans-serif;
-/*  color: #595959;*/ /* classy gray */
   color: #3E3E3E; /* darker gray */
   font-size: 10pt;
 }
@@ -74,7 +73,7 @@ td#navigation {
   background-color: white;
   padding-left: 3em;
 }
-#menuitem-current {
+#menuitem-current, a#menuitem-current {
   display:  block;
   white-space: nowrap;
   background-color: #FFCC00; /* yellow */
@@ -86,7 +85,6 @@ td#navigation {
   background-color: white;
   padding-left: 3em;
 }
-
 #navigation a:hover {
   text-decoration: underline;
 }

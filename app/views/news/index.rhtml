@@ -7,6 +7,7 @@
       <%= link_to news.title, :action => 'show', :id => news %> 
       <span class='news-date'><%= news.created_at.to_s(:short) %></span>
     </p>
+    <%= news.body %>
   </div>
 <% end %>
 

@@ -40,4 +40,11 @@ zork:
   controller: content
   item_id: 3
   position: 300
+
+graduates:
+  id: 7
+  parent_id: 3
+  title: Diplomati
+  controller: graduates
+  position: 200
   

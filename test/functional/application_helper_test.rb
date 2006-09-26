@@ -37,9 +37,14 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_false menuitem_is_current_section?(menu_items(:zork)), "content controller, not related"
   end
   
-  def test_menuitem_is_current_section_when_controller_is_content_and_current_is_subitem
+  def test_menuitem_is_current_section_when_current_is_subitem
     params[:controller] = 'content'
     params[:name] = 'carlo-porta'
     assert menuitem_is_current_section?(menu_items(:profilo_storico)), "content controller, in subitem"
+  end
+
+  def test_menuitem_is_current_section_when_current_is_subitem_which_is_not_content
+    params[:controller] = 'graduates'
+    assert menuitem_is_current_section?(menu_items(:profilo_storico)), "content controller, in graduates subitem"
   end
 end
