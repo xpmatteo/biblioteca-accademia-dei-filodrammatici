@@ -4,10 +4,14 @@
 <% for news in @news %>
   <div class='news'>
     <p>
-      <%= link_to news.title, :action => 'show', :id => news %> 
+      <h3><%= news.title %></h3> 
       <span class='news-date'><%= news.created_at.to_s(:short) %></span>
     </p>
     <%= news.body %>
+    <div class='buttons'>
+      <%= admin_link_to 'Modifica', :action => :edit, :id => @news %>
+      <%= admin_link_to 'Cancella', { :action => :destroy, :id => @news }, :confirm => 'Sei sicuro?', :post => true %>
+    </div>    
   </div>
 <% end %>
 

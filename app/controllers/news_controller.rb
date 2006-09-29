@@ -1,5 +1,5 @@
 class NewsController < ApplicationController
-  
+  uses_tiny_mce MCE_OPTIONS
   before_filter :check_user_is_admin, :except => [ :index, :list, :show ]
 
   verify :method => :post, :only => :destroy, :redirect_to => { :action => :index }
