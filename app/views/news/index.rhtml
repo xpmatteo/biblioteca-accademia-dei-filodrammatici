@@ -9,8 +9,8 @@
     </p>
     <%= news.body %>
     <div class='buttons'>
-      <%= admin_link_to 'Modifica', :action => :edit, :id => @news %>
-      <%= admin_link_to 'Cancella', { :action => :destroy, :id => @news }, :confirm => 'Sei sicuro?', :post => true %>
+      <%= admin_link_to 'Modifica', :action => :edit, :id => news %>
+      <%= admin_link_to 'Cancella', { :action => :destroy, :id => news }, :confirm => 'Sei sicuro?', :post => true %>
     </div>    
   </div>
 <% end %>
