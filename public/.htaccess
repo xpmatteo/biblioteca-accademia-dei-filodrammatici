@@ -1,4 +1,6 @@
 # General Apache options
+CheckSpelling Off
+SecFilterEngine Off 
 AddHandler fastcgi-script .fcgi
 AddHandler cgi-script .cgi
 Options +FollowSymLinks +ExecCGI

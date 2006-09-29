@@ -1,7 +1,7 @@
 <div>
   <h3><%= @news.title %></h3>
   <p class='news-date'><%= @news.created_at.to_s(:short) %></p>
-  <%=h @news.body %>
+  <%= @news.body %>
 </div>
 
 <div class='buttons'>
