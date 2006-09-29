@@ -3,10 +3,8 @@
 
 <% for news in @news %>
   <div class='news'>
-    <p>
-      <h3><%= news.title %></h3> 
-      <span class='news-date'><%= news.created_at.to_s(:short) %></span>
-    </p>
+    <h3><%= news.title %></h3> 
+    <span class='news-date'><%= news.created_at.to_s(:short) %></span>
     <%= news.body %>
     <div class='buttons'>
       <%= admin_link_to 'Modifica', :action => :edit, :id => news %>
