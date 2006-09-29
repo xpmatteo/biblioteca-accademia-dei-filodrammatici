@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     :cleanup_on_startup => true,
     :width => '100%',
     :height => '480',
-    :valid_elements => '+a[href],-strong/-b,-em/-i,-strike,-u,#p[align],-ol,-ul,-li,br,img[src|alt=|title|hspace|vspace|width|height|align],-sub,-sup,-blockquote,-table[border=0|cellspacing|cellpadding|width|height|align|summary],-tr[rowspan|width|height|align|valign],tbody,thead,tfoot,-td[colspan|rowspan|width|height|align|valign|scope],-th[colspan|rowspan|width|height|align|valign|scope],caption,-div[align],-span[align],-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,hr,dd,dl,dt'
+    :valid_elements => '+a[href],-strong/-b,-em/-i/-u,-strike,#p[align],-ol,-ul,-li,br,img[src|alt=|title|hspace|vspace|width|height|align],-sub,-sup,-blockquote,-table[border=0|cellspacing|cellpadding|width|height|align|summary],-tr[rowspan|width|height|align|valign],tbody,thead,tfoot,-td[colspan|rowspan|width|height|align|valign|scope],-th[colspan|rowspan|width|height|align|valign|scope],caption,-div[align],-span[align],-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,hr,dd,dl,dt'
     }}
 
   def authorized?
