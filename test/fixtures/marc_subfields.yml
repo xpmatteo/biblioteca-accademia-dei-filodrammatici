@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1001
+  marc_field_id: 100
+  code: a
+  body: Il *vecchio e il mare
+another:
+  id: 1000
+  marc_field_id: 100
+  code: e
+  body: Una vecchia storia

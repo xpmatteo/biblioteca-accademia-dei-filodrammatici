@@ -14,15 +14,17 @@ module Unimarc
       record = reader.next()
       d = Document.new
       record.each do |field|
+        import_marc_fields(d, field)
+        
         case field.tag
         when '001' 
           d.id_sbn = field.data
         when '101'
           d.language = field.get_subfield('a')
         when '200'
-          d.title = remove_asterisk(field.get_subfield('a'))
-          d.title_without_article = after_asterisk(field.get_subfield('a'))
-          d.subtitles = field.get_subfield('e')
+          title = field.subfields.map{|sf| sf.data}.join(" / ")
+          d.title = remove_asterisk(title)
+          d.title_without_article = after_asterisk(title)
         when '210'
           d.place_of_publication = field.get_subfield('a')
           d.publisher = field.get_subfield('c')
@@ -50,4 +52,13 @@ module Unimarc
     return $1 if s =~ /^H.[^I]*I(.*)$/
     s
   end
+  
+  def import_marc_fields(document, field)
+    return if field.tag.to_i < 100 
+    f = document.marc_fields.build(:tag => field.tag)
+    field.each do |subfield|
+      f.subfields.build(:code => subfield.code, :body => subfield.data)
+    end
+  end
+  
 end

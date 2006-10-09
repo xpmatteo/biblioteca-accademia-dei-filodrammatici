@@ -1,0 +1,39 @@
+Record 100 per "logica umana"
+
+          1         2         3
+0123456789012345678901234567890123456789
+20011018d1906    |||||itac01      ba
+
+0-7 	Date Entered on File 					20011018
+8 		Type of Publication Date				d = monograph complete when issued, or issued within one calendar year
+9-12	Publication Date 1						1906
+13-16	Publication Date 2						(blank)
+17-19	Target Audience Code
+20		Government Publication Code
+21		Modified Record Code
+22-24	Language of Cataloguing (Mandatory)		ita
+25		Transliteration Code					c = multiple transliterations: ISO or other schemes
+26-29	Character Set (Mandatory)				01 = ISO 646, IRV version (basic Latin set)
+30-33	Additional Character Set
+34-35	Script of Title 						ba = latin
+
+
+Record 101
+Lingua del documento
+$a eng
+
+Record 102
+$a IT
+Country of publication
+
+
+<datafield tag="210" ind1=" " ind2=" ">
+  <subfield code="a">Rimini</subfield>
+  <subfield code="c">Tp. Renzi</subfield>
+  <subfield code="d">1906</subfield>
+</datafield>
+<datafield tag="215" ind1=" " ind2=" ">
+  <subfield code="a">111 p.</subfield>
+  <subfield code="c">ill.</subfield>
+  <subfield code="d">17 cm</subfield>
+</datafield>

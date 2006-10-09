@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+vecchio_e_il_mare_titolo:
+  id: 101
+  document_id: 1
+  tag: 200
+vecchio_e_il_mare_pubblicazione:
+  id: 100
+  document_id: 1
+  tag: 210
+

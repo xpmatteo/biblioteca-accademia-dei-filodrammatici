@@ -41,4 +41,13 @@ class DocumentsControllerTest < Test::Unit::TestCase
     get :authors, :initial => 'M'
     assert_tag :tag => 'a', :content => 'Monti, Vincenzo &lt;1754-1828&gt;'
   end
+  
+  def test_show
+    get :show, :id => 1
+    assert_response :success
+    assert_equal Document.find(1), assigns(:document)
+    assert_tag :content => 'Il vecchio e il mare', :attributes => { :class => 'document-title' }
+    assert_tag :content => 'Hemingway, Ernest', :attributes => { :class => 'document-authors' }
+    assert_tag :content => 'Milano: Mondadori, 1950', :attributes => { :class => 'document-publication' }
+  end
 end

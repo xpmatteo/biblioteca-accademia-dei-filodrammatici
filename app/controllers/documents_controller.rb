@@ -10,4 +10,8 @@ class DocumentsController < ApplicationController
     @author = Author.find(params[:id])
     render :template => 'documents/list'
   end
+  
+  def show
+    @document = Document.find(params[:id])
+  end
 end
