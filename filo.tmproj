@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>config/environment.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -25,6 +27,20 @@
 	<integer>291</integer>
 	<key>metaData</key>
 	<dict>
+		<key>config/environment.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>76</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>35</integer>
+		</dict>
 		<key>test/unit/unimarc_test.rb</key>
 		<dict>
 			<key>caret</key>
@@ -56,6 +72,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>config/environment.rb</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>

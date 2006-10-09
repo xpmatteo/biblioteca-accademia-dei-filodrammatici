@@ -1,9 +1,8 @@
 <h1>Diplomati</h1>
-<%= link_to 'nuovo diplomato/a', :controller => 'graduates', :action => 'new' %>
+<%= @content.body %>
+<%= admin_link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content if authorized? %>
 
 <%= render :partial => 'years_and_initials' %>
+<%= admin_link_to 'nuovo diplomato/a', :controller => 'graduates', :action => 'new' %>
 
-<%= @content.body %>
-<br />
-<%= link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content if authorized? %>
 

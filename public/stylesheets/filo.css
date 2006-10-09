@@ -152,3 +152,10 @@ table.teachers td {
   margin-top: 0;
 }
 /* end teachers */
+
+/* news */
+.news h3 {
+  font-size: 16pt;
+  font-style: italic;
+}
+/* end news */

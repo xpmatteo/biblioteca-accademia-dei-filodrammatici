@@ -4,7 +4,7 @@
 <% for news in @news %>
   <div class='news'>
     <h3><%= news.title %></h3> 
-    <span class='news-date'><%= news.created_at.to_s(:short) %></span>
+    <p class='news-date'><%= format_date news.created_at %></p>
     <%= news.body %>
     <div class='buttons'>
       <%= admin_link_to 'Modifica', :action => :edit, :id => news %>
