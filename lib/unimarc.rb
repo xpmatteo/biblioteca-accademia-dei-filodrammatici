@@ -1,4 +1,5 @@
 require 'rmarc'
+require 'unimarc_language_codes'
 
 class RMARC::DataField
   def get_subfield(code)
@@ -13,31 +14,26 @@ module Unimarc
     while reader.has_next
       record = reader.next()
       d = Document.new
+      authors = []
       record.each do |field|
         import_marc_fields(d, field)
         
         case field.tag
         when '001' 
           d.id_sbn = field.data
-        when '101'
-          d.language = field.get_subfield('a')
-        when '200'
-          title = field.subfields.map{|sf| sf.data}.join(" / ")
-          d.title = remove_asterisk(title)
-          d.title_without_article = after_asterisk(title)
-        when '210'
-          d.place_of_publication = field.get_subfield('a')
-          d.publisher = field.get_subfield('c')
-          d.date_of_publication = field.get_subfield('d')
         when '700'          
           id_sbn = field.get_subfield('3')
           author = 
             Author.find_by_id_sbn(id_sbn) || 
             Author.new(:name => field.get_subfield('a'), :id_sbn => id_sbn)
-          d.author = author if author.save
+          authors << author if author.save
         end
       end
       d.save
+      authors.each do |author|
+        # TODO: type of authorship?
+        Authorship.new(:author_id => author.id, :document_id => d.id).save
+      end
       print "."
       $stdout.flush
     end
@@ -61,4 +57,7 @@ module Unimarc
     end
   end
   
+  def expand_marc_country_code(code)
+    return LANGUAGE_CODES[code] || code
+  end
 end

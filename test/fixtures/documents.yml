@@ -1,23 +1,13 @@
-il_vecchio_e_il_mare: 
-  id: 1
-  author_id: 1
-  title: Il vecchio e il mare
-  title_without_article: vecchio e il mare
-  language: ita
-  date_of_publication: 1950-01-01
-  insertion: 1990-03-05
-  id_sbn: IT\ICCU\CFI\0084113
-  publisher: Mondadori
-  country_of_publication: 
-  version: 
-  fingerprint: 
-  subtitles: 
-  place_of_publication: Milano
+logica_umana: 
+  id: 146
+  id_sbn: IT\ICCU\ANA\0077010
+documents_003: 
+  id: "147"
+  id_sbn: IT\ICCU\BVE\0013119
+documents_004: 
+  id: "148"
+  id_sbn: IT\ICCU\BVEE\023209
+documents_001: 
+  id: "145"
+  id_sbn: IT\ICCU\AQ1\0031672
 
-per_chi_suona_la_campana:
-  id: 2
-  author_id: 1
-  title: Per chi suona la campana
-  title_without_article: Per chi suona la campana
-  
-  

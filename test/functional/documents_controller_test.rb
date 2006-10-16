@@ -5,7 +5,7 @@ require 'documents_controller'
 class DocumentsController; def rescue_action(e) raise e end; end
 
 class DocumentsControllerTest < Test::Unit::TestCase
-  fixtures :documents, :authors, :menu_items
+  fixtures :documents, :authors, :authorships, :marc_fields, :marc_subfields, :menu_items
   
   def setup
     @controller = DocumentsController.new
@@ -16,38 +16,40 @@ class DocumentsControllerTest < Test::Unit::TestCase
   def test_index
     get :index
     assert_response :success
-    assert_tag :tag => 'a', :content => 'H', :attributes => { :href => '/biblio/autori/H' }
+    assert_tag :tag => 'a', :content => 'M', :attributes => { :href => '/biblio/autori/M' }
   end
 
   def test_authors_by_initial
-    get :authors, :initial => 'H'
+    get :authors, :initial => 'M'
     assert_response :success
-    assert_equal [authors(:hemingway)], assigns(:authors)
+    assert_equal [authors(:mandosio_prospero), authors(:mor_carlo)], assigns(:authors)
     assert_template 'authors'    
-    assert_tag :tag => 'a', :content => authors(:hemingway).name, :attributes => { :href => '/biblio/autore/1' }
+    assert_tag :tag => 'a', :content => authors(:mor_carlo).name, :attributes => { :href => '/biblio/autore/' + authors(:mor_carlo).id.to_s }
   end
   
   def test_author_by_id
-    get :author, :id => 1
+    get :author, :id => authors(:mor_carlo).id
     assert_response :success
-    assert_equal authors(:hemingway), assigns(:author)
+    assert_equal authors(:mor_carlo), assigns(:author)
     assert_template 'list'
     
-    doc = authors(:hemingway).documents[0]
+    doc = authors(:mor_carlo).documents[0]
     assert_tag :tag => 'a', :content => doc.title, :attributes => { :href => '/biblio/libro/' + doc.id.to_s }
   end
   
   def test_author_name_escapes_html_entities
-    get :authors, :initial => 'M'
-    assert_tag :tag => 'a', :content => 'Monti, Vincenzo &lt;1754-1828&gt;'
+    assert Author.new(:name => 'Pippis Khan <1000-1100>', :id_sbn => 'yyy').save, "non ha salvato"
+    get :authors, :initial => 'P'
+    assert_tag :tag => 'a', :content => 'Pippis Khan &lt;1000-1100&gt;'
   end
   
   def test_show
-    get :show, :id => 1
+    doc = documents(:logica_umana)
+    get :show, :id => doc.id
     assert_response :success
-    assert_equal Document.find(1), assigns(:document)
-    assert_tag :content => 'Il vecchio e il mare', :attributes => { :class => 'document-title' }
-    assert_tag :content => 'Hemingway, Ernest', :attributes => { :class => 'document-authors' }
-    assert_tag :content => 'Milano: Mondadori, 1950', :attributes => { :class => 'document-publication' }
+    assert_equal doc, assigns(:document)
+    assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
+    assert_tag :content => doc.authors[0].name, :attributes => { :class => 'document-authors' }
+    assert_tag :content => doc.publication, :attributes => { :class => 'document-publication' }
   end
 end

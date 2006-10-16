@@ -1,14 +1,12 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-hemingway:
-  id: 1
-  name: Hemingway, Ernest
-  id_sbn: blabla123
-steinbeck:
-  id: 2
-  name: Steinbeck, John
-  id_sbn: foobar321
-monti:
-  id: 3
-  name: Monti, Vincenzo <1754-1828>
-  id_sbn: piciopacio123
-  
+mor_carlo: 
+  id: 101
+  name: Mor, Carlo A.
+  id_sbn: IT\ICCU\ANAV\039809
+praga_marco: 
+  id: 102
+  name: Praga, Marco
+  id_sbn: IT\ICCU\CFIV\046541
+mandosio_prospero: 
+  id: 103
+  name: Mandosio, Prospero <1650-1709>
+  id_sbn: IT\ICCU\TO0V\315218

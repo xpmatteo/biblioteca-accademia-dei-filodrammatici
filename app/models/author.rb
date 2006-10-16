@@ -1,7 +1,10 @@
 class Author < ActiveRecord::Base
-  has_many :documents, :order => 'title_without_article'
+  has_many :authorships
+  has_many :documents, 
+    :through => :authorships
+
   validates_presence_of :name, :id_sbn
-  
+
   def self.initials
     sql = 'select distinct upper(left(name, 1)) as initial 
            from authors

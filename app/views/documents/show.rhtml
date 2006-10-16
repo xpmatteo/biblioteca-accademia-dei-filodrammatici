@@ -1,5 +1,7 @@
 
 <p class='document-title'><%= @document.title %></p>
-<p class='document-authors'><%= @document.author.name %></p>
+<% for author in @document.authors %>
+  <p class='document-authors'><%= author.name %></p>
+<% end %>
 <p class='document-publication'><%= @document.publication %></p>
 
