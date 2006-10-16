@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
   uses_tiny_mce MCE_OPTIONS
   before_filter :check_user_is_admin, :except => [ :index, :list, :show ]
+  before_filter :set_image_for_layout
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
@@ -51,5 +52,10 @@ class TeachersController < ApplicationController
   def destroy
     Teacher.find(params[:id]).destroy
     redirect_to :action => 'list'
+  end
+  
+private
+  def set_image_for_layout
+    @image_for_layout = 'front-school.jpg'
   end
 end

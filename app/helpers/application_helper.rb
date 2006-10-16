@@ -43,7 +43,7 @@ module ApplicationHelper
     if @content && @content.image
       url_for_file_column(@content, "image")
     else
-      'front-home.jpg'
+      @image_for_layout || 'front-home.jpg'
     end
   end
   
