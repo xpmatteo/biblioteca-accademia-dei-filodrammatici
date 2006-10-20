@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 19) do
+ActiveRecord::Schema.define(:version => 20) do
 
   create_table "authors", :force => true do |t|
     t.column "name", :string
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 19) do
 
   create_table "documents", :force => true do |t|
     t.column "id_sbn", :string
+    t.column "title_without_article", :string
   end
 
   create_table "graduates", :force => true do |t|
@@ -55,12 +56,20 @@ ActiveRecord::Schema.define(:version => 19) do
   create_table "marc_fields", :force => true do |t|
     t.column "tag", :string, :limit => 3
     t.column "document_id", :integer
-  end
-
-  create_table "marc_subfields", :force => true do |t|
-    t.column "code", :string, :limit => 1
-    t.column "marc_field_id", :integer
-    t.column "body", :string
+    t.column "subfield_1", :string
+    t.column "subfield_2", :string
+    t.column "subfield_3", :string
+    t.column "subfield_4", :string
+    t.column "subfield_5", :string
+    t.column "subfield_a", :string
+    t.column "subfield_b", :string
+    t.column "subfield_c", :string
+    t.column "subfield_d", :string
+    t.column "subfield_e", :string
+    t.column "subfield_f", :string
+    t.column "subfield_g", :string
+    t.column "subfield_h", :string
+    t.column "subfield_v", :string
   end
 
   create_table "menu_items", :force => true do |t|

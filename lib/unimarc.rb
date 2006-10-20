@@ -21,6 +21,8 @@ module Unimarc
         case field.tag
         when '001' 
           d.id_sbn = field.data
+        when '200'
+          d.title_without_article = after_asterisk field.get_subfield('a')
         when '700'          
           id_sbn = field.get_subfield('3')
           author = 
@@ -51,10 +53,11 @@ module Unimarc
   
   def import_marc_fields(document, field)
     return if field.tag.to_i < 100 
-    f = document.marc_fields.build(:tag => field.tag)
+    marc_attributes = { :tag => field.tag }
     field.each do |subfield|
-      f.subfields.build(:code => subfield.code, :body => subfield.data)
+      marc_attributes["subfield_#{subfield.code}".to_s] = subfield.data
     end
+    f = document.marc_fields.build(marc_attributes)
   end
   
   def expand_marc_country_code(code)

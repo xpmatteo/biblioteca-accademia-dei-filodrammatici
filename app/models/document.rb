@@ -28,10 +28,6 @@ class Document < ActiveRecord::Base
     remove_asterisk marc(200, 'a') + marc(200, 'e', " : ") + marc(200, 'f', " / ")
   end
   
-  def title_without_article
-    after_asterisk marc(200, 'a')
-  end
-  
   def physical_description
     marc(215, 'a') + marc(215, 'c', " : ") + marc(215, 'd', " ; ")
   end
@@ -51,8 +47,8 @@ private
   def marc(tag, code, prefix="")
     field = fields(tag)
     return "" unless field
-    subfield = field.subfields.find_by_code(code)
+    subfield = field.send("subfield_#{code}".to_s)
     return "" unless subfield
-    prefix + subfield.body or ""
+    prefix + subfield or ""
   end
 end

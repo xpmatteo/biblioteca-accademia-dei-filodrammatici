@@ -11,7 +11,6 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     Author.delete_all
     Authorship.delete_all
     MarcField.delete_all
-    MarcSubfield.delete_all
     Unimarc::do_import File.dirname(__FILE__) + '/../fixtures/dump_books.xml'
   end
   
@@ -25,9 +24,8 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   def test_import_marc_fields
     logica_umana = Document.find_by_id_sbn('IT\ICCU\ANA\0077010')
     assert_equal %w(100 101 102 200 210 215 700 801 899 899), logica_umana.marc_fields.map {|f| f.tag}
-    assert_equal %w(a f), logica_umana.marc_fields.find_by_tag(200).subfields.map{|sf| sf.code}
     assert_equal 'Logica umana', 
-      logica_umana.marc_fields.find_by_tag('200').subfields.find_by_code('a').body
+      logica_umana.marc_fields.find_by_tag('200').subfield_a
   end
 
   def test_import_simple_book_acceptance
@@ -46,6 +44,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     d = Document.find_by_id_sbn('IT\ICCU\NAP\0199601')
     assert_equal 'La fiaba del lupo : commedia in tre atti / Francesco Molnar',
       d.title
+    assert_equal 'fiaba del lupo', d.title_without_article
     assert_equal 'italiano', d.language
     assert_equal ['Molnar, Ferenc'], d.authors.map {|a| a.name}
     assert_equal '31 p. ; 23 cm', d.physical_description    

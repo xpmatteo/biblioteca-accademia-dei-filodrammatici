@@ -1,7 +1,8 @@
 class Author < ActiveRecord::Base
   has_many :authorships
   has_many :documents, 
-    :through => :authorships
+    :through => :authorships,
+    :order => :title_without_article
 
   validates_presence_of :name, :id_sbn
 
