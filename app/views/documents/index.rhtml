@@ -1,6 +1,5 @@
 
-<p id="initials">
-  <% for initial in Author.initials %>
-    <%= link_to_unless_current initial, :action => "authors", :initial => initial %>
-  <% end %>
-</p>
+<%= render :partial => "author_initials" %>
+
+<%= @content.body %>
+<%= admin_link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content if authorized? %>

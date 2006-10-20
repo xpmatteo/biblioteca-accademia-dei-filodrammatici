@@ -1,4 +1,6 @@
 
+<%= render :partial => "author_initials" %>
+
 <ul>
   <% for author in @authors %>
     <li><%= link_to h(author.name), :action => 'author', :id => author %></li>

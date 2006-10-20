@@ -14,51 +14,14 @@
 			<key>sourceDirectory</key>
 			<string></string>
 		</dict>
-		<dict>
-			<key>filename</key>
-			<string>test/unit/unimarc_test.rb</string>
-			<key>lastUsed</key>
-			<date>2006-10-09T15:18:59Z</date>
-		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>291</integer>
 	<key>metaData</key>
-	<dict>
-		<key>test/unit/unimarc_test.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>40</integer>
-				<key>line</key>
-				<integer>27</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>58</integer>
-			</dict>
-		</dict>
-	</dict>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{447, 35}, {942, 993}}</string>
+	<string>{{447, 10}, {1055, 1018}}</string>
 </dict>
 </plist>

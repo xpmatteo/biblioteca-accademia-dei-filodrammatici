@@ -16,7 +16,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   end
   
   def test_import_authors
-    assert_equal 3, Author.count
+    assert_equal 4, Author.count
     authors = Author.find(:all, :order => 'id')
     prospero = Author.find_by_name('Mandosio, Prospero <1650-1709>')
     assert_equal 1, prospero.documents.size
@@ -37,34 +37,43 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_equal 'Rimini: Tp. Renzi, 1906', d.publication
     assert_equal 'inglese', d.language
     assert_equal ['Mor, Carlo A.'], d.authors.map {|a| a.name}
+    assert_equal '111 p. : ill. ; 17 cm', d.physical_description
     # assert_equal 'Monografia', d.bibliographic_level
-    # assert_equal '111 p. : ill. ; 17 cm', d.physical_description
     # assert_equal 'Testo a stampa', d.document_type
-    # assert_equal ['Mor, Carlo A.'], d.names.map {|n| n.name}
   end
   
-  # def test_import_complex_book_acceptance
-  #   d = Document.find_by_id_sbn('IT\ICCU\AQ1\0031672')
-  #   assert_equal 'Italiano', d.language
-  #   assert_equal 'Monografia', d.bibliographic_level
-  #   assert_equal 'Testo a stampa', d.document_type
-  #   assert_equal 'Teatro elisabettiano / Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford', d.title
-  #   assert_equal d.title, d.title_without_article
-  #   assert_equal 'Firenze : Sansoni, stampa 1954', d.publication
-  #   assert_equal 'XXVIII, 1274 p. ; 21 cm', d.physical_description
-  # 
-  #   # Collezione : 	I grandi classici stranieri
-  #   assert_equal 'Trad. di Gabriele Baldini ... [et al.!, sotto la direzione di Mario Praz',
-  #     d.general_notes
-  #   
-  #   assert_equal ['Praz, Mario', 'Baldini, Gabriele'], d.names.map {|n| n.name}
-  #   assert_equal 'Italia', d.publication_country
-  #   	
-  #   assert_equal 'Firenze', d.place_of_publication
-  #   assert_equal 'Sansoni', d.publisher
-  #   assert_equal 'stampa 1954', d.date_of_publication
-  # end  
-  # 
+  def test_import_book_with_asterisk
+    d = Document.find_by_id_sbn('IT\ICCU\NAP\0199601')
+    assert_equal 'La fiaba del lupo : commedia in tre atti / Francesco Molnar',
+      d.title
+    assert_equal 'italiano', d.language
+    assert_equal ['Molnar, Ferenc'], d.authors.map {|a| a.name}
+    assert_equal '31 p. ; 23 cm', d.physical_description    
+    assert_equal '\\S. l.: s. n.!, c1926 (Milano: Tip. del Secolo)', d.publication
+#    assert_equal 'Suppl. a : Comoedia, 1926, n. 5', d.general_notes
+  end
+  
+  def test_import_complex_book_acceptance
+    d = Document.find_by_id_sbn('IT\ICCU\AQ1\0031672')
+    assert_equal 'italiano', d.language
+#    assert_equal 'Monografia', d.bibliographic_level
+#    assert_equal 'Testo a stampa', d.document_type
+    assert_equal 'Teatro elisabettiano : Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford', d.title
+    assert_equal 'Firenze: Sansoni, stampa 1954', d.publication
+    assert_equal 'XXVIII, 1274 p. ; 21 cm', d.physical_description
+  
+    # Collezione : 	I grandi classici stranieri
+    # assert_equal 'Trad. di Gabriele Baldini ... [et al.!, sotto la direzione di Mario Praz',
+    #   d.general_notes
+    
+#    assert_equal ['Praz, Mario', 'Baldini, Gabriele'], d.names.map {|n| n.name}
+#    assert_equal 'Italia', d.publication_country
+    	
+    assert_equal 'Firenze', d.place_of_publication
+    assert_equal 'Sansoni', d.publisher
+    assert_equal 'stampa 1954', d.date_of_publication
+  end  
+  
   # def test_import_title_with_asterisk_acceptance
   #   d = Document.find_by_id_sbn('IT\ICCU\BVEE\023209')
   #   assert_equal 'Monografia', d.bibliographic_level

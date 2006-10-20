@@ -34,7 +34,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_template 'list'
     
     doc = authors(:mor_carlo).documents[0]
-    assert_tag :tag => 'a', :content => doc.title, :attributes => { :href => '/biblio/libro/' + doc.id.to_s }
+    assert_tag :content => doc.title
   end
   
   def test_author_name_escapes_html_entities

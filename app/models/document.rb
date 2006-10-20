@@ -7,7 +7,9 @@ class Document < ActiveRecord::Base
   has_many :authors, :through => :authorships
   
   def publication
-    place_of_publication + ": " + publisher + ", " + date_of_publication[0..3]
+    result = marc(210, 'a') + marc(210, 'c', ": ") + marc(210, 'd', ", ")
+    result += appendix = " (" + marc(210, 'e') + marc(210, 'g', ": ") + ")" unless marc(210, 'e') == ""
+    result
   end
   
   def date_of_publication
@@ -22,10 +24,16 @@ class Document < ActiveRecord::Base
     marc(210, 'c')
   end
   
-  def title
-    tit = marc_fields.find_by_tag('200').subfields.map{|sf| sf.body}.join(" / ")
-    title = remove_asterisk(tit)
-    title_without_article = after_asterisk(tit)
+  def title    
+    remove_asterisk marc(200, 'a') + marc(200, 'e', " : ") + marc(200, 'f', " / ")
+  end
+  
+  def title_without_article
+    after_asterisk marc(200, 'a')
+  end
+  
+  def physical_description
+    marc(215, 'a') + marc(215, 'c', " : ") + marc(215, 'd', " ; ")
   end
   
   def language 
@@ -33,11 +41,18 @@ class Document < ActiveRecord::Base
   end
   
 private
-  def marc(tag, code)
-    field = marc_fields.find_by_tag(tag.to_s)
+
+  def fields(tag)
+    tag = tag.to_s
+    @fields ||= {}
+    @fields[tag] ||= marc_fields.find_by_tag(tag)
+  end
+
+  def marc(tag, code, prefix="")
+    field = fields(tag)
     return "" unless field
     subfield = field.subfields.find_by_code(code)
     return "" unless subfield
-    subfield.body || ""
+    prefix + subfield.body or ""
   end
 end

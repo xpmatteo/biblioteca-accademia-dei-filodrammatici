@@ -453,4 +453,59 @@
     <subfield code="2">LO144</subfield>
   </datafield>
 </record>
+
+<record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>00652nam0a2200181  I450 </leader>
+  <controlfield tag="001">IT\ICCU\NAP\0199601</controlfield>
+  <controlfield tag="005">19980707</controlfield>
+  <datafield tag="100" ind1=" " ind2=" ">
+    <subfield code="a">19980707d1926    |||||itac50      ba</subfield>
+  </datafield>
+  <datafield tag="101" ind1="|" ind2=" ">
+    <subfield code="a">ita</subfield>
+  </datafield>
+  <datafield tag="102" ind1=" " ind2=" ">
+    <subfield code="a">IT</subfield>
+  </datafield>
+  <datafield tag="200" ind1="1" ind2=" ">
+    <subfield code="a">HLa Ifiaba del lupo</subfield>
+    <subfield code="e">commedia in tre atti</subfield>
+    <subfield code="f">Francesco Molnar</subfield>
+  </datafield>
+  <datafield tag="210" ind1=" " ind2=" ">
+    <subfield code="a">\S. l.</subfield>
+    <subfield code="c">s. n.!</subfield>
+    <subfield code="d">c1926</subfield>
+    <subfield code="e">Milano</subfield>
+    <subfield code="g">Tip. del Secolo</subfield>
+  </datafield>
+  <datafield tag="215" ind1=" " ind2=" ">
+    <subfield code="a">31 p.</subfield>
+    <subfield code="d">23 cm</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">Suppl. a : Comoedia, 1926, n. 5</subfield>
+  </datafield>
+  <datafield tag="700" ind1=" " ind2="1">
+    <subfield code="a">Molnar, Ferenc</subfield>
+    <subfield code="3">IT\ICCU\CFIV\046074</subfield>
+    <subfield code="4">070</subfield>
+  </datafield>
+  <datafield tag="801" ind1=" " ind2="0">
+    <subfield code="a">IT</subfield>
+    <subfield code="b">ICCU</subfield>
+    <subfield code="c">20041019</subfield>
+  </datafield>
+  <datafield tag="899" ind1=" " ind2=" ">
+    <subfield code="a">Biblioteca della Accademia dei Filodrammatici Milano MI</subfield>
+    <subfield code="1">MI1181</subfield>
+    <subfield code="2">LO144</subfield>
+  </datafield>
+  <datafield tag="899" ind1=" " ind2=" ">
+    <subfield code="a">Biblioteca nazionale Vittorio Emanuele III Napoli NA</subfield>
+    <subfield code="1">NA0079</subfield>
+    <subfield code="2">NAPBN</subfield>
+  </datafield>
+</record>
+
 </collection>

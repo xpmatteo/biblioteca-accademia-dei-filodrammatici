@@ -1,6 +1,13 @@
 
-<li>
-  <% for document in @author.documents %>
-    <li><%= link_to document.title, :action => 'show', :id => document %></li>
-  <% end %>
-</li>
+<%= render :partial => 'author_initials' %>
+
+<h3><%= @author.name %></h3>
+
+<table id="documents">
+<%= render :partial => 'document', :collection => @documents %>
+</table>
+
+<%= link_to 'Previous page', { :page => @document_pages.current.previous } if @document_pages.current.previous %>
+<%= pagination_links @document_pages %>
+<%= link_to 'Next page', { :page => @document_pages.current.next } if @document_pages.current.next %> 
+

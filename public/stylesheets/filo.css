@@ -159,3 +159,13 @@ table.teachers td {
   font-style: italic;
 }
 /* end news */
+
+/* documents */
+#documents td, #documents th {
+  vertical-align: top;
+  padding-right: 2em;
+}
+.document-end td {
+  padding: 0 0 2em 0;
+}
+/* end documents */

@@ -1,0 +1,25 @@
+<tr class="document-begin">
+  <th>Livello&nbsp;bibliografico:</th>
+  <td>Monografia</td>
+</tr>  
+<tr>
+  <th>Autore:</th>
+  <td class='document-authors'><%= link_to_unless_current h(document.authors[0].name), :action => 'author', :id => document.authors[0]  %></td>
+</tr>
+<tr>
+  <th>Titolo:</th>
+  <td class='document-title'><%=h document.title %></td>
+</tr>  
+<tr>
+  <th>Pubblicazione:</th>
+  <td class='document-publication'><%=h document.publication %></td>
+</tr>
+<tr>
+  <th>Descrizione fisica:</th>
+  <td class='document-physical-description'><%=h document.physical_description %></td>
+</tr>
+<tr class="document-end">
+  <th>Codice SBN:</th>
+  <td class='document-id-sbn'><%=h document.id_sbn %></td>
+</tr>
+
