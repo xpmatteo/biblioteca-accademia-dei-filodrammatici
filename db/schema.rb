@@ -2,17 +2,11 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 20) do
+ActiveRecord::Schema.define(:version => 22) do
 
   create_table "authors", :force => true do |t|
     t.column "name", :string
     t.column "id_sbn", :string
-  end
-
-  create_table "authorships", :force => true do |t|
-    t.column "document_id", :integer
-    t.column "author_id", :integer
-    t.column "type", :string
   end
 
   create_table "contents", :force => true do |t|
@@ -71,6 +65,9 @@ ActiveRecord::Schema.define(:version => 20) do
     t.column "subfield_h", :string
     t.column "subfield_v", :string
   end
+
+  add_index "marc_fields", ["subfield_3"], :name => "marc_fields_subfield_3_index"
+  add_index "marc_fields", ["document_id"], :name => "marc_fields_document_id_index"
 
   create_table "menu_items", :force => true do |t|
     t.column "parent_id", :integer

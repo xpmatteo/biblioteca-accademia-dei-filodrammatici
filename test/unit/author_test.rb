@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class AuthorTest < Test::Unit::TestCase
-  fixtures :authors, :documents, :authorships, :marc_fields
+  fixtures :authors, :documents, :marc_fields
 
   def test_validation
     assert       Author.new(:name => 'Foo', :id_sbn => 'bar').save
@@ -21,7 +21,7 @@ class AuthorTest < Test::Unit::TestCase
   
   def test_documents
     a = authors(:mor_carlo)
-    assert_equal 1, a.documents.count
+    assert_equal 1, a.documents.size
     assert_equal 'Logica umana', a.documents[0].title[0, 12]
   end
 

@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
   end
   
   def author
-    @author = Author.find(params[:id], :include => :documents)
+    @author = Author.find(params[:id])
     
     documents = @author.documents
     @document_pages, @documents = paginate_collection documents, :page => params[:page]

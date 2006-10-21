@@ -1,9 +1,5 @@
 class Author < ActiveRecord::Base
-  has_many :authorships
-  has_many :documents, 
-    :through => :authorships,
-    :order => :title_without_article
-
+  validates_uniqueness_of :id_sbn
   validates_presence_of :name, :id_sbn
 
   def self.initials
@@ -14,5 +10,11 @@ class Author < ActiveRecord::Base
     self.find_by_sql(sql).map do |g|
       g.initial
     end
+  end
+  
+  def documents
+    Document.find(:all, :conditions => [
+      "id in (select document_id from marc_fields where tag = 700 and subfield_3 = ?)", id_sbn
+      ])
   end
 end

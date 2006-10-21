@@ -14,7 +14,6 @@ module Unimarc
     while reader.has_next
       record = reader.next()
       d = Document.new
-      authors = []
       record.each do |field|
         import_marc_fields(d, field)
         
@@ -28,14 +27,10 @@ module Unimarc
           author = 
             Author.find_by_id_sbn(id_sbn) || 
             Author.new(:name => field.get_subfield('a'), :id_sbn => id_sbn)
-          authors << author if author.save
+          author.save
         end
       end
       d.save
-      authors.each do |author|
-        # TODO: type of authorship?
-        Authorship.new(:author_id => author.id, :document_id => d.id).save
-      end
       print "."
       $stdout.flush
     end

@@ -2,14 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ImportFromUnimarcTest < Test::Unit::TestCase
 
-  # todo:
-  # eliminare i campi derivati da Document
-  # relazione multiforme fra documenti e persone: autore, editore, o anche non specificata
-
   def setup
     Document.delete_all
     Author.delete_all
-    Authorship.delete_all
     MarcField.delete_all
     Unimarc::do_import File.dirname(__FILE__) + '/../fixtures/dump_books.xml'
   end

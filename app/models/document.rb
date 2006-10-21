@@ -1,10 +1,9 @@
 include Unimarc
 
 class Document < ActiveRecord::Base
-  
+  validates_uniqueness_of :id_sbn
+  validates_presence_of :id_sbn
   has_many :marc_fields, :order => "tag"
-  has_many :authorships
-  has_many :authors, :through => :authorships
   
   def publication
     result = marc(210, 'a') + marc(210, 'c', ": ") + marc(210, 'd', ", ")
@@ -34,6 +33,12 @@ class Document < ActiveRecord::Base
   
   def language 
     expand_marc_country_code(marc('101', 'a'))
+  end
+  
+  def authors
+    Author.find(:all, 
+      :conditions => 
+        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag = 700)")
   end
   
 private
