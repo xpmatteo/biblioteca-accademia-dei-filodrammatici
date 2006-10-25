@@ -508,4 +508,67 @@
   </datafield>
 </record>
 
+<record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>00755nam0a2200205  I450 </leader>
+  <controlfield tag="001">IT\ICCU\CUB\0148597</controlfield>
+  <controlfield tag="005">20050223</controlfield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="b">1941 8697</subfield>
+  </datafield>
+  <datafield tag="100" ind1=" " ind2=" ">
+    <subfield code="a">19971028d1941    |||||itac50      ba</subfield>
+  </datafield>
+  <datafield tag="101" ind1="|" ind2=" ">
+    <subfield code="a">ita</subfield>
+  </datafield>
+  <datafield tag="102" ind1=" " ind2=" ">
+    <subfield code="a">IT</subfield>
+  </datafield>
+  <datafield tag="200" ind1="1" ind2=" ">
+    <subfield code="a">Addio giovinezza|</subfield>
+    <subfield code="e">commedia in tre atti</subfield>
+    <subfield code="f">Sandro Camasio e Nino Oxilia</subfield>
+    <subfield code="g">prefazione di Salvator Gotta</subfield>
+  </datafield>
+  <datafield tag="210" ind1=" " ind2=" ">
+    <subfield code="a">Milano</subfield>
+    <subfield code="c">Casa Ed. Bietti</subfield>
+    <subfield code="d">1941</subfield>
+  </datafield>
+  <datafield tag="215" ind1=" " ind2=" ">
+    <subfield code="a">119 p.</subfield>
+    <subfield code="d">19 cm.</subfield>
+  </datafield>
+  <datafield tag="700" ind1=" " ind2="1">
+    <subfield code="a">Camasio, Sandro</subfield>
+    <subfield code="3">IT\ICCU\TO0V\031482</subfield>
+    <subfield code="4">070</subfield>
+  </datafield>
+  <datafield tag="701" ind1=" " ind2="1">
+    <subfield code="a">Oxilia, Nino</subfield>
+    <subfield code="3">IT\ICCU\CFIV\011318</subfield>
+    <subfield code="4">070</subfield>
+  </datafield>
+  <datafield tag="702" ind1=" " ind2="1">
+    <subfield code="a">Gotta, Salvator</subfield>
+    <subfield code="3">IT\ICCU\CFIV\018405</subfield>
+    <subfield code="4">070</subfield>
+  </datafield>
+  <datafield tag="801" ind1=" " ind2="0">
+    <subfield code="a">IT</subfield>
+    <subfield code="b">ICCU</subfield>
+    <subfield code="c">20050228</subfield>
+  </datafield>
+  <datafield tag="899" ind1=" " ind2=" ">
+    <subfield code="a">Biblioteca nazionale centrale Firenze FI</subfield>
+    <subfield code="1">FI0098</subfield>
+    <subfield code="2">CFICF</subfield>
+  </datafield>
+  <datafield tag="899" ind1=" " ind2=" ">
+    <subfield code="a">Biblioteca della Accademia dei Filodrammatici Milano MI</subfield>
+    <subfield code="1">MI1181</subfield>
+    <subfield code="2">LO144</subfield>
+  </datafield>
+</record>
+
 </collection>

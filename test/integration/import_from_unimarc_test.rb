@@ -10,7 +10,6 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   end
   
   def test_import_authors
-    assert_equal 4, Author.count
     authors = Author.find(:all, :order => 'id')
     prospero = Author.find_by_name('Mandosio, Prospero <1650-1709>')
     assert_equal 1, prospero.documents.size
@@ -29,7 +28,8 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
       d.title
     assert_equal 'Rimini: Tp. Renzi, 1906', d.publication
     assert_equal 'inglese', d.language
-    assert_equal ['Mor, Carlo A.'], d.authors.map {|a| a.name}
+    assert_equal 'Mor, Carlo A.', d.author.name
+    assert_equal ['Mor, Carlo A.'], d.names.map {|a| a.name}
     assert_equal '111 p. : ill. ; 17 cm', d.physical_description
     # assert_equal 'Monografia', d.bibliographic_level
     # assert_equal 'Testo a stampa', d.document_type
@@ -41,7 +41,8 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
       d.title
     assert_equal 'fiaba del lupo', d.title_without_article
     assert_equal 'italiano', d.language
-    assert_equal ['Molnar, Ferenc'], d.authors.map {|a| a.name}
+    assert_equal 'Molnar, Ferenc', d.author.name
+    assert_equal ['Molnar, Ferenc'], d.names.map {|a| a.name}
     assert_equal '31 p. ; 23 cm', d.physical_description    
     assert_equal '\\S. l.: s. n.!, c1926 (Milano: Tip. del Secolo)', d.publication
 #    assert_equal 'Suppl. a : Comoedia, 1926, n. 5', d.general_notes
@@ -60,7 +61,8 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     # assert_equal 'Trad. di Gabriele Baldini ... [et al.!, sotto la direzione di Mario Praz',
     #   d.general_notes
     
-#    assert_equal ['Praz, Mario', 'Baldini, Gabriele'], d.names.map {|n| n.name}
+    assert_nil d.author, "teatro elisabettiano non ha autore"
+    assert_equal ['Praz, Mario', 'Baldini, Gabriele'], d.names.map {|n| n.name}
 #    assert_equal 'Italia', d.publication_country
     	
     assert_equal 'Firenze', d.place_of_publication
@@ -78,7 +80,6 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   assert_equal 'In Bologna : per Giuseppe Longhi, 1687', d.publication
   #   assert_equal '120 p. ; 12o.', d.physical_description
   #   assert_equal 'Segn.: A-E12.', d.general_notes
-  #   assert_equal 'Segn.: A-E12.', d.general_notes
   #   assert_equal '- roi- o.e. .)di (Gpo (3) 1687 (R)', d.fingerprint
   # 
   #   # ???
@@ -87,4 +88,5 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   # 
   #   assert_equal 'Italia', d.publication_country
   # end
+  
 end

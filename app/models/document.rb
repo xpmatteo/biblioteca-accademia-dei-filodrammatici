@@ -10,11 +10,11 @@ class Document < ActiveRecord::Base
     result += appendix = " (" + marc(210, 'e') + marc(210, 'g', ": ") + ")" unless marc(210, 'e') == ""
     result
   end
-  
+
   def date_of_publication
     marc(210, 'd')
   end
-  
+
   def place_of_publication
     marc(210, 'a')
   end
@@ -35,8 +35,16 @@ class Document < ActiveRecord::Base
     expand_marc_country_code(marc('101', 'a'))
   end
   
-  def authors
+  def names
     Author.find(:all, 
+      :conditions => 
+        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like '7%')",
+      :order => 'name'
+      )
+  end
+  
+  def author
+    Author.find(:first, 
       :conditions => 
         "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag = 700)")
   end

@@ -30,3 +30,19 @@ logica_umana_700:
   subfield_3: IT\ICCU\ANAV\039809
   
 
+teatro_elisabettiano_200:
+  document_id: 147
+  tag: 200
+  subfield_a: Teatro elisabettiano
+  subfield_e: Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford
+teatro_elisabettiano_702: 
+  document_id: 147
+  tag: 702
+  subfield_a: Praz, Mario
+  subfield_3: IT\ICCU\CFIV\000494
+teatro_elisabettiano_702_bis: 
+  document_id: 147
+  tag: 702
+  subfield_a: Baldini, Gabriele
+  subfield_3: IT\ICCU\CFIV\002641
+  

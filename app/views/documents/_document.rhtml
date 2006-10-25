@@ -1,11 +1,15 @@
 <tr class="document-begin">
-  <th>Livello&nbsp;bibliografico:</th>
+  <th class='bibliographic-level'>Livello&nbsp;bibliografico:</th>
   <td>Monografia</td>
 </tr>  
+<% if document.author -%>
 <tr>
   <th>Autore:</th>
-  <td class='document-authors'><%= link_to_unless_current h(document.authors[0].name), :action => 'author', :id => document.authors[0]  %></td>
+  <td class='document-author'>
+    <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>
+  </td>
 </tr>
+<% end -%>
 <tr>
   <th>Titolo:</th>
   <td class='document-title'><%=h document.title %></td>
@@ -17,6 +21,15 @@
 <tr>
   <th>Descrizione fisica:</th>
   <td class='document-physical-description'><%=h document.physical_description %></td>
+</tr>
+<tr>
+  <th>Nomi:</th>
+  <td class='document-names'>
+    <% document.names.each_with_index do |author, index| %>
+      <%= "; " unless 0 == index %> 
+      <%= link_to_unless_current h(author.name), :action => 'author', :id => author  %>
+    <% end %>
+  </td>
 </tr>
 <tr class="document-end">
   <th>Codice SBN:</th>

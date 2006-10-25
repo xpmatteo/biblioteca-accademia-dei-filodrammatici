@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 22) do
 
   add_index "marc_fields", ["subfield_3"], :name => "marc_fields_subfield_3_index"
   add_index "marc_fields", ["document_id"], :name => "marc_fields_document_id_index"
+  add_index "marc_fields", ["subfield_3"], :name => "foobar"
 
   create_table "menu_items", :force => true do |t|
     t.column "parent_id", :integer

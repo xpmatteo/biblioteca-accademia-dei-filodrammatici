@@ -43,13 +43,23 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Pippis Khan &lt;1000-1100&gt;'
   end
   
-  def test_show
+  def test_author_books
+    get :author, :id => authors(:mor_carlo).id
     doc = documents(:logica_umana)
-    get :show, :id => doc.id
     assert_response :success
-    assert_equal doc, assigns(:document)
     assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
-    assert_tag :content => doc.authors[0].name, :attributes => { :class => 'document-authors' }
+    assert_tag :content => doc.author.name, :attributes => { :class => 'document-author' }
+    assert_tag :content => doc.names[0].name, :attributes => { :class => 'document-names' }
     assert_tag :content => doc.publication, :attributes => { :class => 'document-publication' }
+  end
+  
+  def test_book_with_no_author
+    get :author, :id => authors(:praz_mario).id
+    doc = documents(:teatro_elisabettiano)
+    assert_response :success
+    assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
+    assert_no_tag :attributes => { :class => 'document-author' }
+    assert_tag :content => doc.names[0].name, :attributes => { :class => 'document-names' }
+    assert_tag :content => doc.publication, :attributes => { :class => 'document-publication' }    
   end
 end
