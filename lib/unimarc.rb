@@ -22,7 +22,7 @@ module Unimarc
           d.id_sbn = field.data
         when '200'
           d.title_without_article = after_asterisk field.get_subfield('a')
-        when '700'          
+        when '700', '701', '702', '710', '711', '712'          
           id_sbn = field.get_subfield('3')
           author = 
             Author.find_by_id_sbn(id_sbn) || 

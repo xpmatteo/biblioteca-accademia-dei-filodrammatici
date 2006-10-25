@@ -3,7 +3,15 @@ include Unimarc
 class Document < ActiveRecord::Base
   validates_uniqueness_of :id_sbn
   validates_presence_of :id_sbn
+  
   has_many :marc_fields, :order => "tag"
+  
+  has_many :names, 
+    :class_name => "Author", 
+    :finder_sql => 
+      'select * from authors where id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like \'7%\') order by name',
+    :counter_sql => 
+      'select count(*) from authors where id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like \'7%\')'
   
   def publication
     result = marc(210, 'a') + marc(210, 'c', ": ") + marc(210, 'd', ", ")
@@ -35,26 +43,26 @@ class Document < ActiveRecord::Base
     expand_marc_country_code(marc('101', 'a'))
   end
   
-  def names
-    Author.find(:all, 
-      :conditions => 
-        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like '7%')",
-      :order => 'name'
-      )
-  end
+  # def names
+  #   Author.find(:all, 
+  #     :conditions => 
+  #       "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like '7%')",
+  #     :order => 'name'
+  #     )
+  # end
   
   def author
-    Author.find(:first, 
-      :conditions => 
-        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag = 700)")
+    @cached_author ||= Author.find(:first, 
+                      :conditions => 
+                        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag = 700)")
   end
   
 private
 
   def fields(tag)
     tag = tag.to_s
-    @fields ||= {}
-    @fields[tag] ||= marc_fields.find_by_tag(tag)
+    @fields ||= marc_fields.to_a
+    @fields.find { |f| f.tag == tag }
   end
 
   def marc(tag, code, prefix="")

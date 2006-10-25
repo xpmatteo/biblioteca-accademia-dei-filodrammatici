@@ -62,7 +62,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     #   d.general_notes
     
     assert_nil d.author, "teatro elisabettiano non ha autore"
-    assert_equal ['Praz, Mario', 'Baldini, Gabriele'], d.names.map {|n| n.name}
+    assert_equal ['Baldini, Gabriele', 'Praz, Mario'], d.names.map {|n| n.name}
 #    assert_equal 'Italia', d.publication_country
     	
     assert_equal 'Firenze', d.place_of_publication

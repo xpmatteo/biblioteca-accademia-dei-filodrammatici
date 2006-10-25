@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
   uses_tiny_mce MCE_OPTIONS
-  before_filter :check_user_is_admin, :except => [ :index, :list, :show ]
+  before_filter :check_user_is_admin, :except => [ :index, :list, :show, :uptime ]
 
   verify :method => :post, :only => :destroy, :redirect_to => { :action => :index }
 
@@ -37,5 +37,9 @@ class NewsController < ApplicationController
     News.destroy(params[:id])
     flash[:notice] = "L'annuncio &egrave; stato cancellato"
     redirect_to :action => :index
+  end
+  
+  def uptime
+    render :text => "success"
   end
 end

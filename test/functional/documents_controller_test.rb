@@ -60,6 +60,6 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
     assert_no_tag :attributes => { :class => 'document-author' }
     assert_tag :content => doc.names[0].name, :attributes => { :class => 'document-names' }
-    assert_tag :content => doc.publication, :attributes => { :class => 'document-publication' }    
+    assert_tag :content => doc.names[1].name, :attributes => { :class => 'document-names' }
   end
 end

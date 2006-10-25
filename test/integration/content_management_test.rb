@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ContentManagementTest < ActionController::IntegrationTest
-  fixtures :contents
+  fixtures :contents, :menu_items
 
   def test_content_pages 
     get_content_page "welcome"

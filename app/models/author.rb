@@ -13,8 +13,9 @@ class Author < ActiveRecord::Base
   end
   
   def documents
-    Document.find(:all, :conditions => [
-      "id in (select document_id from marc_fields where tag like '7%' and subfield_3 = ?)", id_sbn
-      ])
+    Document.find(
+      :all, 
+      :conditions => ["documents.id in (select document_id from marc_fields where tag like '7%' and subfield_3 = ?)", id_sbn]
+      )
   end
 end

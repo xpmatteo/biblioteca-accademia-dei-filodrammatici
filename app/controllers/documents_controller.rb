@@ -8,15 +8,10 @@ class DocumentsController < ApplicationController
   end
   
   def author
-    @author = Author.find(params[:id])
-    
+    @author = Author.find(params[:id])    
     documents = @author.documents
     @document_pages, @documents = paginate_collection documents, :page => params[:page]
     render :template => 'documents/list'
-  end
-  
-  def show
-    @document = Document.find(params[:id])
   end
   
 private
@@ -29,7 +24,6 @@ private
     first = pages.current.offset
     last = [first + options[:per_page], collection.size].min
     slice = collection[first...last]
-    logger.debug "Pagination: #{first} #{last}"
     return [pages, slice]
   end
 

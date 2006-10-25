@@ -74,4 +74,10 @@ class NewsControllerTest < Test::Unit::TestCase
     assert_protected :edit
     assert_protected_post :destroy
   end
+  
+  def test_uptime
+    get :uptime
+    assert_response :success
+    assert_equal "success", @response.body
+  end
 end
