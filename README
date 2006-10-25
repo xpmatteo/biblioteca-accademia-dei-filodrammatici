@@ -1,16 +1,13 @@
 == TODO
 
-- scheda bibliografica
-  - mostriamo le schede bibliografiche per i casi semplici
-  - link a query per autore 
-
-- supporto per molteplici autori
-- check dati segnatura etc  
+- mettere il box di ricerca a destra delle iniziali
+- sfruttare tutti i subfield da a - g per il titolo
+- nella ricerca semplice non funziona la paginazione
+- togliere "next page" mettere in italiano
 
 - link a query per anno o per editore o per luogo di edizione
 
 
-- migliorare il supporto per le attribuzioni (authorships)
 - editing locale dei campi bibliografici
 
 

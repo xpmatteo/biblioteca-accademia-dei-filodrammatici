@@ -29,5 +29,23 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal 'Tp. Renzi', doc.publisher
     assert_equal 'Rimini: Tp. Renzi, 1906', doc.publication
   end
+
+  def test_find_by_keywords_in_title
+    assert_found_by_keywords [:teatro_elisabettiano], "elisabettiano"
+    assert_found_by_keywords [:logica_umana], "logica umana"
+    assert_found_by_keywords [:logica_umana], "dramma rappresentato per la prima volta a Genova"
+  end
   
+  def test_find_by_keywords_in_author
+    assert_found_by_keywords [:logica_umana], "carlo"
+    assert_found_by_keywords [:logica_umana], "Carlo Mor"
+    # assert_found_by_keywords [:teatro_elisabettiano], "elisabettiano"
+  end
+  
+private
+  def assert_found_by_keywords(expected, keywords)
+    actual = Document.find_by_keywords(keywords).map { |d| d.title }
+    expected = expected.map { |sym| documents(sym).title }
+    assert_equal expected, actual
+  end
 end

@@ -30,7 +30,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
   def test_author_by_id
     get :author, :id => authors(:mor_carlo).id
     assert_response :success
-    assert_equal authors(:mor_carlo), assigns(:author)
+    assert_equal 'Mor, Carlo A.', assigns(:page_title)
     assert_template 'list'
     
     doc = authors(:mor_carlo).documents[0]
@@ -61,5 +61,27 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_no_tag :attributes => { :class => 'document-author' }
     assert_tag :content => doc.names[0].name, :attributes => { :class => 'document-names' }
     assert_tag :content => doc.names[1].name, :attributes => { :class => 'document-names' }
+  end
+  
+  def test_find_by_keywords
+    get :find, :q => "cinque atti"
+    assert_response :success
+    assert_template 'documents/list'
+    assert_equal 'Ricerca: "cinque atti"', assigns(:page_title)
+    assert_equal [documents(:logica_umana)], assigns(:documents)
+  end
+  
+  def test_find_by_keywords_nothing
+    get :find, :q => "lkjdhflkjhd"
+    assert_response :success
+    assert_template 'documents/list'
+    assert_equal [], assigns(:documents)
+  end
+  
+  def test_title_is_escaped
+    get :find, :q => "<zot>"
+    assert_response :success
+    assert_template 'documents/list'
+    assert_nil @response.body.index("<zot>"), "deve convertire i caratteri html in entita"    
   end
 end

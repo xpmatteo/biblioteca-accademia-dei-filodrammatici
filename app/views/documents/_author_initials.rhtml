@@ -4,3 +4,8 @@
     <%= link_to_unless_current initial, :action => "authors", :initial => initial %>
   <% end %>
 </p>
+
+<%= start_form_tag :action => 'find', :method => 'GET' %>
+Cerca: <%= text_field_tag 'q', ''  %>
+<%= end_form_tag %>
+

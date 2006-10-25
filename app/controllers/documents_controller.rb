@@ -8,8 +8,15 @@ class DocumentsController < ApplicationController
   end
   
   def author
-    @author = Author.find(params[:id])    
-    documents = @author.documents
+    author = Author.find(params[:id])
+    @page_title = author.name
+    @document_pages, @documents = paginate_collection author.documents, :page => params[:page]
+    render :template => 'documents/list'
+  end
+
+  def find
+    @page_title = "Ricerca: \"#{params[:q]}\""
+    documents = Document.find_by_keywords(params[:q])
     @document_pages, @documents = paginate_collection documents, :page => params[:page]
     render :template => 'documents/list'
   end

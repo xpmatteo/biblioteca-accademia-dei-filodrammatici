@@ -52,9 +52,19 @@ class Document < ActiveRecord::Base
   # end
   
   def author
-    @cached_author ||= Author.find(:first, 
-                      :conditions => 
-                        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag = 700)")
+    @cached_author ||= Author.find(
+      :first, 
+      :conditions => 
+        "id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag = 700)")
+  end
+  
+  def Document.find_by_keywords(keywords)
+    columns = %w(a b c d e f g).map {|x| "F.subfield_#{x}"}.join(", ")    
+    sql = "select distinct D.* 
+             from documents D
+             join marc_fields F on D.id = F.document_id
+            where match (#{columns}) against (?)"
+    Document.find_by_sql([sql, keywords])
   end
   
 private
