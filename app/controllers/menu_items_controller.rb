@@ -9,7 +9,7 @@ class MenuItemsController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @menu_item_pages, @menu_items = paginate :menu_items, :per_page => 10
+    @menu_items = MenuItem.find(:all, :order => 'parent_id, position')
   end
 
   def show
