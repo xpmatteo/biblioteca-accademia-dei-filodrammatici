@@ -122,7 +122,7 @@ div.buttons {
 
 #the-verbose-content img {
   display: block; 
-  float: left; 
+/*  float: left; */
   margin-right: 1em;
 }
 /* end static content pages */
