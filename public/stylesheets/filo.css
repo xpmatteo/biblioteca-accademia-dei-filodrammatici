@@ -54,10 +54,11 @@ a.admin-link {
 
 /* navigation */
 #navigation {
-  width: 15em;
+  width: 17em;
   text-align: left;
   vertical-align: top;
   font-style: italic;
+  font-size: 12pt;
 }
 #navigation table {
   width: 100%;
