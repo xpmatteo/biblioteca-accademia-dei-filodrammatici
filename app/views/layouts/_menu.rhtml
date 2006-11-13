@@ -1,0 +1,12 @@
+<table border='0' cellspacing='0'>
+  <% for menuitem in MenuItem.root.children %>
+    <% if menuitem_is_current_section?(menuitem) %>
+      <%= menuitem_tag menuitem, {}, { :id => 'menuitem-current' } %>
+      <% for child in menuitem.children %>
+        <%= menuitem_tag child, :sub => true %>
+      <% end %>
+    <% else %>
+      <%= menuitem_tag menuitem %>
+    <% end %>
+  <% end %>
+</table>
