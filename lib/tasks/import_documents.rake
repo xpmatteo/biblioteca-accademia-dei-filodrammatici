@@ -1,3 +1,4 @@
+require 'lib/unimarc'
 include Unimarc
 
 desc 'Import documents from marc.xml dump'

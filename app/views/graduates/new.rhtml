@@ -1,8 +1,8 @@
 <h1>Nuovo diplomato/a</h1>
 
-<%= form_tag({:action => 'create', :id => @graduate}, {:multipart => true}) %>
+<% form_tag({:action => 'create', :id => @graduate}, {:multipart => true}) do %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Create" %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Back', :action => 'index' %>

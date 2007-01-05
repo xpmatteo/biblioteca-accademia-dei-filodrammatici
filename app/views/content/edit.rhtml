@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'content' %>
 
-<%= start_form_tag({:action => 'edit', :id => @content}, {:multipart => true}) %>
+<% form_tag({:action => 'edit', :id => @content}, {:multipart => true}) do %>
 
   <p><label for="content_title">Title</label><br/>
   <%= text_field 'content', 'title'  %></p>
@@ -19,7 +19,7 @@
 
   <br/>
   <%= submit_tag 'Modifica' %>
-<%= end_form_tag %>
+<% end %>
 
 <br />
 <%= link_to 'Torna indietro', :action => 'page', :name => @content.name %> 

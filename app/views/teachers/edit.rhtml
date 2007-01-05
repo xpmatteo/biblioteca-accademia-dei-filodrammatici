@@ -1,9 +1,9 @@
 <h1>Modifica docente</h1>
 
-<%= start_form_tag({:action => 'update', :id => @teacher}, {:multipart => true}) %>
+<% form_tag({:action => 'update', :id => @teacher}, {:multipart => true}) do %>
   <%= render :partial => 'form' %>
   <%= submit_tag 'Modifica' %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Annulla', :action => 'show', :id => @teacher %> |
 <%= link_to 'Torna alla lista', :action => 'list' %>

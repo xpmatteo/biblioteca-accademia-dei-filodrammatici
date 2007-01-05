@@ -7,10 +7,10 @@
       <% end %>
     </td>
     <td>
-      <%= start_form_tag({:action => 'find'}, {:method => 'get'}) %>
+      <% form_tag({:action => 'find'}, {:method => 'get'}) do %>
       Cerca: 
       <%= text_field_tag 'q', ''  %> 
-      <%= end_form_tag %>
+      <% end %>
     </td>
   </tr>
 </table>

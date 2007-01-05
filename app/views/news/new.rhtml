@@ -1,8 +1,8 @@
 <h2>Nuova notizia</h2>
 
-<%= start_form_tag :action => 'new' %>
+<% form_tag :action => 'new' do %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Crea" %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Torna indietro', :action => 'index' %>

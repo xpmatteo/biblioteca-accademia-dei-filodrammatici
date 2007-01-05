@@ -48,9 +48,9 @@ class DocumentsControllerTest < Test::Unit::TestCase
     doc = documents(:logica_umana)
     assert_response :success
     assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
-    assert_tag :content => doc.author.name, :attributes => { :class => 'document-author' }
-    assert_tag :content => doc.names[0].name, :attributes => { :class => 'document-names' }
-    assert_tag :content => doc.publication, :attributes => { :class => 'document-publication' }
+    assert_select ".document-author",      :text => doc.author.name
+    assert_select ".document-names",       :text => doc.names[0].name
+    assert_select ".document-publication", :text => doc.publication
   end
   
   def test_book_with_no_author
@@ -59,8 +59,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
     assert_no_tag :attributes => { :class => 'document-author' }
-    assert_tag :content => doc.names[0].name, :attributes => { :class => 'document-names' }
-    assert_tag :content => doc.names[1].name, :attributes => { :class => 'document-names' }
+    assert_select ".document-names", :text => /#{doc.names[0].name}\s*;\s+#{doc.names[1].name}/
   end
   
   def test_find_by_keywords

@@ -17,7 +17,8 @@ class NewsControllerTest < Test::Unit::TestCase
     get_authenticated 'new'
     assert_response :success
     assert_not_nil assigns(:news)
-    assert_tag :tag => 'form', :attributes => { :action => '/news/new', :method => 'post' }    
+    assert_select "form[action=?][method='post']", url_for(:action => 'new'), 1, 
+      "se autenticato mostra una form per inserire una notizia"
   end
   
   def test_new_news
@@ -79,5 +80,12 @@ class NewsControllerTest < Test::Unit::TestCase
     get :uptime
     assert_response :success
     assert_equal "success", @response.body
+  end
+  
+private
+
+  def url_for(options)
+    options.merge! :only_path => true 
+    @controller.url_for(options)
   end
 end

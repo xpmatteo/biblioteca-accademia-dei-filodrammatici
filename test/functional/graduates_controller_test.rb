@@ -22,7 +22,7 @@ class GraduatesControllerTest < Test::Unit::TestCase
     assert_view_contains_list_of_years
     
     assert_equal contents(:graduates), assigns(:content)
-    assert_tag :content => assigns(:content).body
+    assert_select "div", :text => %r(^\s*#{assigns(:content).body}\s*$)
     assert_tag :tag => 'a', :attributes => { :href => "/content/edit/#{assigns(:content).id}" }
   end
 

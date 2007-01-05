@@ -1,8 +1,8 @@
 <h2>Modifica notizia</h2>
 
-<%= start_form_tag :action => 'edit' %>
+<% form_tag :action => 'edit' do %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Modifica" %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Torna indietro', :action => 'index' %>
