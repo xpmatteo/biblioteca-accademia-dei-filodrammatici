@@ -21,14 +21,6 @@ class DocumentTest < Test::Unit::TestCase
     assert_nil d.author, "teatro elisabettiano non ha un vero e proprio autore"
     assert_equal ['Baldini, Gabriele', 'Praz, Mario'], d.names.map { |a| a.name }
   end
-  
-  def test_publication
-    doc = documents(:logica_umana)
-    assert_equal 'Rimini', doc.place_of_publication
-    assert_equal '1906', doc.date_of_publication
-    assert_equal 'Tp. Renzi', doc.publisher
-    assert_equal 'Rimini: Tp. Renzi, 1906', doc.publication
-  end
 
   def test_find_by_keywords_in_title
     assert_found_by_keywords [:teatro_elisabettiano], "elisabettiano"

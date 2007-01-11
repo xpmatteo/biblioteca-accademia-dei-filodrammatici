@@ -43,12 +43,6 @@ class Test::Unit::TestCase
     assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici &mdash; ' + content.title
   end
 
-  def get_home_page
-    get '/'
-    assert_response :success
-    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici'
-  end
-  
   def fake_upload
     upload(Test::Unit::TestCase.fixture_path + '/files/animal.jpg', 'image/jpg')
   end

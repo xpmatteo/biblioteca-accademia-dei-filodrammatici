@@ -6,7 +6,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     Document.delete_all
     Author.delete_all
     MarcField.delete_all
-    Unimarc::do_import File.dirname(__FILE__) + '/../fixtures/dump_books.xml'
+    UnimarcImporter.new.do_import File.dirname(__FILE__) + '/../fixtures/dump_books.xml'
   end
   
   def test_import_authors

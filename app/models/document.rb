@@ -1,4 +1,3 @@
-include Unimarc
 
 class Document < ActiveRecord::Base
   validates_uniqueness_of :id_sbn
@@ -12,36 +11,6 @@ class Document < ActiveRecord::Base
       'select * from authors where id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like \'7%\') order by name',
     :counter_sql => 
       'select count(*) from authors where id_sbn in (select subfield_3 from marc_fields where document_id = #{id} and tag like \'7%\')'
-  
-  def publication
-    result = marc(210, 'a') + marc(210, 'c', ": ") + marc(210, 'd', ", ")
-    result += appendix = " (" + marc(210, 'e') + marc(210, 'g', ": ") + ")" unless marc(210, 'e') == ""
-    result
-  end
-
-  def date_of_publication
-    marc(210, 'd')
-  end
-
-  def place_of_publication
-    marc(210, 'a')
-  end
-  
-  def publisher
-    marc(210, 'c')
-  end
-  
-  def title    
-    remove_asterisk marc(200, 'a') + marc(200, 'e', " : ") + marc(200, 'f', " / ")
-  end
-  
-  def physical_description
-    marc(215, 'a') + marc(215, 'c', " : ") + marc(215, 'd', " ; ")
-  end
-  
-  def language 
-    expand_marc_country_code(marc('101', 'a'))
-  end
   
   # def names
   #   Author.find(:all, 

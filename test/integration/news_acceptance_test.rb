@@ -8,7 +8,7 @@ class NewsAcceptanceTest < ActionController::IntegrationTest
   end
 
   def test_news_titles_are_on_home_page
-    get_home_page
+    get "/notizie"
     assert_page_contains_news_titles 'Prima notizia', 'Seconda notizia'
   end
   

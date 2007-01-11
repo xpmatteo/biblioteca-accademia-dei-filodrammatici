@@ -1,14 +1,25 @@
 == TODO
 
-- mettere il box di ricerca a destra delle iniziali
+- editing locale dei campi bibliografici   2
+- implementa customer test moderni     3
+- implementa customer test antichi     3
+	- elimina tabelle legacy
+- link a query per anno o per editore o per luogo di edizione 3
+- eliminare strani prefissi (rumore) es. scheda Fagan 1
+- prefissare ai nomi il ruolo
+- nella ricerca, riportare il numero di risultati 1
+- codice SBN: deve diventare link a SBN 2
+- verificare che importazioni successive non sovrascrivano le modifiche locali
+
+bugfix
+- nella ricerca semplice non funziona la paginazione 1
+- togliere "next page" mettere in italiano 1
+
 - sfruttare tutti i subfield da a - g per il titolo
-- nella ricerca semplice non funziona la paginazione
-- togliere "next page" mettere in italiano
 
-- link a query per anno o per editore o per luogo di edizione
-
-
-- editing locale dei campi bibliografici
+later
+ - aggiungere scheda autore
+ 
 
 
 

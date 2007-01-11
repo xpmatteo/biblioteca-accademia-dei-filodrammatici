@@ -4,7 +4,8 @@ class RoutesTest < ActionController::IntegrationTest
   fixtures :menu_items
 
   def test_main_menu_contains_link_docenti
-    get_home_page
+    get '/'
+    assert_response :success    
     assert_tag :tag => 'a', :attributes => { :href => '/docenti' }
   end
   
@@ -13,9 +14,9 @@ class RoutesTest < ActionController::IntegrationTest
     assert_response :success    
   end
   
-  def test_home_page_contains_link_to_login
-    get_home_page
-    assert_tag :tag => 'a', :attributes => { :href => '/login' }
+  def test_news_page_contains_link_to_login
+    get "/notizie"
+    assert_select "a[href=/login]"
   end
   
   def test_login_link
@@ -36,5 +37,11 @@ class RoutesTest < ActionController::IntegrationTest
     get '/biblio/autori/M'
     assert_response :success
     assert_template 'documents/authors'
+  end
+  
+private
+  def get_home_page
+    assert_response :success
+    assert_tag :tag => 'title', :content => 'Accademia dei Filodrammatici'
   end
 end

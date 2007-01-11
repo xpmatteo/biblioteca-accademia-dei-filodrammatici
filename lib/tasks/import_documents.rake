@@ -1,5 +1,4 @@
-require 'lib/unimarc'
-include Unimarc
+require 'lib/unimarc_importer'
 
 desc 'Import documents from marc.xml dump'
 task :import_documents => :environment do
@@ -8,5 +7,5 @@ task :import_documents => :environment do
   MarcField.delete_all
   Document.delete_all
   Author.delete_all    
-  Unimarc::do_import 'dump/dump.xml'
+  UnimarcImporter.new.do_import 'dump/dump.xml'
 end
