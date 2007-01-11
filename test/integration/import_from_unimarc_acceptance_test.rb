@@ -49,11 +49,33 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_signature            "S.I 14"
     
     assert_not_nil Author.find_by_name("Praz, Mario")
-    assert_equal 1, @document.names.count
-    assert_names                ["Baldini, Gabriele", "Praz, Mario"]
+    assert_names                ["Praz, Mario"]
     assert_collection           "I grandi classici stranieri"
   end
   
+  def test_scheda_moderna_quarantanni_di_palcoscenico
+    # Grassi, Paolo <1919-1981>
+    # Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado 
+    # Milano : Mursia, 1977;   
+    # 
+    # 2. ed.;  368 p. : \16! c. di tav. ; 22 cm.
+    # Voci, uomini e tempi ; 11
+    # 
+    # Abbado, Claudio ; Grassi, Paolo <1919-1981> ; Pozzi, Emilio ; Strehler, Giorgio
+    # IT\ICCU\MIL\0066910
+    
+    @document = Document.find_by_id_sbn('MIL0066910')
+    assert_author               "Grassi, Paolo <1919-1981>"
+    assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
+    assert_title                "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
+    assert_publisher            "Milano : Mursia, 1977"
+    assert_physical_description "2. ed.;  368 p. : \16! c. di tav. ; 22 cm."
+    assert_notes                "Trad. di Gabriele Baldini ... [et al.!, sotto la direzione di Mario Praz"
+    assert_collection           "Voci, uomini e tempi ; 11"
+    assert_signature            "???"
+  end
+  
+
   # def test_scheda_antica_clotario
   #   # Abbati, Giovanni Battista
   #   # Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto.
@@ -75,29 +97,6 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   assert_footprint            "'ee, lido a.a, AcTe (3) 1723 (Q)"
   #   assert_names                ["Abbati, Giovanni Battista", "Buonarrigo, Carlo", "Maldura, Biagio"]
   #   assert_signature            "A-C12"
-  # end
-  # 
-  # def test_scheda_moderna_quarantanni_di_palcoscenico
-  #   # Grassi, Paolo <1919-1981>
-  #   # Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado 
-  #   # Milano : Mursia, 1977;   
-  #   # 
-  #   # 2. ed.;  368 p. : \16! c. di tav. ; 22 cm.
-  #   # Voci, uomini e tempi ; 11
-  #   # 
-  #   # Abbado, Claudio ; Grassi, Paolo <1919-1981> ; Pozzi, Emilio ; Strehler, Giorgio
-  #   # IT\ICCU\MIL\0066910
-  #   
-  #   @document = Document.find_by_id_sbn('MIL0066910')
-  #   assert_author               "Grassi, Paolo <1919-1981>"
-  #   assert_title                "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
-  #   assert_publisher            "Milano : Mursia, 1977;"
-  #   assert_physical_description "2. ed.;  368 p. : \16! c. di tav. ; 22 cm."
-  #   assert_notes                "Trad. di Gabriele Baldini ... [et al.!, sotto la direzione di Mario Praz"
-  #   assert_collection           "Voci, uomini e tempi ; 11"
-  #   assert_national_bibliography_number "1955 3018"
-  #   assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
-  #   assert_signature            "???"
   # end
   # 
   # def test_scheda_antica_li_pregiudizj

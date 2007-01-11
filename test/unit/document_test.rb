@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class DocumentTest < Test::Unit::TestCase
-  fixtures :authors, :documents, :marc_fields
+  fixtures :authors, :documents, :responsibilities
   
   def test_names
     d = documents(:logica_umana)
@@ -19,7 +19,7 @@ class DocumentTest < Test::Unit::TestCase
   def test_author_is_nil
     d = documents(:teatro_elisabettiano)
     assert_nil d.author, "teatro elisabettiano non ha un vero e proprio autore"
-    assert_equal ['Baldini, Gabriele', 'Praz, Mario'], d.names.map { |a| a.name }
+    assert_equal ['Praz, Mario'], d.names.map { |a| a.name }
   end
 
   def test_find_by_keywords_in_title

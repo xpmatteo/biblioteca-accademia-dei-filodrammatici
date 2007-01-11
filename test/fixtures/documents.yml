@@ -1,6 +1,13 @@
 logica_umana: 
   id: 146
   id_sbn: IT\ICCU\ANA\0077010
+  author_id: 101
+  title: Logica umana
+  publisher: "Rimini: Tp. Renzi, 1906"
+  physical_description: "111 p. : ill. ; 17 cm"
+  
 teatro_elisabettiano: 
   id: 147
   id_sbn: IT\ICCU\AQ1\0031672
+  title: Teatro Elisabettiano
+  

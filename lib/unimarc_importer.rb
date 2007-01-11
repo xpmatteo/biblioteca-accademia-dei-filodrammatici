@@ -9,11 +9,13 @@ class UnimarcImporter
     while reader.has_next
       record = reader.next()
       d = Document.new      
+      @names = []
       record.each do |field|
         @field = field
         parse_field(d)
       end
       d.save
+      add_names(d)
       print "."
       $stdout.flush
     end
@@ -37,12 +39,10 @@ class UnimarcImporter
       else
         d.notes = sub('a')
       end
-    when '700', '701', '702', '710', '711', '712'          
-      id_sbn = sub('3')
-      author = 
-        Author.find_by_id_sbn(id_sbn) || 
-        Author.new(:name => sub('a'), :id_sbn => id_sbn)
-      author.save
+    when '700', '701', '702', '710', '711', '712'
+      author = create_or_find_author
+      @names << author
+      d.author = author if '700' == @field.tag
     when '950'
       d.signature = sub('d')
     end    
@@ -70,5 +70,20 @@ class UnimarcImporter
   
   def construct_physical_description
     sub('a') + sub('c', " : ") + sub('d', " ; ")    
+  end
+  
+  def add_names(d)
+    @names.each do |name|
+      d.names << name
+    end
+  end
+  
+  def create_or_find_author
+    id_sbn = sub('3')
+    author = 
+      Author.find_by_id_sbn(id_sbn) || 
+      Author.new(:name => sub('a'), :id_sbn => id_sbn)
+    author.save || (raise author.errors.full_messages.join("; "))
+    author
   end
 end

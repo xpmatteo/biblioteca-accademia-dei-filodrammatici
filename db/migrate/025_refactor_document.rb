@@ -1,5 +1,5 @@
 class RefactorDocument < ActiveRecord::Migration
-  COLUMNS = %w(title publisher notes signature footprint physical_description 
+  COLUMNS = %w(title publication notes signature footprint physical_description 
                 footnote national_bibliography_number)
   def self.up
     COLUMNS.each do |column|
@@ -10,10 +10,11 @@ class RefactorDocument < ActiveRecord::Migration
       end
     end
     
+    add_column :documents, :author_id, :integer
+    
     begin
       drop_table "marc_fields"
     rescue
-      puts $!
     end
     
     create_table :responsibilities, :force => true do |t|
@@ -32,6 +33,8 @@ class RefactorDocument < ActiveRecord::Migration
         puts $!
       end
     end 
+    
+    remove_column :documents, :author_id
     
     begin
       drop_table "responsibilities"

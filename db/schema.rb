@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 25) do
     t.column "physical_description",         :string
     t.column "footnote",                     :string
     t.column "national_bibliography_number", :string
+    t.column "author_id",                    :integer
   end
 
   create_table "graduates", :force => true do |t|

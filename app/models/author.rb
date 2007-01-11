@@ -2,6 +2,9 @@ class Author < ActiveRecord::Base
   validates_uniqueness_of :id_sbn
   validates_presence_of :name, :id_sbn
 
+  has_many :responsibilities
+  has_many :documents, :through => :responsibilities
+
   def self.initials
     sql = 'select distinct upper(left(name, 1)) as initial 
            from authors
@@ -10,12 +13,5 @@ class Author < ActiveRecord::Base
     self.find_by_sql(sql).map do |g|
       g.initial
     end
-  end
-  
-  def documents
-    Document.find(
-      :all, 
-      :conditions => ["documents.id in (select document_id from marc_fields where tag like '7%' and subfield_3 = ?)", id_sbn]
-      )
   end
 end
