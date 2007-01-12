@@ -6,6 +6,12 @@ class Document < ActiveRecord::Base
   has_many :names, :source => :author, :through => :responsibilities, :order => :name
   belongs_to :author
   
+  def collection
+    return nil unless collection_name
+    return collection_name unless collection_volume
+    collection_name + " ; " + collection_volume
+  end
+  
   def Document.find_by_keywords(keywords)
     sql = "select distinct D.* 
              from documents D, responsibilities R, authors A

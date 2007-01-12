@@ -19,7 +19,25 @@ class DocumentTest < Test::Unit::TestCase
   def test_author_is_nil
     d = documents(:teatro_elisabettiano)
     assert_nil d.author, "teatro elisabettiano non ha un vero e proprio autore"
-    assert_equal ['Praz, Mario'], d.names.map { |a| a.name }
+    assert_equal ['Baldini, Gabriele', 'Praz, Mario'], d.names.map { |a| a.name }
+  end
+  
+  def test_no_collection
+    d = Document.new(:title => "foobar")
+    assert_nil d.collection, "collezione non nulla?"
+  end
+  
+  def test_collection_without_volume
+    d = documents(:teatro_elisabettiano)
+    d.collection_name = "Pippo"
+    assert_equal "Pippo", d.collection
+  end
+
+  def test_collection_with_volume
+    d = documents(:teatro_elisabettiano)
+    d.collection_name = "Pippo"
+    d.collection_volume = "12"
+    assert_equal "Pippo ; 12", d.collection
   end
 
   def test_find_by_keywords_in_title

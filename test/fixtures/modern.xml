@@ -35,12 +35,18 @@
     <subfield code='a'>XXVIII, 1274 p.</subfield>
     <subfield code='d'>21 cm.</subfield>
   </datafield>
+  <datafield tag="225" ind1=" " ind2="1">
+    <subfield code="a">I grandi classici stranieri</subfield>
+  </datafield>
   <datafield tag="300" ind1=" " ind2=" ">
     <subfield code="a">Trad. di Gabriele Baldini</subfield>
   </datafield>  
   <datafield tag="300" ind1=" " ind2=" ">
     <subfield code="a">Altra nota</subfield>
   </datafield>  
+  <datafield tag="225" ind1=" " ind2="1">
+    <subfield code="a">I grandi classici stranieri</subfield>
+  </datafield>
   <datafield tag='702' ind1=' ' ind2='1'>
     <subfield code='a'>Praz, Mario</subfield>
     <subfield code='3'>CCFIV000494</subfield>
@@ -80,7 +86,7 @@
     <subfield code='g'>in appendice: lettere di Giorgio Strehler e Claudio Abbado</subfield>
   </datafield>
   <datafield tag='205' ind1=' ' ind2=' '>
-    <subfield code='a'>2. ed</subfield>
+    <subfield code='a'>2. ed.</subfield>
   </datafield>
   <datafield tag='210' ind1=' ' ind2=' '>
     <subfield code='a'>Milano</subfield>

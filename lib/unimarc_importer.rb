@@ -29,10 +29,15 @@ class UnimarcImporter
       d.national_bibliography_number = sub('b') if sub('a') == "IT"
     when '200'
       d.title = construct_title
+    when '205'
+      d.physical_description = sub('a')
     when '210'
-      d.publisher = construct_publisher
+      d.publication = construct_publisher
     when '215'
-      d.physical_description = construct_physical_description
+      d.physical_description = append(d.physical_description, construct_physical_description)
+    when '225'
+      d.collection_name = sub_unless_nil('a')
+      d.collection_volume = sub_unless_nil('v')
     when '300'
       if d.notes
         d.notes += ". " + sub('a')
@@ -85,5 +90,14 @@ class UnimarcImporter
       Author.new(:name => sub('a'), :id_sbn => id_sbn)
     author.save || (raise author.errors.full_messages.join("; "))
     author
+  end
+  
+  def append(a, b)
+    return b unless a
+    "#{a}; #{b}"
+  end
+  
+  def sub_unless_nil(code)
+    sub(code) == "" ? nil : sub(code).strip
   end
 end

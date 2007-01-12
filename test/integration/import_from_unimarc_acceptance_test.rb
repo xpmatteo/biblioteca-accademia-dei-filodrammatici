@@ -42,13 +42,11 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     @document = Document.find_by_id_sbn('ANA0019058')
     assert_nil                  @document.author
     assert_title                "Teatro elisabettiano : Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford / [sotto la direzione di Mario Praz]"
-    assert_publisher            "Firenze : Sansoni, stampa 1948"
+    assert_publication            "Firenze : Sansoni, stampa 1948"
     assert_physical_description "XXVIII, 1274 p. ; 21 cm."
     assert_notes                "Trad. di Gabriele Baldini. Altra nota"
     assert_national_bibliography_number "1929 4793"
     assert_signature            "S.I 14"
-    
-    assert_not_nil Author.find_by_name("Praz, Mario")
     assert_names                ["Praz, Mario"]
     assert_collection           "I grandi classici stranieri"
   end
@@ -68,11 +66,11 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_author               "Grassi, Paolo <1919-1981>"
     assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
     assert_title                "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
-    assert_publisher            "Milano : Mursia, 1977"
-    assert_physical_description "2. ed.;  368 p. : \16! c. di tav. ; 22 cm."
-    assert_notes                "Trad. di Gabriele Baldini ... [et al.!, sotto la direzione di Mario Praz"
+    assert_publication            "Milano : Mursia, 1977"
+    assert_physical_description "2. ed.; 368 p. : \\16] c. di tav. ; 22 cm."
+    assert_collection_volume    "11"
     assert_collection           "Voci, uomini e tempi ; 11"
-    assert_signature            "???"
+    assert_signature            "O.IV 13"
   end
   
 
@@ -90,7 +88,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   @document = Document.find_by_id_sbn('???')
   #   assert_author               "Abbati, Giovanni Battista"
   #   assert_title                "Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto."
-  #   assert_publisher            "In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaia"
+  #   assert_publication            "In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaia"
   #   assert_physical_description "72 p. ; 12o."
   #   assert_notes                "Il nome dell'A. figura nella pref ."
   #   # tag 012 subfield a
@@ -119,7 +117,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   @document = Document.find_by_id_sbn('LO1E021147')
   #   assert_author               "Bianchi, Antonio <1720-1775>"
   #   assert_title                "Li pregiudizj della paterna prevenzione o sia l'onesta premiata. Commedia II"
-  #   assert_publisher            "Venezia, 1754!"
+  #   assert_publication            "Venezia, 1754!"
   #   assert_physical_description "71-490 p. ; 18 cm"
   #   # tre occorrenze del tag 300; da concatenare con ". "
   #   assert_notes                "Opera non completamente identificata per la mancanza delle prime 70 pagine contenenti la prima commedia, Il Tutore infedele, come si legge nella lettera dedicatoria dell'autore a i lettori a pag. 76. Il luogo, la data e il nome dell'autore sono indicati a pag. 75 in fondo alla lettera dedicatoria a Sua Eccellenza il Sig. Marin Zorzi. L'opera contiene inoltre le commedie terza, quarta, quinta e sesta : Il buon parente ; Il segretario domestico ; Il sensale da servi. Ovvero la moglie tollerante ; La vedova di Moliere o sia la vanarella."
@@ -148,7 +146,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   @document = Document.find_by_id_sbn('BVEE022732')
   #   assert_author               "Raimondo, Marco Antonio <fl. 1625>"
   #   assert_title                "Il parto finto, comedia del sign. Marcantonio Raimondo romano"
-  #   assert_publisher            "In Venetia : presso Angelo Saluadori ; si vendono in Pesaro : all'insegna della Venetia, 1629"
+  #   assert_publication            "In Venetia : presso Angelo Saluadori ; si vendono in Pesaro : all'insegna della Venetia, 1629"
   #   assert_physical_description "142, [2] p. ; 12°"
   #   assert_notes                "Marca di Salvadori (colomba. Motto: Salvia. Salvat.) sul front."
   #   assert_collection           nil
@@ -166,7 +164,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   # 
   # def test_should_keep_sbn_data_in_duplicate_fields
   #   for document in Document.find(:all)
-  #     for field in %w(title, publisher, physical_description, notes, numbers, signature)
+  #     for field in %w(title, publication, physical_description, notes, numbers, signature)
   #       # assert_equal document.title, document.sbn_title
   #       assert_equal document.attributes[field.to_sym], document.attributes[("sbn_" + field).to_sym]
   #     end
@@ -180,7 +178,7 @@ private
   end
 
   def assert_collection(expected)
-    assert_equal expected, @document.collection.name, "collezione diversa da atteso"
+    assert_equal expected, @document.collection, "collezione diversa da atteso"
   end
   
   def assert_names(expected)
@@ -191,8 +189,8 @@ private
     assert_equal expected, @document.issued_with.map {|n| n.title} , "issued_with diversi da atteso"
   end
 
-  %w(title publisher notes signature footprint physical_description signature footnote 
-    national_bibliography_number title_without_article).each do |attribute|
+  %w(title publication notes signature footprint physical_description signature footnote 
+    national_bibliography_number collection_volume collection_name).each do |attribute|
     self.class_eval <<-END
       def assert_#{attribute}(expected)
         assert_equal expected, @document.attributes["#{attribute}"], "#{attribute} diverso da atteso"

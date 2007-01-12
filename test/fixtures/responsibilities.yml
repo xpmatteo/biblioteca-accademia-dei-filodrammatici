@@ -9,3 +9,9 @@ praz_curatore_di_teatro_elisabettiano:
   author_id: 104
   document_id: 147
   unimarc_tag: 702
+
+baldini_curatore_di_teatro_elisabettiano:
+  id: 3
+  author_id: 105
+  document_id: 147
+  unimarc_tag: 702

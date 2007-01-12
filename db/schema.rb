@@ -21,13 +21,15 @@ ActiveRecord::Schema.define(:version => 25) do
     t.column "id_sbn",                       :string
     t.column "title_without_article",        :string
     t.column "title",                        :string
-    t.column "publisher",                    :string
+    t.column "publication",                  :string
     t.column "notes",                        :string
     t.column "signature",                    :string
     t.column "footprint",                    :string
     t.column "physical_description",         :string
     t.column "footnote",                     :string
     t.column "national_bibliography_number", :string
+    t.column "collection_name",              :string
+    t.column "collection_volume",            :string
     t.column "author_id",                    :integer
   end
 
