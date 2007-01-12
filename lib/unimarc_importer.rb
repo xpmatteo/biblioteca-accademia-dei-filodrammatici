@@ -5,6 +5,7 @@ class UnimarcImporter
   attr_accessor :field
   
   def do_import(filename)
+    count = 0
     reader = RMARC::MarcXmlReader.new(filename)
     while reader.has_next
       record = reader.next()
@@ -14,9 +15,10 @@ class UnimarcImporter
         @field = field
         parse_field(d)
       end
-      d.save
+      d.save || (raise "cannot save: " + d.errors.full_messages.join(", "))
       add_names(d)
-      print "."
+      count += 1
+      puts count
       $stdout.flush
     end
   end

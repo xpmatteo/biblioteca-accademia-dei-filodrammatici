@@ -3,9 +3,9 @@
 
 <h3><%=h @page_title %></h3>
 
-<table id="documents">
+<div id="documents">
 <%= render :partial => 'document', :collection => @documents %>
-</table>
+</div>
 
 <%= link_to 'Previous page', { :page => @document_pages.current.previous } if @document_pages.current.previous %>
 <%= pagination_links @document_pages %>

@@ -1,6 +1,6 @@
 class RefactorDocument < ActiveRecord::Migration
   COLUMNS = %w(title publication notes signature footprint physical_description 
-                footnote national_bibliography_number collection_name collection_volume)
+                national_bibliography_number collection_name collection_volume)
   def self.up
     COLUMNS.each do |column|
       begin

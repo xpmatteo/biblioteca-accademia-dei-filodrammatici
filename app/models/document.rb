@@ -16,9 +16,12 @@ class Document < ActiveRecord::Base
     sql = "select distinct D.* 
              from documents D, responsibilities R, authors A
             where D.id = R.document_id 
-              and A.id = R.author_id "
-#              and match (D.title, D.publisher, D.notes, A.name) against (?)"
-    Document.find_by_sql([sql, keywords])
+              and A.id = R.author_id 
+              and 
+              (   match (D.title, D.publication, D.notes, D.national_bibliography_number, D.id_sbn) against (:keywords)
+               or match (A.name, A.id_sbn) against (:keywords)
+              )"
+    Document.find_by_sql([sql, {:keywords => keywords}])
   end
   
 end

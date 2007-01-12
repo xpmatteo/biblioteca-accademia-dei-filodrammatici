@@ -1,38 +1,23 @@
-<tr class="document-begin">
-  <th class='bibliographic-level'>Livello&nbsp;bibliografico:</th>
-  <td>Monografia</td>
-</tr>  
-<% if document.author -%>
-<tr>
-  <th>Autore:</th>
-  <td class='document-author'>
-    <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>
-  </td>
-</tr>
-<% end -%>
-<tr>
-  <th>Titolo:</th>
-  <td class='document-title'><%=h document.title %></td>
-</tr>  
-<tr>
-  <th>Pubblicazione:</th>
-  <td class='document-publication'><%=h document.publication %></td>
-</tr>
-<tr>
-  <th>Descrizione fisica:</th>
-  <td class='document-physical-description'><%=h document.physical_description %></td>
-</tr>
-<tr>
-  <th>Nomi:</th>
-  <td class='document-names'>
+<div>
+  <% if document.author -%>
+    <p class="document-author">
+      <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>
+    <p>
+  <% end -%>
+
+  <p>
+    <%=show document.title %>
+    <%=show document.publication %>
+    <%=show document.physical_description %>
+    <%=show document.notes %>
+    <%=show document.collection %>
+    <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
+    <%=show document.signature, "Segn.: " %>
     <% document.names.each_with_index do |author, index| %>
       <%= "; " unless 0 == index %> 
       <%= link_to_unless_current h(author.name), :action => 'author', :id => author  %>
     <% end %>
-  </td>
-</tr>
-<tr class="document-end">
-  <th>Codice SBN:</th>
-  <td class='document-id-sbn'><%=h document.id_sbn %></td>
-</tr>
-
+    <br />
+    <%#= show document.id_sbn %>
+  </p>
+</div>

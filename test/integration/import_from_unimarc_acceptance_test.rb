@@ -73,6 +73,11 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_signature            "O.IV 13"
   end
   
+  def test_annuario_israelitico
+    @document = Document.find_by_id_sbn('TO01366584')
+    assert_title                "Annuario israelitico"
+    assert_names                []    
+  end
 
   # def test_scheda_antica_clotario
   #   # Abbati, Giovanni Battista

@@ -43,13 +43,12 @@ class DocumentTest < Test::Unit::TestCase
   def test_find_by_keywords_in_title
     assert_found_by_keywords [:teatro_elisabettiano], "elisabettiano"
     assert_found_by_keywords [:logica_umana], "logica umana"
-    assert_found_by_keywords [:logica_umana], "dramma rappresentato per la prima volta a Genova"
+    assert_found_by_keywords [:logica_umana], "Rimini"
   end
   
   def test_find_by_keywords_in_author
     assert_found_by_keywords [:logica_umana], "carlo"
     assert_found_by_keywords [:logica_umana], "Carlo Mor"
-    # assert_found_by_keywords [:teatro_elisabettiano], "elisabettiano"
   end
   
 private

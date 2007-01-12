@@ -3,7 +3,7 @@ class Author < ActiveRecord::Base
   validates_presence_of :name, :id_sbn
 
   has_many :responsibilities
-  has_many :documents, :through => :responsibilities
+  has_many :documents, :through => :responsibilities, :order => :title
 
   def self.initials
     sql = 'select distinct upper(left(name, 1)) as initial 

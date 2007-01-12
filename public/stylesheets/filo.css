@@ -175,11 +175,13 @@ table.teachers td {
 /* end news */
 
 /* documents */
-#documents td, #documents th {
-  vertical-align: top;
-  padding-right: 2em;
+#documents p {
+  margin: 0pt;  
 }
-.document-end td {
-  padding: 0 0 2em 0;
+#documents div {
+  margin: 2em 0em;  
+}
+.document-author {
+  font-weight: bold;
 }
 /* end documents */
