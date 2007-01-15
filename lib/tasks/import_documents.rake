@@ -12,4 +12,5 @@ task :import_documents => :environment do
 
   # Non sono riuscito a far lavorare correttamente l'iniziale Č in mysql
   Author.connection.execute("update authors set name = 'Chekhov, Anton Pavlovich' where name = 'Čehov, Anton Pavlovič'")
+  Author.connection.execute("update authors set name = 'Eluard, Paul' where name = 'Éluard, Paul'")  
 end

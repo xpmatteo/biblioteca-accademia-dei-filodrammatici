@@ -66,7 +66,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
     get :find, :q => "logica"
     assert_response :success
     assert_template 'documents/list'
-    assert_equal 'Ricerca: "logica"', assigns(:page_title)
+    assert_equal 'Ricerca "logica": un risultato', assigns(:page_title)
     assert_equal [documents(:logica_umana)], assigns(:documents)
   end
   

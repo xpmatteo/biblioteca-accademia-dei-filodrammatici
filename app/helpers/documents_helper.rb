@@ -1,12 +1,12 @@
 module DocumentsHelper
   def show(x, prefix="", klass=:data)
-    return "" unless x
+    return "" if x.blank?
     prefix + "<span class='document-#{klass}'>" + h(x) + "</span><br />"
   end
   
   def show_names(document)
     result = ""
-    document.names.each_with_index do |author, index|
+    document.names.reject{|name| name == document.author }.each_with_index do |author, index|
       result += "; " unless 0 == index
       result += link_to_unless_current h(author.name), :action => 'author', :id => author
     end

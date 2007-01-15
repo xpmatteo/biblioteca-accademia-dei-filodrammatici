@@ -1,6 +1,6 @@
 class Document < ActiveRecord::Base
   validates_uniqueness_of :id_sbn
-  validates_presence_of :id_sbn
+  validates_presence_of :id_sbn, :title
 
   acts_as_tree :order => 'id_sbn'
   

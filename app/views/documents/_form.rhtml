@@ -1,0 +1,33 @@
+<%= error_messages_for 'document' %>
+
+<!--[form:document]-->
+<p>Id sbn: <%= @document.id_sbn %><br/>
+
+<p><label for="document_title">Titolo</label><br/>
+<%= text_area 'document', 'title', :size => '50x6'  %></p>
+
+<p><label for="document_publication">Pubblicazione</label><br/>
+<%= text_field 'document', 'publication', :size => 50  %></p>
+
+<p><label for="document_notes">Note</label><br/>
+<%= text_area 'document', 'notes', :size => '50x6'  %></p>
+
+<p><label for="document_signature">Segnatura</label><br/>
+<%= text_field 'document', 'signature', :size => 50  %></p>
+
+<p><label for="document_footprint">Impronta</label><br/>
+<%= text_field 'document', 'footprint', :size => 50  %></p>
+
+<p><label for="document_physical_description">Descrizione fisica</label><br/>
+<%= text_field 'document', 'physical_description', :size => 50  %></p>
+
+<p><label for="document_national_bibliography_number">Numero bibliografia nazionale</label><br/>
+<%= text_field 'document', 'national_bibliography_number', :size => 50  %></p>
+
+<p><label for="document_collection_name">Collezione</label><br/>
+<%= text_field 'document', 'collection_name', :size => 50  %></p>
+
+<p><label for="document_collection_volume">Volume o tomo</label><br/>
+<%= text_field 'document', 'collection_volume', :size => 50  %></p>
+<!--[eoform:document]-->
+

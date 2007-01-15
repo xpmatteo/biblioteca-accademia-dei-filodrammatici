@@ -5,21 +5,19 @@
     </p>
   <% end -%>
 
-  <div>
-    <%=show document.title, "", :title %>
-    <%=show document.publication, "", :publication %>
-    <%=show document.physical_description %>
-    <%=show document.notes %>
-    <%=show document.collection %>
-    <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
-    <%=show document.signature, "Segn.: " %>
-    <p class='document-names'>
-      <%=show_names document %>
-    </p>
-    <%=show_published_in document %>
-    <%=show_published_with document %>
-    <%#= show document.id_sbn %>
-    
-    <br /><%= admin_link_to "modifica", :action => :edit, :id => document %>
-  </div>
+  <%=show document.title, "", :title %>
+  <%=show document.publication, "", :publication %>
+  <%=show document.physical_description %>
+  <%=show document.notes %>
+  <%=show document.collection %>
+  <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
+  <%=show document.signature, "Segn.: " %>
+  <p class='document-names'>
+    <%=show_names document %>
+  </p>
+  <%=show_published_in document %>
+  <%=show_published_with document %>
+  <%#= show document.id_sbn %>
+
+  <p><%= admin_link_to "modifica", :action => :edit, :id => document %></p>
 </div>

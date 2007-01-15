@@ -8,18 +8,20 @@ class DocumentsController < ApplicationController
   
   def authors
     @authors = Author.find(:all, :order => 'name', :conditions => ['upper(left(name, 1)) = upper(?)', params[:initial]])
+    @page_title = "Iniziale '#{params[:initial]}': " + pluralize(@authors.size, "autore", "autori")
   end
   
   def author
     author = Author.find(params[:id])
-    @page_title = author.name
-    paginate_documents author.documents
+    documents = author.documents
+    paginate_documents documents
+    @page_title = author.name + ": " + pluralize(documents.size, "scheda", "schede", :feminine => true)
     render :template => 'documents/list'
   end
 
   def find
-    @page_title = "Ricerca: \"#{params[:q]}\""
     documents = Document.find_by_keywords(params[:q])
+    @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(documents.size, "risultato", "risultati")
     paginate_documents documents
     render :template => 'documents/list'
   end
@@ -48,4 +50,18 @@ private
     return [pages, slice]
   end
 
+  def pluralize(count, singular, plural, options={})
+    case count
+    when 0
+      "nessun " + singular
+    when 1
+      if options[:feminine]
+        "una " + singular
+      else
+        "un " + singular
+      end
+    else
+      count.to_s + " " + plural
+    end
+  end
 end
