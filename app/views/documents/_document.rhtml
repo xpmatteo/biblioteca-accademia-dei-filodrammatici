@@ -13,11 +13,9 @@
     <%=show document.collection %>
     <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
     <%=show document.signature, "Segn.: " %>
-    <% document.names.each_with_index do |author, index| %>
-      <%= "; " unless 0 == index %> 
-      <%= link_to_unless_current h(author.name), :action => 'author', :id => author  %>
-    <% end %>
-    <br />
+    <%=show_names document %>
+    <%=show_published_in document%>
+    <%=show_published_with document%>
     <%#= show document.id_sbn %>
   </p>
 </div>

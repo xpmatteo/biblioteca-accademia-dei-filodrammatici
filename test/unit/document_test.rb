@@ -51,6 +51,15 @@ class DocumentTest < Test::Unit::TestCase
     assert_found_by_keywords [:logica_umana], "Carlo Mor"
   end
   
+  def test_issued_with
+    root = documents(:teatro_elisabettiano)
+    assert_nil root.parent, "non ha genitore"
+    assert_equal [], root.children, "non ha figli"
+    root.children << documents(:logica_umana)
+    assert_equal ["Logica umana"], root.children.map {|child| child.title }, "ha un figlio"
+    assert_equal Document.find_by_title("Logica umana").parent, root
+  end
+  
 private
   def assert_found_by_keywords(expected, keywords)
     actual = Document.find_by_keywords(keywords).map { |d| d.title }

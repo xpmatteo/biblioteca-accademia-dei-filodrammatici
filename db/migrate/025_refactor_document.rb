@@ -1,44 +1,44 @@
 class RefactorDocument < ActiveRecord::Migration
-  COLUMNS = %w(title publication notes signature footprint physical_description 
-                national_bibliography_number collection_name collection_volume)
+  OPTIONS = { :force => true, :options => "collate 'utf8_unicode_ci', type 'MyISAM'" }
   def self.up
-    COLUMNS.each do |column|
-      begin
-        add_column :documents, column.to_sym, :string
-      rescue 
-        puts $!
-      end
+    create_table "authors", OPTIONS do |t|
+      t.column "name",   :string
+      t.column "id_sbn", :string
     end
-    
-    add_column :documents, :author_id, :integer
-    
-    begin
-      drop_table "marc_fields"
-    rescue
+
+    create_table "documents", OPTIONS do |t|
+      t.column "parent_id",                    :integer
+      t.column "author_id",                    :integer
+      t.column "id_sbn",                       :string
+      t.column "title",                        :string
+      t.column "publication",                  :string
+      t.column "notes",                        :string
+      t.column "signature",                    :string
+      t.column "footprint",                    :string
+      t.column "physical_description",         :string
+      t.column "national_bibliography_number", :string
+      t.column "collection_name",              :string
+      t.column "collection_volume",            :string
+      t.column "responsibilities_denormalized", :string
     end
-    
-    create_table :responsibilities, :force => true do |t|
+
+    execute <<-END      
+      CREATE FULLTEXT INDEX fulltext_documents 
+          ON documents (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn)
+    END
+
+    create_table :responsibilities, OPTIONS do |t|
       t.column :author_id,    :integer
       t.column :document_id,  :integer
       t.column :unimarc_tag,  :string
     end    
+
+    begin
+      drop_table "marc_fields"
+    rescue
+    end    
   end
 
   def self.down
-    COLUMNS.each do |column|
-      begin        
-        remove_column :documents, column.to_sym
-      rescue 
-        puts $!
-      end
-    end 
-    
-    remove_column :documents, :author_id
-    
-    begin
-      drop_table "responsibilities"
-    rescue
-      puts $!
-    end
   end
 end

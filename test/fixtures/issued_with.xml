@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection>
+ <record>
+  <leader>01273nam  2200217   45  </leader>
+  <controlfield tag='001'>LO10865597</controlfield>
+  <controlfield tag='005'>20041004000000.0</controlfield>
+  <datafield tag='100' ind1=' ' ind2=' '>
+    <subfield code='a'>20061219D1835    |||u0ITAa01030506ba</subfield>
+  </datafield>
+  <datafield tag='101' ind1='|' ind2=' '>
+    <subfield code='a'>ITA</subfield>
+  </datafield>
+  <datafield tag='102' ind1=' ' ind2=' '>
+    <subfield code='a'>IT</subfield>
+  </datafield>
+  <datafield tag='105' ind1=' ' ind2=' '>
+    <subfield code='a'>        00|||</subfield>
+  </datafield>
+  <datafield tag='200' ind1='1' ind2=' '>
+    <subfield code='a'>Florilegio drammatico francese. Tomo 2</subfield>
+  </datafield>
+  <datafield tag='210' ind1=' ' ind2=' '>
+    <subfield code='a'>Livorno</subfield>
+    <subfield code='c'>Migliaresi e Carrarini</subfield>
+    <subfield code='d'>1835</subfield>
+  </datafield>
+  <datafield tag='215' ind1=' ' ind2=' '>
+    <subfield code='a'>165 p.</subfield>
+    <subfield code='d'>16 cm</subfield>
+  </datafield>
+  <datafield tag='225' ind1='2' ind2=' '>
+    <subfield code='a'>Florilegio drammatico francese</subfield>
+    <subfield code='v'>         2</subfield>
+  </datafield>
+  <datafield tag='300' ind1=' ' ind2=' '>
+    <subfield code='a'>Contiene : La procura, e la convalescenza ; La camera verde ossia le disgrazie d&apos;un amante fortunato. - 1. vol. di un&apos;opera in tre tomi.</subfield>
+  </datafield>
+  <datafield tag='410' ind1=' ' ind2='0'>
+    <subfield code='1'>001LO10878326</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>Florilegio drammatico francese</subfield>
+  </datafield>
+  <datafield tag='423' ind1=' ' ind2='1'>
+    <subfield code='1'>001LO10878361</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>La procura, e la convalescenza</subfield>
+    <subfield code='1'>200 1</subfield>
+    <subfield code='e'>commedia nuovissima</subfield>
+    <subfield code='1'>700 1</subfield>
+    <subfield code='e'>Mazères, Édouard Joseph Ennemond</subfield>
+    <subfield code='3'>CLIAV009431</subfield>
+    <subfield code='1'>701 1</subfield>
+    <subfield code='e'>Théaulon de Lambert, Marie</subfield>
+    <subfield code='3'>DLIAV026126</subfield>
+  </datafield>
+  <datafield tag='423' ind1=' ' ind2='1'>
+    <subfield code='1'>001LO10878362</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>La camera verde ossia le disgrazie d&apos;un amante fortunato</subfield>
+    <subfield code='1'>200 1</subfield>
+    <subfield code='e'>commedia</subfield>
+    <subfield code='1'>700 1</subfield>
+    <subfield code='e'>Scribe, Eugène</subfield>
+    <subfield code='3'>CCFIV037439</subfield>
+    <subfield code='1'>701 1</subfield>
+    <subfield code='e'>Théaulon de Lambert, Marie Emmanuel Guillaume Marguerite &lt;1787-1841&gt;</subfield>
+    <subfield code='3'>DLIAV026126</subfield>
+  </datafield>
+  <datafield tag='801' ind1=' ' ind2='0'>
+    <subfield code='a'>IT</subfield>
+    <subfield code='b'>sPolo Regionale Lombardo</subfield>
+    <subfield code='c'>20041004</subfield>
+    <subfield code='g'>RICA</subfield>
+  </datafield>
+  <datafield tag='950' ind1=' ' ind2='0'>
+    <subfield code='a'>LO1 44 Biblioteca Accademia dei Filodrammatici Milano</subfield>
+    <subfield code='b'>1 v.</subfield>
+    <subfield code='d'>E.II 10</subfield>
+    <subfield code='e'>   00002378</subfield>
+  </datafield>
+</record>
+<record>
+  <leader>01447nam  2200313   45  </leader>
+  <controlfield tag='001'>AQ10035993</controlfield>
+  <controlfield tag='005'>20010920000000.0</controlfield>
+  <datafield tag='100' ind1=' ' ind2=' '>
+    <subfield code='a'>20061219D1949    |||u0ITAa01030506ba</subfield>
+  </datafield>
+  <datafield tag='101' ind1='|' ind2=' '>
+    <subfield code='a'>ITA</subfield>
+  </datafield>
+  <datafield tag='102' ind1=' ' ind2=' '>
+    <subfield code='a'>IT</subfield>
+  </datafield>
+  <datafield tag='105' ind1=' ' ind2=' '>
+    <subfield code='a'>        00|||</subfield>
+  </datafield>
+  <datafield tag='200' ind1='1' ind2=' '>
+    <subfield code='a'>Il villano al suo villaggio ; L&apos;astuta innamorata</subfield>
+    <subfield code='f'>di Lope de Vega</subfield>
+  </datafield>
+  <datafield tag='210' ind1=' ' ind2=' '>
+    <subfield code='a'>Milano</subfield>
+    <subfield code='a'>Roma</subfield>
+    <subfield code='c'>Bompiani</subfield>
+    <subfield code='d'>stampa 1949</subfield>
+  </datafield>
+  <datafield tag='215' ind1=' ' ind2=' '>
+    <subfield code='a'>363 p.</subfield>
+    <subfield code='d'>18 cm.</subfield>
+  </datafield>
+  <datafield tag='225' ind1='2' ind2=' '>
+    <subfield code='a'>Pegaso teatrale</subfield>
+    <subfield code='v'>        11</subfield>
+  </datafield>
+  <datafield tag='410' ind1=' ' ind2='0'>
+    <subfield code='1'>001RAV0051943</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>Pegaso teatrale</subfield>
+  </datafield>
+  <datafield tag='423' ind1=' ' ind2='1'>
+    <subfield code='1'>001AQ10035994</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>Il villano al suo villaggio</subfield>
+    <subfield code='1'>700 1</subfield>
+    <subfield code='a'>Vega, Lope : de</subfield>
+    <subfield code='3'>CCFIV049435</subfield>
+  </datafield>
+  <datafield tag='423' ind1=' ' ind2='1'>
+    <subfield code='1'>001AQ10035995</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>L&apos;astuta innamorata</subfield>
+    <subfield code='1'>700 1</subfield>
+    <subfield code='a'>Vega, Lope : de</subfield>
+    <subfield code='3'>CCFIV049435</subfield>
+  </datafield>
+  <datafield tag='454' ind1=' ' ind2='1'>
+    <subfield code='1'>001AQ10035997</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>La discreta enamorada</subfield>
+    <subfield code='1'>700 1</subfield>
+    <subfield code='a'>Vega, Lope : de</subfield>
+    <subfield code='3'>CCFIV049435</subfield>
+  </datafield>
+  <datafield tag='454' ind1=' ' ind2='1'>
+    <subfield code='1'>001AQ10035996</subfield>
+    <subfield code='1'>2001 </subfield>
+    <subfield code='a'>El villano en su rincon</subfield>
+    <subfield code='1'>700 1</subfield>
+    <subfield code='a'>Vega, Lope : de</subfield>
+    <subfield code='3'>CCFIV049435</subfield>
+  </datafield>
+  <datafield tag='676' ind1=' ' ind2=' '>
+    <subfield code='a'>863.3</subfield>
+    <subfield code='v'>19</subfield>
+  </datafield>
+  <datafield tag='700' ind1=' ' ind2='1'>
+    <subfield code='a'>Vega, Lope : de</subfield>
+    <subfield code='3'>CCFIV049435</subfield>
+  </datafield>
+  <datafield tag='801' ind1=' ' ind2='0'>
+    <subfield code='a'>IT</subfield>
+    <subfield code='b'>sPolo Regionale Lombardo</subfield>
+    <subfield code='c'>20010920</subfield>
+    <subfield code='g'>RICA</subfield>
+  </datafield>
+  <datafield tag='900' ind1=' ' ind2='1'>
+    <subfield code='3'>CBVEV042604</subfield>
+    <subfield code='a'>Lope Felix de Vega Karpio</subfield>
+    <subfield code='z'>Vega, Lope : de</subfield>
+  </datafield>
+  <datafield tag='900' ind1=' ' ind2='1'>
+    <subfield code='3'>DCFIV062509</subfield>
+    <subfield code='a'>Vega Carpio, Lope : de</subfield>
+    <subfield code='z'>Vega, Lope : de</subfield>
+  </datafield>
+  <datafield tag='900' ind1=' ' ind2='1'>
+    <subfield code='3'>DCFIV153264</subfield>
+    <subfield code='a'>Vega Carpio, Felix Lope : de</subfield>
+    <subfield code='z'>Vega, Lope : de</subfield>
+  </datafield>
+  <datafield tag='900' ind1=' ' ind2='1'>
+    <subfield code='3'>CPARV377035</subfield>
+    <subfield code='a'>Burguillos, Tome : de</subfield>
+    <subfield code='z'>Vega, Lope : de</subfield>
+  </datafield>
+  <datafield tag='900' ind1=' ' ind2='1'>
+    <subfield code='3'>DUSMV758919</subfield>
+    <subfield code='a'>Vega Carpio, Lope FW1B0elix : de</subfield>
+    <subfield code='z'>Vega, Lope : de</subfield>
+  </datafield>
+  <datafield tag='950' ind1=' ' ind2='0'>
+    <subfield code='a'>LO1 44 Biblioteca Accademia dei Filodrammatici Milano</subfield>
+    <subfield code='d'>G.VII 41</subfield>
+    <subfield code='e'>   00003122</subfield>
+  </datafield>
+</record>
+
+</collection>

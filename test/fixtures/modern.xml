@@ -140,48 +140,4 @@
   </datafield>
 </record>
 
-<record>
-  <leader>00489nas  2200169   45  </leader>
-  <controlfield tag='001'>TO01366584</controlfield>
-  <controlfield tag='005'>20050201000000.0</controlfield>
-  <datafield tag='100' ind1=' ' ind2=' '>
-    <subfield code='a'>20061219A1868    |||u0ITAa01030506ba</subfield>
-  </datafield>
-  <datafield tag='101' ind1='|' ind2=' '>
-    <subfield code='a'>ITA</subfield>
-  </datafield>
-  <datafield tag='102' ind1=' ' ind2=' '>
-    <subfield code='a'>IT</subfield>
-  </datafield>
-  <datafield tag='110' ind1=' ' ind2=' '>
-    <subfield code='a'>AUA    0|||</subfield>
-  </datafield>
-  <datafield tag='200' ind1='1' ind2=' '>
-    <subfield code='a'>Annuario israelitico</subfield>
-  </datafield>
-  <datafield tag='210' ind1=' ' ind2=' '>
-    <subfield code='a'>Trieste</subfield>
-    <subfield code='c'>A. di S. Curiel</subfield>
-    <subfield code='d'>1868-</subfield>
-  </datafield>
-  <datafield tag='215' ind1=' ' ind2=' '>
-    <subfield code='a'>v.</subfield>
-    <subfield code='d'>21 cm</subfield>
-  </datafield>
-  <datafield tag='300' ind1=' ' ind2=' '>
-    <subfield code='a'>Annuale.</subfield>
-  </datafield>
-  <datafield tag='801' ind1=' ' ind2='0'>
-    <subfield code='a'>IT</subfield>
-    <subfield code='b'>sPolo Regionale Lombardo</subfield>
-    <subfield code='c'>20050201</subfield>
-    <subfield code='g'>RICA</subfield>
-  </datafield>
-  <datafield tag='950' ind1=' ' ind2='0'>
-    <subfield code='a'>LO1 44 Biblioteca Accademia dei Filodrammatici Milano</subfield>
-    <subfield code='d'>I.VIII 20</subfield>
-    <subfield code='e'>   00003448</subfield>
-  </datafield>
-</record>
-
 </collection>

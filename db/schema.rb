@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 26) do
+ActiveRecord::Schema.define(:version => 27) do
 
   create_table "authors", :force => true do |t|
     t.column "name",   :string
@@ -20,9 +20,8 @@ ActiveRecord::Schema.define(:version => 26) do
   end
 
   create_table "documents", :force => true do |t|
+    t.column "author_id",                    :integer
     t.column "id_sbn",                       :string
-    t.column "title_without_article",        :string
-    t.column "footnote",                     :string
     t.column "title",                        :string
     t.column "publication",                  :string
     t.column "notes",                        :string
@@ -32,7 +31,7 @@ ActiveRecord::Schema.define(:version => 26) do
     t.column "national_bibliography_number", :string
     t.column "collection_name",              :string
     t.column "collection_volume",            :string
-    t.column "author_id",                    :integer
+    t.column "parent_id",                    :integer
   end
 
   add_index "documents", ["title", "publication", "notes", "national_bibliography_number", "id_sbn"], :name => "fulltext_documents"

@@ -44,6 +44,57 @@ module RMARC
   class MarcStreamReader
     
     private
+        
+    def cleanup(data)
+      # MV: Vedi http://www.gymel.com/charsets/MAB2.html -- il carattere modificatore 
+      # è in codifica ISO 5426 con il bit alto azzerato 
+      table = {
+        # accenti acuti e gravi
+        "\016A\017a" => "à",
+        "\016A\017e" => "è",
+        "\016A\017i" => "ì",
+        "\016A\017o" => "ò",
+        "\016A\017u" => "ù",
+        "\016B\017a" => "á",
+        "\016B\017e" => "é",
+        "\016B\017i" => "í",
+        "\016B\017o" => "ó",
+        "\016B\017u" => "ú",
+        "\016B\017A" => "Á",
+        "\016B\017E" => "É",
+        "\016B\017c" => "ć",
+
+        # modificatori vari
+        "\016D\017n" => "ñ",
+        "\016O\017c" => "č",
+        "\016O\017C" => "Č",
+        "\016O\017z" => "ž",
+        "\016O\017s" => "š",
+        "\016P\017c" => "ç",
+        "\016E\017e" => "ē",
+        "\016E\017o" => "ō",
+        "\016C\017a" => "â",
+        "\016C\017e" => "ê",
+        "\016G\017E" => "Ė",
+
+        # dieresi
+        "\016I\017e" => "ë",
+        "\016I\017u" => "ü",
+        "\016I\017o" => "ö",
+
+        # simboli non modificatori
+        "\016y\017"  => "ø",
+        "\016u\017"  => "ı",
+        "\0161\017"  => "'",
+        "\016z\017"  => "oe",
+        "\016\x2d\017" => "'",
+        "\016=\017" => "",   
+      }
+      table.each_key { |exp| data = data.gsub(exp, table[exp])}
+      if data =~ /\016/ then raise "bad characters persist in #{data}"; end
+      data
+    end
+
     
     def parse_data_field(entry)
       msg = "Unexpected EOF while reading field with tag #{entry.tag}" 
@@ -67,12 +118,12 @@ module RMARC
         if s == nil
           raise msg
         elsif s == Constants.US        
-          field.add(Subfield.new(code, data)) if code != nil
+          field.add(Subfield.new(code, cleanup(data))) if code != nil
           code = @input.read(1)
           i += 1
           data = ""
         elsif s == Constants.FT
-          field.add(Subfield.new(code, data)) if code != nil
+          field.add(Subfield.new(code, cleanup(data))) if code != nil
         else
           data << s if data != nil
         end
@@ -95,7 +146,7 @@ module RMARC
       
       length = leader.base_address - 25
       
-      raise "Invalid directory" if length % 12 != 0
+      raise "Invalid directory: length is #{length}" if length % 12 != 0
       
       dir = @input.read(length)
       
@@ -121,6 +172,9 @@ module RMARC
       
       raise "Expected record terminator" if @input.read(1) != Constants.RT
       
+      # MV: nei dati forniti da LISPA i record sono separati anche da NL
+      raise "Expected nl" if @input.read(1) != "\x0a"
+      
       return record
     end
     
@@ -144,5 +198,4 @@ module RMARC
       end
     end
   end
-  
 end

@@ -5,7 +5,8 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   def setup
     Document.delete_all
     Author.delete_all
-    UnimarcImporter.new.do_import File.dirname(__FILE__) + '/../fixtures/modern.xml'
+    Responsibility.delete_all
+    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
   end
 
   def zztest_find_subcodes
@@ -73,12 +74,35 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_signature            "O.IV 13"
   end
   
-  def test_annuario_israelitico
-    @document = Document.find_by_id_sbn('TO01366584')
-    assert_title                "Annuario israelitico"
-    assert_names                []    
+  def test_import_from_unimarc_binary_works
+    UnimarcImporter.new.import_binary File.dirname(__FILE__) + '/../fixtures/modern.uni'
+    assert_not_nil Document.find_by_title('Venezia 1795-1802 : la cronologia degli spettacoli e il Giornale dei teatri / Franco Rossi'), "non ha importato venezia"
+    assert_not_nil Document.find_by_title('Drammi lirici ed altri componimenti poetici / di Virginia Fedeli Galli'), "non ha importato virginia"
   end
-
+  
+  def test_import_issued_with
+    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/issued_with.xml'
+    assert_not_nil @document = Document.find_by_id_sbn('LO10865597'), "non trovato"
+    assert_title 'Florilegio drammatico francese. Tomo 2'
+    assert_collection 'Florilegio drammatico francese ; 2'
+    assert_issued_with ["La procura, e la convalescenza", "La camera verde ossia le disgrazie d'un amante fortunato"]
+    
+    @document = @document.children[0]
+    assert_equal '001LO10878361', @document.id_sbn
+    assert_not_nil @document.author, "non ha un autore?!?"
+    assert_author "Mazères, Édouard Joseph Ennemond"
+    assert_names ["Mazères, Édouard Joseph Ennemond", "Théaulon de Lambert, Marie"]
+    assert_equal 'CLIAV009431', @document.names[0].id_sbn
+    assert_equal 'DLIAV026126', @document.names[1].id_sbn
+  end
+  
+  def test_names_are_denormalized
+    @document = Document.find_by_id_sbn('MIL0066910')
+    expected = ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
+    assert_names                expected
+    assert_denormalized_names   expected.join("; ")
+  end
+  
   # def test_scheda_antica_clotario
   #   # Abbati, Giovanni Battista
   #   # Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto.
@@ -176,6 +200,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   end
   # end
   # 
+
 private
 
   def assert_author(expected)
@@ -191,11 +216,11 @@ private
   end
   
   def assert_issued_with(expected)
-    assert_equal expected, @document.issued_with.map {|n| n.title} , "issued_with diversi da atteso"
+    assert_equal expected, @document.children.map {|n| n.title} , "issued_with diversi da atteso"
   end
 
   %w(title publication notes signature footprint physical_description signature footnote 
-    national_bibliography_number collection_volume collection_name).each do |attribute|
+    national_bibliography_number collection_volume collection_name denormalized_names).each do |attribute|
     self.class_eval <<-END
       def assert_#{attribute}(expected)
         assert_equal expected, @document.attributes["#{attribute}"], "#{attribute} diverso da atteso"

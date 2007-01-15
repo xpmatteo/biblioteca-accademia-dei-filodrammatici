@@ -1,6 +1,8 @@
 class Document < ActiveRecord::Base
   validates_uniqueness_of :id_sbn
   validates_presence_of :id_sbn
+
+  acts_as_tree :order => 'id_sbn'
   
   has_many :responsibilities
   has_many :names, :source => :author, :through => :responsibilities, :order => :name

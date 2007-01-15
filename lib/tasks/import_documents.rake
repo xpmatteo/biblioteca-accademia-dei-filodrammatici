@@ -6,6 +6,10 @@ task :import_documents => :environment do
   Responsibility.delete_all
   Document.delete_all
   Author.delete_all    
-  UnimarcImporter.new.do_import 'dump/lispa-2006-12-10-2.xml'
-  UnimarcImporter.new.do_import 'dump/lispa-2006-12-10.xml'
+  importer = UnimarcImporter.new
+  importer.verbose = true
+  importer.import_binary 'dump/scarico-dati-lispa/p6470870.LO14451.uni'
+
+  # Non sono riuscito a far lavorare correttamente l'iniziale Č in mysql
+  Author.connection.execute("update authors set name = 'Chekhov, Anton Pavlovich' where name = 'Čehov, Anton Pavlovič'")
 end
