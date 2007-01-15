@@ -15,14 +15,10 @@ class Document < ActiveRecord::Base
   end
   
   def Document.find_by_keywords(keywords)
-    sql = "select distinct D.* 
-             from documents D, responsibilities R, authors A
-            where D.id = R.document_id 
-              and A.id = R.author_id 
-              and 
-              (   match (D.title, D.publication, D.notes, D.national_bibliography_number, D.id_sbn) against (:keywords)
-               or match (A.name, A.id_sbn) against (:keywords)
-              )"
+    sql = "select * 
+             from documents
+            where match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
+                against (:keywords)"
     Document.find_by_sql([sql, {:keywords => keywords}])
   end
   

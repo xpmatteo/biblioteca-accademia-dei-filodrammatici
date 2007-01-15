@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect         'docenti/:action/:id',      :controller => "teachers"
   map.author_initial  'biblio/autori/:initial',   :controller => "documents", :action => "authors"
   map.author          'biblio/autore/:id',        :controller => "documents", :action => "author"
-  map.document        'biblio/libro/:id',         :controller => "documents", :action => "show"
+  map.document        'biblio/scheda/:id',        :controller => "documents", :action => "show"
   map.connect         'biblio/:action/:id',       :controller => "documents"
 
   map.connect         'login',                    :controller => "login", :action => "login"

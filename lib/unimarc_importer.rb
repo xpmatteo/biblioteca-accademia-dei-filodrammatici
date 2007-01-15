@@ -24,6 +24,7 @@ class UnimarcImporter
         @field = field
         parse_field(d)
       end
+      denormalize_names(d)
       d.save || (raise "cannot save: " + d.errors.full_messages.join(", "))
       add_names(d)
       add_children(d)
@@ -161,5 +162,9 @@ class UnimarcImporter
       child.names << author
     end
     @children << child
+  end
+  
+  def denormalize_names(document)
+    document.responsibilities_denormalized = @names.map { |author| author.name }.join("; ")
   end
 end

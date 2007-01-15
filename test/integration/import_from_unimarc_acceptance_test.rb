@@ -96,11 +96,9 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_equal 'DLIAV026126', @document.names[1].id_sbn
   end
   
-  def test_names_are_denormalized
+  def test_responsibilities_are_denormalized
     @document = Document.find_by_id_sbn('MIL0066910')
-    expected = ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
-    assert_names                expected
-    assert_denormalized_names   expected.join("; ")
+    assert_responsibilities_denormalized "Grassi, Paolo <1919-1981>; Pozzi, Emilio; Strehler, Giorgio; Abbado, Claudio"
   end
   
   # def test_scheda_antica_clotario
@@ -220,7 +218,7 @@ private
   end
 
   %w(title publication notes signature footprint physical_description signature footnote 
-    national_bibliography_number collection_volume collection_name denormalized_names).each do |attribute|
+    national_bibliography_number collection_volume collection_name responsibilities_denormalized).each do |attribute|
     self.class_eval <<-END
       def assert_#{attribute}(expected)
         assert_equal expected, @document.attributes["#{attribute}"], "#{attribute} diverso da atteso"

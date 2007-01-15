@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class RoutesTest < ActionController::IntegrationTest
-  fixtures :menu_items
+  fixtures :menu_items, :documents
 
   def test_main_menu_contains_link_docenti
     get '/'
@@ -37,6 +37,13 @@ class RoutesTest < ActionController::IntegrationTest
     get '/biblio/autori/M'
     assert_response :success
     assert_template 'documents/authors'
+    
+    get '/biblio/scheda/146'
+    assert_response :success
+    assert_template 'documents/list'
+    
+    assert_equal "/biblio/scheda/146", 
+      url_for(:controller => 'document', :action => 'show', :id => 146,  :only_path => true)
   end
   
 private

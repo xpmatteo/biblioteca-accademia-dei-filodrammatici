@@ -63,10 +63,10 @@ class DocumentsControllerTest < Test::Unit::TestCase
   end
   
   def test_find_by_keywords
-    get :find, :q => "cinque atti"
+    get :find, :q => "logica"
     assert_response :success
     assert_template 'documents/list'
-    assert_equal 'Ricerca: "cinque atti"', assigns(:page_title)
+    assert_equal 'Ricerca: "logica"', assigns(:page_title)
     assert_equal [documents(:logica_umana)], assigns(:documents)
   end
   
@@ -82,5 +82,14 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'documents/list'
     assert_nil @response.body.index("<zot>"), "deve convertire i caratteri html in entita"    
+  end
+  
+  def test_show_single_document
+    doc = documents(:logica_umana)
+    get :show, :id => doc.id
+    assert_response :success
+    assert_equal [doc], assigns(:documents), "non ha assegnato"
+    assert_equal doc.title, assigns(:page_title), "titolo sbagliato"
+    assert_template 'documents/list', "template sbagliato"
   end
 end

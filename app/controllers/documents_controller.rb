@@ -1,4 +1,7 @@
 class DocumentsController < ApplicationController
+  scaffold :document
+  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors ]
+
   def index
     @content = Content.find_by_name("biblio") || Content.new(:body => "", :name => "biblio")
   end
@@ -10,18 +13,29 @@ class DocumentsController < ApplicationController
   def author
     author = Author.find(params[:id])
     @page_title = author.name
-    @document_pages, @documents = paginate_collection author.documents, :page => params[:page]
+    paginate_documents author.documents
     render :template => 'documents/list'
   end
 
   def find
     @page_title = "Ricerca: \"#{params[:q]}\""
     documents = Document.find_by_keywords(params[:q])
-    @document_pages, @documents = paginate_collection documents, :page => params[:page]
+    paginate_documents documents
+    render :template => 'documents/list'
+  end
+  
+  def show
+    document = Document.find(params[:id])
+    @page_title = document.title
+    paginate_documents [document]
     render :template => 'documents/list'
   end
   
 private
+
+  def paginate_documents(documents)
+    @document_pages, @documents = paginate_collection documents, :page => params[:page]
+  end
 
   def paginate_collection(collection, options = {})
     default_options = {:per_page => 10, :page => 1}

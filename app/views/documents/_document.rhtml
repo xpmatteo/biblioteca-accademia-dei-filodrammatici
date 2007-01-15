@@ -2,20 +2,24 @@
   <% if document.author -%>
     <p class="document-author">
       <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>
-    <p>
+    </p>
   <% end -%>
 
-  <p>
-    <%=show document.title %>
-    <%=show document.publication %>
+  <div>
+    <%=show document.title, "", :title %>
+    <%=show document.publication, "", :publication %>
     <%=show document.physical_description %>
     <%=show document.notes %>
     <%=show document.collection %>
     <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
     <%=show document.signature, "Segn.: " %>
-    <%=show_names document %>
-    <%=show_published_in document%>
-    <%=show_published_with document%>
+    <p class='document-names'>
+      <%=show_names document %>
+    </p>
+    <%=show_published_in document %>
+    <%=show_published_with document %>
     <%#= show document.id_sbn %>
-  </p>
+    
+    <br /><%= admin_link_to "modifica", :action => :edit, :id => document %>
+  </div>
 </div>

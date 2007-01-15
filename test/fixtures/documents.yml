@@ -5,11 +5,13 @@ logica_umana:
   title: Logica umana
   publication: "Rimini: Tp. Renzi, 1906"
   physical_description: "111 p. : ill. ; 17 cm"
+  responsibilities_denormalized: Mor, Carlo A.
   
 teatro_elisabettiano: 
   id: 147
   id_sbn: IT\ICCU\AQ1\0031672
   title: Teatro Elisabettiano
+  responsibilities_denormalized: Baldini, Gabriele; Praz, Mario
   
 bla_bla: 
   id: 148
