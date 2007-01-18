@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   def check_user_is_admin
     unless authorized?
+      session[:original_uri] = request.request_uri
       redirect_to :controller => 'login', :action => 'login'
     end
   end

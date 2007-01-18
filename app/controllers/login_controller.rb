@@ -2,11 +2,14 @@ class LoginController < ApplicationController
   EXPECTED_PASSWORD = '9817'
 
   def login
-    if request.post?
+    if request.get?
+      session[:original_uri] = params[:original_uri]      
+    else
       if EXPECTED_PASSWORD == params[:password]
-        redirect_to :controller => 'news'
         session[:authenticated] = true
         flash[:notice] = 'Benvenuto, amministratore'
+        redirect_to (session[:original_uri] || {:controller => 'news'})
+        session[:original_uri] = nil
       else
         flash[:notice] = 'Password errata'
       end
@@ -15,6 +18,6 @@ class LoginController < ApplicationController
 
   def logout
     session[:authenticated] = nil
-    redirect_to :controller => 'news'
+    redirect_to params[:original_uri] || {:controller => 'news'}
   end
 end
