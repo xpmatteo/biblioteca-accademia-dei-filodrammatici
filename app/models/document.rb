@@ -9,7 +9,7 @@ class Document < ActiveRecord::Base
   belongs_to :author
   
   def collection
-    return nil unless collection_name
+    return nil if collection_name.blank?
     return collection_name unless collection_volume
     collection_name + " ; " + collection_volume
   end

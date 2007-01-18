@@ -30,7 +30,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
   def test_author_by_id
     get :author, :id => authors(:mor_carlo).id
     assert_response :success
-    assert_equal 'Mor, Carlo A.', assigns(:page_title)
+    assert_equal 'Mor, Carlo A.: una scheda', assigns(:page_title)
     assert_template 'list'
     
     doc = authors(:mor_carlo).documents[0]
@@ -49,7 +49,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_tag :content => doc.title, :attributes => { :class => 'document-title' }
     assert_select ".document-author",      :text => doc.author.name
-    assert_select ".document-names",       :text => doc.names[0].name
+#    assert_select ".document-names",       :text => doc.names[0].name
     assert_select ".document-publication", :text => doc.publication
   end
   

@@ -39,6 +39,19 @@ class DocumentTest < Test::Unit::TestCase
     d.collection_volume = "12"
     assert_equal "Pippo ; 12", d.collection
   end
+  
+  def test_collection_treats_empty_strings_just_like_nils
+    d = documents(:teatro_elisabettiano)
+
+    d.collection_name = ""
+    assert d.collection.blank?, "non blank after name"   
+
+    d.collection_volume = ""
+    assert d.collection.blank?, "after volume"
+
+    d.collection_name = "foo"
+    assert_equal "foo", d.collection_name, "only volume is empty"
+  end
 
   def test_find_by_keywords_in_title
     assert_found_by_keywords [:teatro_elisabettiano], "elisabettiano"

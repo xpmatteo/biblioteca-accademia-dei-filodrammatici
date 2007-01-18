@@ -43,7 +43,7 @@ class RoutesTest < ActionController::IntegrationTest
     assert_template 'documents/list'
     
     assert_equal "/biblio/scheda/146", 
-      url_for(:controller => 'document', :action => 'show', :id => 146,  :only_path => true)
+      url_for(:controller => 'documents', :action => 'show', :id => 146,  :only_path => true)
   end
   
 private

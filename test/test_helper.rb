@@ -73,4 +73,5 @@ class Test::Unit::TestCase
     assert_protected_post :create
     assert_protected_post :destroy
   end
+  
 end
