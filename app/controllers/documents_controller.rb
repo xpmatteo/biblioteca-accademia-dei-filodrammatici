@@ -3,7 +3,8 @@ class DocumentsController < ApplicationController
   before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors ]
 
   def index
-    @content = Content.find_by_name("biblio") || Content.new(:body => "", :name => "biblio")
+    @content = Content.find_by_name("biblioteca") || Content.new(:title => 'Biblioteca', :body => "Testo da modificare", :name => "biblioteca")
+    @content.save if @content.new_record?
   end
   
   def authors
