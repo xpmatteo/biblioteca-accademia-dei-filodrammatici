@@ -14,11 +14,6 @@ class RoutesTest < ActionController::IntegrationTest
     assert_response :success    
   end
   
-  def test_news_page_contains_link_to_login
-    get "/notizie"
-    assert_select "a[href=/login]"
-  end
-  
   def test_login_link
     get '/login'
     assert_response :success
@@ -43,7 +38,10 @@ class RoutesTest < ActionController::IntegrationTest
     assert_template 'documents/list'
     
     assert_equal "/biblio/scheda/146", 
-      url_for(:controller => 'documents', :action => 'show', :id => 146,  :only_path => true)
+      url_for(:controller => 'documents', :action => 'show', :id => 146, :only_path => true)
+      
+    assert_equal "/biblio/collezione/foo+bar", 
+      url_for(:controller => 'documents', :action => 'collection', :name => 'foo bar', :only_path => true)
   end
   
 private

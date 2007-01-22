@@ -13,14 +13,17 @@ teatro_elisabettiano:
   title: Teatro Elisabettiano
   responsibilities_denormalized: Baldini, Gabriele; Praz, Mario
   
-bla_bla: 
+in_collection_foo_bar: 
   id: 148
   id_sbn: IT\ICCU\AQ1\0031672
+  author_id: 103
+  collection_name: Foo Bar
   title: Fe fi fo fum
   
 un_altro: 
   id: 149
   id_sbn: IT\ICCU\AQ1\0031672
+  collection_name: Foo
   title: Pippo Topolino
   
   

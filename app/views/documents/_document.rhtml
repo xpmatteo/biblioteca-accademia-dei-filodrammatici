@@ -8,8 +8,11 @@
   <%=show document.title, "", :title %>
   <%=show document.publication, "", :publication %>
   <%=show document.physical_description %>
+  <% if document.collection %>
+    <%= link_to document.collection, :action => :collection, :name => document.collection_name %>
+    <br />
+  <% end %>
   <%=show document.notes, "", :notes %>
-  <%=show document.collection, "", :collection %>
   <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
   <%=show document.signature, "Segn.: " %>
   <p class='document-names'>

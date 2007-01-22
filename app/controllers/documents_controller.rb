@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   scaffold :document
-  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors ]
+  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection ]
 
   def index
     @content = Content.find_by_name("biblioteca") || Content.new(:title => 'Biblioteca', :body => "Testo da modificare", :name => "biblioteca")
@@ -14,14 +14,14 @@ class DocumentsController < ApplicationController
   
   def author
     author = Author.find(params[:id])
-    documents = author.documents
+    documents = Document.prune_children(author.documents)
     paginate_documents documents
-    @page_title = author.name + ": " + pluralize(documents.size, "scheda", "schede", :feminine => true)
+    @page_title = author.name + ": " + pluralize_schede(documents.size)
     render :template => 'documents/list'
   end
 
   def find
-    documents = Document.find_by_keywords(params[:q])
+    documents = Document.prune_children(Document.find_by_keywords(params[:q]))
     @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(documents.size, "risultato", "risultati")
     paginate_documents documents
     render :template => 'documents/list'
@@ -31,6 +31,13 @@ class DocumentsController < ApplicationController
     document = Document.find(params[:id])
     @page_title = document.title
     paginate_documents [document]
+    render :template => 'documents/list'
+  end
+  
+  def collection
+    documents = Document.find(:all, :conditions => ["collection_name = ?", params[:name]], :order => "title")     
+    @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede(documents.size)
+    paginate_documents documents
     render :template => 'documents/list'
   end
   
@@ -50,11 +57,19 @@ private
     slice = collection[first...last]
     return [pages, slice]
   end
+  
+  def pluralize_schede(count)
+    pluralize(count, "scheda", "schede", :feminine => true)
+  end
 
   def pluralize(count, singular, plural, options={})
     case count
     when 0
-      "nessun " + singular
+      if options[:feminine]
+        "nessuna " + singular
+      else
+        "nessun " + singular
+      end
     when 1
       if options[:feminine]
         "una " + singular

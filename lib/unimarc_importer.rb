@@ -25,6 +25,10 @@ class UnimarcImporter
         parse_field(d)
       end
       denormalize_names(d)
+      if Document.find_by_id_sbn(d.id_sbn)
+        puts "already have #{d.id_sbn}" if @verbose
+        next
+      end
       d.save || (raise "cannot save: " + d.errors.full_messages.join(", "))
       add_names(d)
       add_children(d)
@@ -40,7 +44,7 @@ class UnimarcImporter
   def parse_field(d)
     case @field.tag
     when '001' 
-      d.id_sbn = @field.data
+      d.id_sbn = cleanup_id_sbn(@field.data)
     when '020'
       d.national_bibliography_number = sub('b') if sub('a') == "IT"
     when '200'
@@ -166,5 +170,10 @@ class UnimarcImporter
   
   def denormalize_names(document)
     document.responsibilities_denormalized = @names.map { |author| author.name }.join("; ")
+  end
+  
+  def cleanup_id_sbn(value)
+    value = $1 + $2 if value =~ /IT\\ICCU\\(...)\\([^\\]+)/
+    value
   end
 end

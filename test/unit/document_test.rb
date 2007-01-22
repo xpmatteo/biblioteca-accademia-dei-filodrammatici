@@ -37,7 +37,7 @@ class DocumentTest < Test::Unit::TestCase
     d = documents(:teatro_elisabettiano)
     d.collection_name = "Pippo"
     d.collection_volume = "12"
-    assert_equal "Pippo ; 12", d.collection
+    assert_equal "Pippo; 12", d.collection
   end
   
   def test_collection_treats_empty_strings_just_like_nils
@@ -72,11 +72,24 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal ["Logica umana"], root.children.map {|child| child.title }, "ha un figlio"
     assert_equal Document.find_by_title("Logica umana").parent, root
   end
+
+  def test_should_not_include_children_when_parent_is_present
+    save author = Author.new(:name => 'Pippo', :id_sbn => "xyz")
+    parent = Document.new(:title => "parent", :author => author, :id_sbn => "foo")
+    child = Document.new(:title => "child", :author => author, :id_sbn => "bar")
+    parent.children << child
+    save parent
+    assert_equal [parent], Document.prune_children([parent, child])
+  end
   
 private
   def assert_found_by_keywords(expected, keywords)
     actual = Document.find_by_keywords(keywords).map { |d| d.title }
     expected = expected.map { |sym| documents(sym).title }
     assert_equal expected, actual
+  end
+  
+  def save(record)
+    assert record.save, record.errors.full_messages.join("; ")
   end
 end

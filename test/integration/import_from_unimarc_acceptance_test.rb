@@ -6,26 +6,6 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     Document.delete_all
     Author.delete_all
     Responsibility.delete_all
-    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
-  end
-
-  def zztest_find_subcodes
-    reader = RMARC::MarcXmlReader.new(File.dirname(__FILE__) + '/../../dump/lispa-2006-12-10.xml')
-    count = 0
-    while reader.has_next
-      record = reader.next()
-      record.each do |field|
-        if field.tag == '210'
-          if field.subfields.find {|s| %w(b e f g h).member? s.code }
-            p field
-            count += 1
-            return if count == 10
-          end
-        end
-      end
-      print "."
-      $stdout.flush
-    end    
   end
 
   def test_scheda_moderna_teatro_elisabettiano
@@ -40,6 +20,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     # Baldini, Gabriele 
     # IT\ICCU\AQ1\0031672
     
+    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('ANA0019058')
     assert_nil                  @document.author
     assert_title                "Teatro elisabettiano : Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford / [sotto la direzione di Mario Praz]"
@@ -63,6 +44,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     # Abbado, Claudio ; Grassi, Paolo <1919-1981> ; Pozzi, Emilio ; Strehler, Giorgio
     # IT\ICCU\MIL\0066910
     
+    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('MIL0066910')
     assert_author               "Grassi, Paolo <1919-1981>"
     assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
@@ -70,7 +52,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_publication            "Milano : Mursia, 1977"
     assert_physical_description "2. ed.; 368 p. : \\16] c. di tav. ; 22 cm."
     assert_collection_volume    "11"
-    assert_collection           "Voci, uomini e tempi ; 11"
+    assert_collection           "Voci, uomini e tempi; 11"
     assert_signature            "O.IV 13"
   end
   
@@ -84,7 +66,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/issued_with.xml'
     assert_not_nil @document = Document.find_by_id_sbn('LO10865597'), "non trovato"
     assert_title 'Florilegio drammatico francese. Tomo 2'
-    assert_collection 'Florilegio drammatico francese ; 2'
+    assert_collection 'Florilegio drammatico francese; 2'
     assert_issued_with ["La procura, e la convalescenza", "La camera verde ossia le disgrazie d'un amante fortunato"]
     
     @document = @document.children[0]
@@ -97,8 +79,51 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   end
   
   def test_responsibilities_are_denormalized
+    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('MIL0066910')
     assert_responsibilities_denormalized "Grassi, Paolo <1919-1981>; Pozzi, Emilio; Strehler, Giorgio; Abbado, Claudio"
+  end
+  
+  def test_should_rewrite_iccu_codes_to_polo_lombardo_style
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">IT\\ICCU\\BVE\\0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code="a">Cronache teatrali del primo Novecento</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+    assert_equal "BVE0013119", @document.id_sbn
+  end
+
+  def test_should_ignore_duplicate_entries
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code="a">Cronache teatrali del primo Novecento</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">IT\\ICCU\\BVE\\0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code="a">Foo bar baz</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+    assert_equal 1, Document.count
+    assert_equal "Cronache teatrali del primo Novecento", @document.title
   end
   
   # def test_scheda_antica_clotario
@@ -225,5 +250,14 @@ private
       end
     END
   end
-  
+
+  def import(xml_string)
+    path = "/tmp/test_rails"
+    File.open(path, "w") do |f|
+      f.write(xml_string)
+    end
+    UnimarcImporter.new.import_xml path
+    @document = Document.find(:first, :limit => 1, :order => "created_at desc")
+    assert_not_nil @document, "non è riuscito a caricare nulla?!?"
+  end
 end

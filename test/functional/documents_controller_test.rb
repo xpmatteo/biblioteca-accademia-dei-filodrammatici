@@ -92,4 +92,17 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_equal doc.title, assigns(:page_title), "titolo sbagliato"
     assert_template 'documents/list', "template sbagliato"
   end
+  
+  def test_search_by_collection
+    get :collection, :name => "foo bar"
+    assert_response :success
+    assert_template 'documents/list', "template sbagliato"
+    assert_equal [documents(:in_collection_foo_bar)], assigns(:documents), "non ha assegnato"
+    assert_equal 'Collezione "foo bar": una scheda', assigns(:page_title)
+  end
+  
+  def test_should_escape_html_in_title
+    get :collection, :name => "<script>"
+    assert_select "h3", :text => "Collezione &quot;&lt;script&gt;&quot;: nessuna scheda"
+  end
 end
