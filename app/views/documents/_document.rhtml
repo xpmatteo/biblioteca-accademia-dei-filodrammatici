@@ -14,13 +14,20 @@
   <% end %>
   <%=show document.notes, "", :notes %>
   <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
-  <%=show document.signature, "Segn.: " %>
+  <%=show_without_breaks document.signature, "Segn.: " %>
+  <%= ". " unless document.signature.blank? || document.accademia_inventory.blank? %>
+  <%=show_without_breaks document.accademia_inventory, "Inv.: " %>
+  <%= "<br />" unless document.signature.blank? && document.accademia_inventory.blank? %>
   <p class='document-names'>
     <%=show_names document %>
   </p>
   <%=show_published_in document %>
   <%=show_published_with document %>
   <%#= show document.id_sbn %>
+  <% if authorized? %>
+    <%= show number_to_currency(document.value, :unit => "", :separator => ",", :delimiter => "."), "Valore: &euro;" %>
+    <%= show document.admin_notes %>
+  <% end %>
 
   <p><%= admin_link_to "modifica", :action => :edit, :id => document %></p>
 </div>

@@ -34,16 +34,16 @@ class MarcLibTest < Test::Unit::TestCase
   def test_construct_publisher
     set_field(210, 'a' => 'Foo')
     add_subfield('a', 'Bar')
-    assert_equal "Foo ; Bar", @unimarc.construct_publisher    
+    assert_equal "Foo; Bar", @unimarc.construct_publisher    
 
     set_field(210, 'a' => 'Foo', 'c' => 'Bar')
-    assert_equal "Foo : Bar", @unimarc.construct_publisher    
+    assert_equal "Foo: Bar", @unimarc.construct_publisher    
 
     set_field(210, 'a' => 'Foo', 'e' => 'Bar')
     assert_equal "Foo (Bar)", @unimarc.construct_publisher
     
     set_field(210, 'a' => 'Milano', 'c' => '[s.n.]', 'd' => '1931', 'e' => 'Milano', 'g' => 'Off. Graf.', 'h' => '1931')
-    assert_equal "Milano : [s.n.], 1931 (Milano : Off. Graf., 1931)", @unimarc.construct_publisher          
+    assert_equal "Milano: [s.n.], 1931 (Milano: Off. Graf., 1931)", @unimarc.construct_publisher          
   end
   
 private

@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../import_test_helper'
 
 class ImportFromUnimarcTest < Test::Unit::TestCase
+  include ImportTestHelper
 
   def setup
     Document.delete_all
@@ -24,7 +26,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     @document = Document.find_by_id_sbn('ANA0019058')
     assert_nil                  @document.author
     assert_title                "Teatro elisabettiano : Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford / [sotto la direzione di Mario Praz]"
-    assert_publication            "Firenze : Sansoni, stampa 1948"
+    assert_publication            "Firenze: Sansoni, stampa 1948"
     assert_physical_description "XXVIII, 1274 p. ; 21 cm."
     assert_notes                "Trad. di Gabriele Baldini. Altra nota"
     assert_national_bibliography_number "1929 4793"
@@ -49,7 +51,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_author               "Grassi, Paolo <1919-1981>"
     assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
     assert_title                "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
-    assert_publication            "Milano : Mursia, 1977"
+    assert_publication          "Milano: Mursia, 1977"
     assert_physical_description "2. ed.; 368 p. : \\16] c. di tav. ; 22 cm."
     assert_collection_volume    "11"
     assert_collection           "Voci, uomini e tempi; 11"
@@ -69,11 +71,11 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_collection 'Florilegio drammatico francese; 2'
     assert_issued_with ["La procura, e la convalescenza", "La camera verde ossia le disgrazie d'un amante fortunato"]
     
-    @document = @document.children[0]
+    @document = @document.children[1]
     assert_equal '001LO10878361', @document.id_sbn
-    assert_not_nil @document.author, "non ha un autore?!?"
     assert_author "Mazères, Édouard Joseph Ennemond"
     assert_names ["Mazères, Édouard Joseph Ennemond", "Théaulon de Lambert, Marie"]
+    assert_hierarchy_type "issued_with"
     assert_equal 'CLIAV009431', @document.names[0].id_sbn
     assert_equal 'DLIAV026126', @document.names[1].id_sbn
   end
@@ -82,6 +84,71 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('MIL0066910')
     assert_responsibilities_denormalized "Grassi, Paolo <1919-1981>; Pozzi, Emilio; Strehler, Giorgio; Abbado, Claudio"
+  end
+  
+  def test_should_extract_place_publisher_and_year_and_century
+    import_this_tag <<-TAG
+      <datafield tag='210' ind1=' ' ind2=' '>
+        <subfield code='a'>Roma</subfield>
+        <subfield code='c'>A. F. Formiggini</subfield>
+        <subfield code='d'>stampa 1929</subfield>
+      </datafield>
+    TAG
+    assert_place "Roma"
+    assert_publisher "A. F. Formiggini"
+    assert_year 1929
+    assert_century 20
+  end
+  
+  def test_should_ignore_brackets_in_place
+    import_this_tag <<-TAG
+      <datafield tag='210' ind1=' ' ind2=' '>
+        <subfield code='a'>[Milano]</subfield>
+      </datafield>
+    TAG
+    assert_place "Milano"
+  end
+  
+  def test_should_not_crash_on_missing_year
+    import_this_tag <<-TAG
+      <datafield tag='210' ind1=' ' ind2=' '>
+        <subfield code='d'>\s.d.]</subfield>
+      </datafield>
+    TAG
+    assert_year nil
+    assert_century nil
+  end
+  
+  def test_should_record_century_if_given
+    import_this_tag <<-TAG
+      <datafield tag='210' ind1=' ' ind2=' '>
+        <subfield code='d'>18-?</subfield>
+      </datafield>
+    TAG
+    assert_year nil
+    assert_century 19, "con -?"    
+  end
+  
+  def test_should_record_century_if_given
+    import_this_tag <<-TAG
+      <datafield tag='210' ind1=' ' ind2=' '>
+        <subfield code='d'>\\19..]</subfield>
+      </datafield>
+    TAG
+    assert_year nil
+    assert_century 20, "con .."
+  end
+  
+  def test_should_record_first_place_if_many
+    import_this_tag <<-TAG
+      <datafield tag='210' ind1=' ' ind2=' '>
+        <subfield code='a'>Roma</subfield>
+        <subfield code='a'>Milano</subfield>
+        <subfield code='c'>A. F. Formiggini</subfield>
+        <subfield code='d'>stampa 1929</subfield>
+      </datafield>
+    TAG
+    assert_place "Roma"
   end
   
   def test_should_rewrite_iccu_codes_to_polo_lombardo_style
@@ -97,6 +164,44 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     </collection>
     SCHEDA
     assert_equal "BVE0013119", @document.id_sbn
+  end
+  
+  def test_should_find_author_even_if_it_was_recorded_using_polo_lombardo_id_style
+    import <<-SCHEDA
+    <collection>
+      <record>
+        <leader>01102nam  2200265   45  </leader>
+        <controlfield tag='001'>AQ10007044</controlfield>
+        <datafield tag='200' ind1='1' ind2=' '>
+          <subfield code='a'>L&apos;attore biomeccanico</subfield>
+        </datafield>
+        <datafield tag='700' ind1=' ' ind2='1'>
+          <subfield code='a'>Mejerhold, Salvato Prima</subfield>
+          <subfield code='3'>CIEIV000637</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">IT\\ICCU\\BVE\\0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code="a">Cronache teatrali del primo Novecento</subfield>
+        </datafield>    
+        <datafield tag="700" ind1=" " ind2="1">
+          <subfield code="a">Mejerhold, Vsevolod Emilevic</subfield>
+          <subfield code="3">IT\\ICCU\\IEIV\\000637</subfield>
+          <subfield code="4">070</subfield>
+        </datafield>  
+      </record>
+    </collection>
+    SCHEDA
+    assert_title "Cronache teatrali del primo Novecento"
+    assert_author "Mejerhold, Salvato Prima"
+    assert_equal 1, Author.count
   end
 
   def test_should_ignore_duplicate_entries
@@ -126,29 +231,52 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_equal "Cronache teatrali del primo Novecento", @document.title
   end
   
-  # def test_scheda_antica_clotario
-  #   # Abbati, Giovanni Battista
-  #   # Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto.
-  #   # In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaia
-  #   # 72 p. ; 12o. 
-  #   # Il nome dell'A. figura nella pref .
-  #   # Segn.: A-C12;  Impronta - 'ee, lido a.a, AcTe (3) 1723 (Q)
-  #   # 
-  #   # Abbati, Giovanni Battista ; Buonarrigo, Carlo ; Maldura, Biagio
-  #   # IT\ICCU\BVEE\025199    
-  # 
-  #   @document = Document.find_by_id_sbn('???')
-  #   assert_author               "Abbati, Giovanni Battista"
-  #   assert_title                "Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto."
-  #   assert_publication            "In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaia"
-  #   assert_physical_description "72 p. ; 12o."
-  #   assert_notes                "Il nome dell'A. figura nella pref ."
-  #   # tag 012 subfield a
-  #   assert_footprint            "'ee, lido a.a, AcTe (3) 1723 (Q)"
-  #   assert_names                ["Abbati, Giovanni Battista", "Buonarrigo, Carlo", "Maldura, Biagio"]
-  #   assert_signature            "A-C12"
-  # end
-  # 
+  def test_should_ignore_asterisk
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code="a">HL&apos; IAdargonte</subfield>
+        </datafield>    
+        <datafield tag="225" ind1="0" ind2=" ">
+          <subfield code="a">HLes Imeilleurs auteurs classiques francais et etrangers</subfield>
+        </datafield>
+        <datafield tag="410" ind1=" " ind2="1">
+          <subfield code="1">001IT\ICCU\LO1\0258764</subfield>
+          <subfield code="1">2001 </subfield>
+          <subfield code="a">HLes Imeilleurs auteurs classiques francais et etrangers</subfield>
+        </datafield>
+      </record>
+    </collection>
+    SCHEDA
+    assert_title "L' Adargonte"
+    assert_collection_name "Les meilleurs auteurs classiques francais et etrangers"
+  end
+  
+  def test_scheda_antica_clotario
+    # Abbati, Giovanni Battista
+    # Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto.
+    # In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaia
+    # 72 p. ; 12o. 
+    # Il nome dell'A. figura nella pref .
+    # Segn.: A-C12;  Impronta - 'ee, lido a.a, AcTe (3) 1723 (Q)
+    # 
+    # Abbati, Giovanni Battista ; Buonarrigo, Carlo ; Maldura, Biagio
+    # IT\ICCU\BVEE\025199    
+  
+    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/ancient.xml'
+    assert_not_nil @document = Document.find_by_id_sbn("BVEE025199"), "not found"
+    assert_author               "Abbati, Giovanni Battista"
+    assert_title                "Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto"
+    assert_publication          "In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaria"
+    assert_physical_description "72 p. ; 12o."
+    assert_notes                "Il nome dell'A. figura nella pref"
+    assert_footprint            "'ee, lido a.a, AcTe (3) 1723 (Q)"
+    assert_names                ["Abbati, Giovanni Battista", "Buonarrigo, Carlo", "Maldura, Biagio"]
+  end
+  
   # def test_scheda_antica_li_pregiudizj
   #   # Bianchi, Antonio <1720-1775>
   #   # Li pregiudizj della paterna prevenzione o sia l'onesta premiata. Commedia II
@@ -223,41 +351,4 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   #   end
   # end
   # 
-
-private
-
-  def assert_author(expected)
-    assert_equal expected, @document.author.name, "autore diverso da atteso"
-  end
-
-  def assert_collection(expected)
-    assert_equal expected, @document.collection, "collezione diversa da atteso"
-  end
-  
-  def assert_names(expected)
-    assert_equal expected, @document.names.map {|n| n.name} , "nomi diversi da atteso"
-  end
-  
-  def assert_issued_with(expected)
-    assert_equal expected, @document.children.map {|n| n.title} , "issued_with diversi da atteso"
-  end
-
-  %w(title publication notes signature footprint physical_description signature footnote 
-    national_bibliography_number collection_volume collection_name responsibilities_denormalized).each do |attribute|
-    self.class_eval <<-END
-      def assert_#{attribute}(expected)
-        assert_equal expected, @document.attributes["#{attribute}"], "#{attribute} diverso da atteso"
-      end
-    END
-  end
-
-  def import(xml_string)
-    path = "/tmp/test_rails"
-    File.open(path, "w") do |f|
-      f.write(xml_string)
-    end
-    UnimarcImporter.new.import_xml path
-    @document = Document.find(:first, :limit => 1, :order => "created_at desc")
-    assert_not_nil @document, "non è riuscito a caricare nulla?!?"
-  end
 end

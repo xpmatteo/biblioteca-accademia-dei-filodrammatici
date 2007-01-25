@@ -1,5 +1,17 @@
 == TODO
 
+- finire importazione libri moderni
+  - salvare il tag nelle responsabilità (tag o altro?)
+  + conservere anno e luogo di edizione
+  - riformattare il titolo secondo desideri Ombretta
+  
+  + conservare le relazioni tutto-parte 
+    + usare lo stesso meccanismo ad albero, distinguere con un flag se la rel è di "contiene" o "fa parte"
+    + mostrare i link ai discendenti nella GUI
+
+- importare i libri antichi
+- importare spogli riviste
+
 - COntrollare "Bon, Francesco Augusto": perché non è collegato alla sua collezione?
 - importare i libri antichi
 
@@ -7,13 +19,9 @@
 + implementa customer test moderni     3
 + implementa customer test antichi     3
 + - elimina tabelle legacy
-- link a query per collezione
-- link a query per anno o per editore o per luogo di edizione 3
++ link a query per collezione
 - eliminare strani prefissi (rumore) es. scheda Fagan 1
-- prefissare ai nomi il ruolo
 + nella ricerca, riportare il numero di risultati 1
-- codice SBN: deve diventare link a SBN 2
-- verificare che importazioni successive non sovrascrivano le modifiche locali
 
 bugfix
 + nella ricerca semplice non funziona la paginazione 1

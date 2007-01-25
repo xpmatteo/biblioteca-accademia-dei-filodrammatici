@@ -15,6 +15,7 @@ class UnimarcImporter
   
   def do_import(reader)
     count = 0
+    @link_manager = LinkManager.new
     while reader.has_next
       record = reader.next()
       d = Document.new      
@@ -27,15 +28,17 @@ class UnimarcImporter
       denormalize_names(d)
       if Document.find_by_id_sbn(d.id_sbn)
         puts "already have #{d.id_sbn}" if @verbose
-        next
+        @children.each {|child| child.destroy }
+      else
+        d.save || (raise "cannot save: " + d.errors.full_messages.join(", "))
+        add_names(d)
+        add_children(d)
       end
-      d.save || (raise "cannot save: " + d.errors.full_messages.join(", "))
-      add_names(d)
-      add_children(d)
       count += 1
       puts count if @verbose
       $stdout.flush
     end
+    @link_manager.fix_links
   rescue
     p d
     puts $!
@@ -45,6 +48,8 @@ class UnimarcImporter
     case @field.tag
     when '001' 
       d.id_sbn = cleanup_id_sbn(@field.data)
+    when '012' 
+      d.footprint = sub('a')
     when '020'
       d.national_bibliography_number = sub('b') if sub('a') == "IT"
     when '200'
@@ -53,10 +58,15 @@ class UnimarcImporter
       d.physical_description = sub('a')
     when '210'
       d.publication = construct_publisher
+      d.place = extract_place
+      d.publisher = sub('c')
+      d.year = $1 if sub('d') =~ /([12]\d{3})/
+      d.century = d.year / 100 + 1 if d.year
+      d.century = $1.to_i + 1 if sub('d') =~ /(1\d)(-\?|\.\.)/
     when '215'
       d.physical_description = append(d.physical_description, construct_physical_description)
     when '225'
-      d.collection_name = sub_unless_nil('a')
+      d.collection_name = cleanup_asterisk(sub_unless_nil('a'))
       d.collection_volume = sub_unless_nil('v')
     when '300'
       if d.notes
@@ -66,6 +76,8 @@ class UnimarcImporter
       end
     when '423'
       create_child_document
+    when '461', '463', '464'
+      @link_manager.add_link(@field.tag, d.id_sbn, subfields('1').first.data)
     when '700', '701', '702', '710', '711', '712'
       author = create_or_find_author(sub('3'), sub('a'))
       @names << author
@@ -88,13 +100,18 @@ class UnimarcImporter
     result
   end
   
+  def extract_place
+    first = subfields('a').first
+    first.data.gsub(/\[|\]/, "") if first
+  end
+  
   def construct_title
-    sub('a') + sub('e', " : ") + sub('f', " / ") + sub('g', " ; ") + sub('c', " . ")
+    cleanup_asterisk(sub('a')) + sub('e', " : ") + sub('f', " / ") + sub('g', " ; ") + sub('c', " . ")
   end
   
   def construct_publisher
-    result = sub('a', " ; ", true) + sub('c', " : ") + sub('d', ', ')
-    subresult = sub('e') + sub('g', " : ") + sub('h', ", ")
+    result = sub('a', "; ", true) + sub('c', ": ") + sub('d', ', ')
+    subresult = sub('e') + sub('g', ": ") + sub('h', ", ")
     result += " (#{subresult})" unless subresult.empty?
     result 
   end
@@ -111,11 +128,14 @@ class UnimarcImporter
   
   def add_children(d)
     @children.each do |child|
+      child.hierarchy_type = "issued_with"
       d.children << child
     end
+    d.hierarchy_type = "issued_with"
   end
   
   def create_or_find_author(id_sbn, name)
+    id_sbn = cleanup_author_id_sbn(id_sbn)
     author = 
       Author.find_by_id_sbn(id_sbn) || 
       Author.new(:name => name, :id_sbn => id_sbn)
@@ -173,7 +193,63 @@ class UnimarcImporter
   end
   
   def cleanup_id_sbn(value)
-    value = $1 + $2 if value =~ /IT\\ICCU\\(...)\\([^\\]+)/
+    value = $1 + $2 if value =~ /IT\\ICCU\\([^\\]+)\\([^\\]+)/
     value
+  end
+
+  def cleanup_author_id_sbn(value)
+    return "C" + $1 + $2 if value =~ /IT\\ICCU\\([^\\]+)\\([^\\]+)/
+    value
+  end
+  
+  def cleanup_asterisk(str)
+    return $1 + $2 if str =~ /^H(.[^I]*)I(.*)$/
+    str
+  end
+end
+
+class LinkManager
+  
+  Link = Struct.new(:tag, :from, :destination)
+  
+  def initialize
+    @links = []
+  end
+  
+  def add_link(tag, from, destination)
+    destination = $1 if destination =~ /001(.*)/
+    destination = $1 + $2 if destination =~ /IT\\ICCU\\([^\\]+)\\([^\\]+)/
+    @links << Link.new(tag, from, destination)
+  end
+
+  def fix_links
+    sort_links # così i link 464 vengono analizzati per ultimi e possiamo eliminare le rel circolari
+    @links.each do |link|
+#      p link
+      setup_parent_and_child(link.destination, link.from) if "461" == link.tag
+      setup_parent_and_child(link.from, link.destination) if "463" == link.tag
+      setup_parent_and_child(link.from, link.destination) if "464" == link.tag
+    end
+  end
+  
+  private
+  def sort_links
+    @links.sort! {|a,b| a.tag <=> b.tag }
+  end
+  
+  def setup_parent_and_child(parent_id, child_id)
+    parent = Document.find_by_id_sbn(parent_id) || (raise "can't find parent #{parent_id}")
+    child = Document.find_by_id_sbn(child_id)   || (puts "can't find child #{child_id}"; return)    
+    avoid_circular_relation(parent, child)
+    child.hierarchy_type = "composition"
+    parent.children << child
+    parent.hierarchy_type = "composition"
+    parent.save
+  end
+  
+  def avoid_circular_relation(parent, child)
+    if parent.parent == child 
+      parent.parent = nil
+    end
   end
 end

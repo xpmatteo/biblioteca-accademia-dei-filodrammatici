@@ -1,6 +1,8 @@
 class DocumentsController < ApplicationController
   scaffold :document
   before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection ]
+  verify :method => :post, :only => [ :destroy, :create, :update ],
+         :redirect_to => { :action => :index }
 
   def index
     @content = Content.find_by_name("biblioteca") || Content.new(:title => 'Biblioteca', :body => "Testo da modificare", :name => "biblioteca")

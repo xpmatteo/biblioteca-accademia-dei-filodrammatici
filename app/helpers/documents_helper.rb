@@ -1,4 +1,9 @@
 module DocumentsHelper
+  def show_without_breaks(x, prefix="", klass=:data)
+    return "" if x.blank?
+    prefix + "<span class='document-#{klass}'>" + h(x) + "</span>"
+  end
+  
   def show(x, prefix="", klass=:data)
     return "" if x.blank?
     prefix + "<span class='document-#{klass}'>" + h(x) + "</span><br />"

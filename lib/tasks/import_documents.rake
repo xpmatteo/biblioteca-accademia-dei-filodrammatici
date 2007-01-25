@@ -8,7 +8,10 @@ task :import_documents => :environment do
   Author.delete_all    
   importer = UnimarcImporter.new
   importer.verbose = true
-  importer.import_binary 'dump/p6470870.LO14451.uni'
+
+#  importer.import_binary 'dump/p6470870.LO14451.uni'
+  sh 'mysql < db/local-backup.sql'
+  importer.import_xml "dump/dump.xml"
 
   # Non sono riuscito a far lavorare correttamente l'iniziale Č in mysql
   Author.connection.execute("update authors set name = 'Chekhov, Anton Pavlovich' where name = 'Čehov, Anton Pavlovič'")
