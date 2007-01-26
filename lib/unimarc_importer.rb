@@ -5,6 +5,10 @@ class UnimarcImporter
   attr_accessor :field
   attr_writer :verbose
   
+  def initialize(verbose=false)
+    @verbose = verbose
+  end
+  
   def import_xml(filename)
     do_import RMARC::MarcXmlReader.new(filename)
   end
@@ -27,21 +31,23 @@ class UnimarcImporter
       end
       denormalize_names(d)
       if Document.find_by_id_sbn(d.id_sbn)
-        puts "already have #{d.id_sbn}" if @verbose
+        log "already have #{d.id_sbn}" 
         @children.each {|child| child.destroy }
       else
-        d.save || (raise "cannot save: " + d.errors.full_messages.join(", "))
+        d.save || (raise "cannot save: #{d.attributes} " + d.errors.full_messages.join(", "))
         add_names(d)
         add_children(d)
       end
       count += 1
-      puts count if @verbose
+      log count 
       $stdout.flush
     end
+    log "Fixing links..."
     @link_manager.fix_links
-  rescue
-    p d
-    puts $!
+  end
+  
+  def log(message)
+    puts message if @verbose
   end
   
   def parse_field(d)
@@ -139,7 +145,7 @@ class UnimarcImporter
     author = 
       Author.find_by_id_sbn(id_sbn) || 
       Author.new(:name => name, :id_sbn => id_sbn)
-    author.save || (raise author.errors.full_messages.join("; "))
+    author.save || (raise "can't save author: " + author.inspect + ": " + author.errors.full_messages.join("; "))
     author
   end
   
@@ -238,7 +244,7 @@ class LinkManager
   end
   
   def setup_parent_and_child(parent_id, child_id)
-    parent = Document.find_by_id_sbn(parent_id) || (raise "can't find parent #{parent_id}")
+    parent = Document.find_by_id_sbn(parent_id) || (puts "can't find parent #{parent_id}"; return)
     child = Document.find_by_id_sbn(child_id)   || (puts "can't find child #{child_id}"; return)    
     avoid_circular_relation(parent, child)
     child.hierarchy_type = "composition"
