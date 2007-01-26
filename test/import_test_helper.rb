@@ -21,23 +21,13 @@ module ImportTestHelper
     assert_equal year, @document.year, message
   end
 
-  %w(title publication notes signature footprint physical_description signature footnote 
-    year place publisher century hierarchy_type
-    national_bibliography_number collection_volume collection_name responsibilities_denormalized).each do |attribute|
-    self.class_eval <<-END
-      def assert_#{attribute}(expected, message="")
-        assert_equal expected, @document.attributes["#{attribute}"], "#{attribute} diverso da atteso " + message
-      end
-    END
-  end
-
   def import(xml_string)
     @document = nil
     path = "/tmp/test_rails"
     File.open(path, "w") do |f|
       f.write(xml_string)
     end
-    UnimarcImporter.new.import_xml path
+    Import::UnimarcImporter.new.import_xml path
     @document = Document.find(:first, :limit => 1, :order => "id desc")
     assert_not_nil @document, "non è riuscito a caricare nulla?!?"
   end
@@ -56,4 +46,15 @@ module ImportTestHelper
     </collection>
     SCHEDA
   end
+  
+  %w(title publication notes signature footprint physical_description signature footnote 
+    year place publisher century hierarchy_type type original_title
+    national_bibliography_number collection_volume collection_name responsibilities_denormalized).each do |attribute|
+    self.class_eval <<-END
+      def assert_#{attribute}(expected, message="")
+        assert_equal expected, @document.attributes["#{attribute}"], "#{attribute} diverso da atteso " + message
+      end
+    END
+  end
+  
 end

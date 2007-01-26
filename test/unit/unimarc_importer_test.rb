@@ -4,7 +4,7 @@ require 'rmarc'
 class MarcLibTest < Test::Unit::TestCase
 
   def setup
-    @unimarc = UnimarcImporter.new
+    @unimarc = Import::UnimarcImporter.new
   end
 
   def test_construct_title

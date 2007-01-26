@@ -22,11 +22,11 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     # Baldini, Gabriele 
     # IT\ICCU\AQ1\0031672
     
-    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
+    Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('ANA0019058')
     assert_nil                  @document.author
-    assert_title                "Teatro elisabettiano : Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford / [sotto la direzione di Mario Praz]"
-    assert_publication            "Firenze: Sansoni, stampa 1948"
+    assert_title                "Teatro elisabettiano: Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford"
+    assert_publication          "Firenze: Sansoni, stampa 1948"
     assert_physical_description "XXVIII, 1274 p. ; 21 cm."
     assert_notes                "Trad. di Gabriele Baldini. Altra nota"
     assert_national_bibliography_number "1929 4793"
@@ -46,11 +46,11 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     # Abbado, Claudio ; Grassi, Paolo <1919-1981> ; Pozzi, Emilio ; Strehler, Giorgio
     # IT\ICCU\MIL\0066910
     
-    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
+    Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('MIL0066910')
     assert_author               "Grassi, Paolo <1919-1981>"
     assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
-    assert_title                "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
+    assert_title                "Quarant'anni di palcoscenico; a cura di Emilio Pozzi; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
     assert_publication          "Milano: Mursia, 1977"
     assert_physical_description "2. ed.; 368 p. : \\16] c. di tav. ; 22 cm."
     assert_collection_volume    "11"
@@ -59,13 +59,13 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   end
   
   def test_import_from_unimarc_binary_works
-    UnimarcImporter.new.import_binary File.dirname(__FILE__) + '/../fixtures/modern.uni'
-    assert_not_nil Document.find_by_title('Venezia 1795-1802 : la cronologia degli spettacoli e il Giornale dei teatri / Franco Rossi'), "non ha importato venezia"
-    assert_not_nil Document.find_by_title('Drammi lirici ed altri componimenti poetici / di Virginia Fedeli Galli'), "non ha importato virginia"
+    Import::UnimarcImporter.new.import_binary File.dirname(__FILE__) + '/../fixtures/modern.uni'
+    assert_not_nil Document.find_by_original_title('Venezia 1795-1802 : la cronologia degli spettacoli e il Giornale dei teatri / Franco Rossi'), "non ha importato venezia"
+    assert_not_nil Document.find_by_original_title('Drammi lirici ed altri componimenti poetici / di Virginia Fedeli Galli'), "non ha importato virginia"
   end
   
   def test_import_issued_with
-    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/issued_with.xml'
+    Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/issued_with.xml'
     assert_not_nil @document = Document.find_by_id_sbn('LO10865597'), "non trovato"
     assert_title 'Florilegio drammatico francese. Tomo 2'
     assert_collection 'Florilegio drammatico francese; 2'
@@ -81,7 +81,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
   end
   
   def test_responsibilities_are_denormalized
-    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
+    Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('MIL0066910')
     assert_responsibilities_denormalized "Grassi, Paolo <1919-1981>; Pozzi, Emilio; Strehler, Giorgio; Abbado, Claudio"
   end
@@ -255,6 +255,26 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_collection_name "Les meilleurs auteurs classiques francais et etrangers"
   end
   
+  def test_should_cleanup_title_and_remember_original_title
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code='a'>Quarant&apos;anni di palcoscenico</subfield>
+          <subfield code='f'>Paolo Grassi</subfield>
+          <subfield code='g'>a cura di Emilio Pozzi</subfield>
+          <subfield code='g'>in appendice: lettere di Giorgio Strehler e Claudio Abbado</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+
+    assert_title "Quarant'anni di palcoscenico; a cura di Emilio Pozzi; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
+    assert_original_title "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
+  end
+  
   def test_scheda_antica_clotario
     # Abbati, Giovanni Battista
     # Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto.
@@ -266,7 +286,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     # Abbati, Giovanni Battista ; Buonarrigo, Carlo ; Maldura, Biagio
     # IT\ICCU\BVEE\025199    
   
-    UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/ancient.xml'
+    Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/ancient.xml'
     assert_not_nil @document = Document.find_by_id_sbn("BVEE025199"), "not found"
     assert_author               "Abbati, Giovanni Battista"
     assert_title                "Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto"

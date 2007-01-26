@@ -1,13 +1,10 @@
 require 'rmarc'
 
-class UnimarcImporter
+module Import 
+class UnimarcImporter < Importer
   
   attr_accessor :field
   attr_writer :verbose
-  
-  def initialize(verbose=false)
-    @verbose = verbose
-  end
   
   def import_xml(filename)
     do_import RMARC::MarcXmlReader.new(filename)
@@ -46,10 +43,6 @@ class UnimarcImporter
     @link_manager.fix_links
   end
   
-  def log(message)
-    puts message if @verbose
-  end
-  
   def parse_field(d)
     case @field.tag
     when '001' 
@@ -59,7 +52,8 @@ class UnimarcImporter
     when '020'
       d.national_bibliography_number = sub('b') if sub('a') == "IT"
     when '200'
-      d.title = construct_title
+      d.original_title = construct_title
+      d.title = clean_title(d.original_title)
     when '205'
       d.physical_description = sub('a')
     when '210'
@@ -259,3 +253,4 @@ class LinkManager
     end
   end
 end
+end # module Import
