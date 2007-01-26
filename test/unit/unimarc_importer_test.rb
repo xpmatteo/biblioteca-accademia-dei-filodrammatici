@@ -44,6 +44,9 @@ class MarcLibTest < Test::Unit::TestCase
     
     set_field(210, 'a' => 'Milano', 'c' => '[s.n.]', 'd' => '1931', 'e' => 'Milano', 'g' => 'Off. Graf.', 'h' => '1931')
     assert_equal "Milano: [s.n.], 1931 (Milano: Off. Graf., 1931)", @unimarc.construct_publisher          
+
+    set_field(210, 'd' => '1975')
+    assert_equal "1975", @unimarc.construct_publisher    
   end
   
 private

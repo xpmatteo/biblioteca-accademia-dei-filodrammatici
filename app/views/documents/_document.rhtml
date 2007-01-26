@@ -21,8 +21,8 @@
   <p class='document-names'>
     <%=show_names document %>
   </p>
-  <%=show_published_in document %>
-  <%=show_published_with document %>
+  <%=show_parent document %>
+  <%=show_children document %>
   <%#= show document.id_sbn %>
   <% if authorized? %>
     <%= show number_to_currency(document.value, :unit => "", :separator => ",", :delimiter => "."), "Valore: &euro;" %>

@@ -275,6 +275,80 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_original_title "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
   end
   
+  def test_should_record_document_type_from_char_7_in_leader
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nas0a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code='a'>Quarant&apos;anni di palcoscenico</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+    assert_document_type "serial"
+    
+    Document.delete_all
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code='a'>Quarant&apos;anni di palcoscenico</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+    assert_document_type "monograph"
+  end
+  
+  def test_should_not_choke_on_duplicate_responsibilities
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nas0a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code='a'>Quarant&apos;anni di palcoscenico</subfield>
+        </datafield>    
+        <datafield tag='701' ind1=' ' ind2='1'>
+          <subfield code='a'>Mejerhold, Salvato Prima</subfield>
+          <subfield code='3'>CIEIV000637</subfield>
+        </datafield>    
+        <datafield tag='701' ind1=' ' ind2='1'>
+          <subfield code='a'>Mejerhold, Salvato Prima</subfield>
+          <subfield code='3'>CIEIV000637</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+  end
+
+  def test_should_save_tag_with_responsibility
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nas0a2200517  I450 </leader>
+        <controlfield tag="001">BVE0013119</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code='a'>Quarant&apos;anni di palcoscenico</subfield>
+        </datafield>    
+        <datafield tag='700' ind1=' ' ind2='1'>
+          <subfield code='a'>Gino</subfield>
+          <subfield code='3'>FOOBAR</subfield>
+        </datafield>    
+        <datafield tag='701' ind1=' ' ind2='1'>
+          <subfield code='a'>Pino</subfield>
+          <subfield code='3'>BLABLABLA</subfield>
+        </datafield>    
+      </record>
+    </collection>
+    SCHEDA
+    assert_equal %w(700 701), @document.responsibilities.map {|r| r.unimarc_tag }
+  end
+  
   def test_scheda_antica_clotario
     # Abbati, Giovanni Battista
     # Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto.

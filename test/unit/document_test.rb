@@ -82,14 +82,53 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal [parent], Document.prune_children([parent, child])
   end
   
+  def test_should_use_monograph_as_default_type
+    d = Document.new(:title => "foo", :id_sbn => "5431")
+    save d
+    assert_equal "monograph", d.document_type
+  end
+  
+  def test_should_validate_type
+    d = Document.new(:title => "foo", :id_sbn => "12345")
+    assert_valid d
+    d.document_type = "x", "x should not be valid"
+    assert_invalid d
+    d.document_type = "serial"
+    assert_valid d
+  end
+  
+  def test_should_validate_hierarchy_type
+    d = Document.new(:title => "foo", :id_sbn => "12345---")
+    assert_valid d
+    d.hierarchy_type = "x"
+    assert_invalid d, "x is not a valid type"
+    d.hierarchy_type = "issued_with"
+    assert_valid d
+    d.hierarchy_type = "composition"
+    assert_valid d
+    d.hierarchy_type = "serial"
+    assert_valid d
+  end
+  
+  def test_should_add_author_to_names
+    a = authors(:mor_carlo)
+    d = Document.new(:title => "foo", :id_sbn => "xyz123", :author_id => a.id)
+    save d
+    d = Document.find_by_id_sbn("xyz123")
+    assert d.names.member?(a), " non lo ha aggiunto"
+  end
+  
+  def test_should_not_add_names_twice
+    a = authors(:mor_carlo)
+    d = Document.new(:title => "foo", :id_sbn => "xyz321", :author_id => a.id)
+    save d
+    assert_raise (ActiveRecord::StatementInvalid) { d.names << a }
+  end
+  
 private
   def assert_found_by_keywords(expected, keywords)
     actual = Document.find_by_keywords(keywords).map { |d| d.title }
     expected = expected.map { |sym| documents(sym).title }
     assert_equal expected, actual
-  end
-  
-  def save(record)
-    assert record.save, record.errors.full_messages.join("; ")
   end
 end

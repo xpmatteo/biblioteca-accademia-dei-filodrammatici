@@ -43,7 +43,6 @@ module Import
         d.author = author
         parent.update_attribute(:hierarchy_type, "serial")
         d.save || (puts "cannot save spoglio: #{d.id_sbn}: #{d.errors.full_messages}"; next)
-        d.names << author if author
       
         log "no author for #{d.id_sbn}: #{d.title}" unless author  
         log count.to_s 

@@ -74,4 +74,11 @@ class Test::Unit::TestCase
     assert_protected_post :destroy
   end
   
+  def save(record)
+    assert record.save, record.errors.full_messages.join("; ")
+  end
+  
+  def assert_invalid(record, message=nil)
+    assert_false record.valid?, message
+  end
 end

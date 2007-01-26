@@ -6,8 +6,22 @@
 <p><label for="document_title">Titolo</label><br/>
 <%= text_area 'document', 'title', :size => '50x6'  %></p>
 
+<p>Titolo non ripulito: <em style="white-space: normal;"><%= @document.original_title %></em><br/>
+
 <p><label for="document_publication">Pubblicazione</label><br/>
 <%= text_field 'document', 'publication', :size => 50  %></p>
+
+<p><label for="document_publisher">Editore (usato solo per le ricerche)</label><br/>
+<%= text_field 'document', 'publisher', :size => 50  %></p>
+
+<p><label for="document_place">Luogo (usato solo per le ricerche)</label><br/>
+<%= text_field 'document', 'place', :size => 50  %></p>
+
+<p><label for="document_year">Anno (usato solo per le ricerche)</label><br/>
+<%= text_field 'document', 'year', :size => 50  %></p>
+
+<p><label for="document_year">Secolo (usato solo per le ricerche)</label><br/>
+<%= text_field 'document', 'century', :size => 50  %></p>
 
 <p><label for="document_notes">Note</label><br/>
 <%= text_area 'document', 'notes', :size => '50x6'  %></p>

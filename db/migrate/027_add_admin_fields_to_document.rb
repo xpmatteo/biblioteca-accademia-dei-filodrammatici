@@ -8,8 +8,9 @@ class AddAdminFieldsToDocument < ActiveRecord::Migration
     add_column :documents, :publisher, :string
     add_column :documents, :century, :integer
     add_column :documents, :hierarchy_type, :string
-    add_column :documents, :type, :string
+    add_column :documents, :document_type, :string, :default => "monograph"
     add_column :documents, :original_title, :string
+    add_column :documents, :month_of_serial, :string
   end
 
   def self.down
@@ -21,7 +22,8 @@ class AddAdminFieldsToDocument < ActiveRecord::Migration
     remove_column :documents, :publisher
     remove_column :documents, :century
     remove_column :documents, :hierarchy_type
-    remove_column :documents, :type
+    remove_column :documents, :document_type
     remove_column :documents, :original_title
+    remove_column :documents, :month_of_serial
   end
 end

@@ -26,6 +26,7 @@ class UnimarcImporter < Importer
         @field = field
         parse_field(d)
       end
+      d.document_type = guess_document_type(record)
       denormalize_names(d)
       if Document.find_by_id_sbn(d.id_sbn)
         log "already have #{d.id_sbn}" 
@@ -80,8 +81,8 @@ class UnimarcImporter < Importer
       @link_manager.add_link(@field.tag, d.id_sbn, subfields('1').first.data)
     when '700', '701', '702', '710', '711', '712'
       author = create_or_find_author(sub('3'), sub('a'))
-      @names << author
       d.author = author if '700' == @field.tag
+      @names << [author, @field.tag]
     when '950'
       d.signature = sub('d')
     end    
@@ -113,7 +114,7 @@ class UnimarcImporter < Importer
     result = sub('a', "; ", true) + sub('c', ": ") + sub('d', ', ')
     subresult = sub('e') + sub('g', ": ") + sub('h', ", ")
     result += " (#{subresult})" unless subresult.empty?
-    result 
+    result.sub(/^, /, "") # elimina il prefisso ", " se c'è solo l'anno
   end
   
   def construct_physical_description
@@ -121,8 +122,10 @@ class UnimarcImporter < Importer
   end
   
   def add_names(d)
-    @names.each do |name|
-      d.names << name
+    @names.each do |pair|
+      name = pair.first
+      tag = pair.last
+      add_name(d, name, tag)
     end
   end
   
@@ -183,13 +186,16 @@ class UnimarcImporter < Importer
       if '700' == ssf[:pseudotag]
         child.author = author
       end
-      child.names << author
+      begin
+        child.names << author
+      rescue
+      end      
     end
     @children << child
   end
   
   def denormalize_names(document)
-    document.responsibilities_denormalized = @names.map { |author| author.name }.join("; ")
+    document.responsibilities_denormalized = @names.map { |pair| pair.first.name }.join("; ")
   end
   
   def cleanup_id_sbn(value)
@@ -205,6 +211,21 @@ class UnimarcImporter < Importer
   def cleanup_asterisk(str)
     return $1 + $2 if str =~ /^H(.[^I]*)I(.*)$/
     str
+  end
+  
+  def guess_document_type(record)
+    case record.leader.impl_defined1[0, 1]
+    when "s"; "serial"
+    else "monograph"
+    end
+  end
+  
+  def add_name(document, author, tag)
+    begin
+      Responsibility.create!(:document_id => document.id, :author_id => author.id, :unimarc_tag => tag)
+    rescue
+      log "duplicate name: #{author.name} for #{document.id_sbn}"
+    end
   end
 end
 

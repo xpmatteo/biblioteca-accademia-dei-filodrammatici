@@ -48,7 +48,7 @@ module ImportTestHelper
   end
   
   %w(title publication notes signature footprint physical_description signature footnote 
-    year place publisher century hierarchy_type type original_title
+    year place publisher century hierarchy_type document_type original_title
     national_bibliography_number collection_volume collection_name responsibilities_denormalized).each do |attribute|
     self.class_eval <<-END
       def assert_#{attribute}(expected, message="")

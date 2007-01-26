@@ -19,18 +19,36 @@ module DocumentsHelper
     result += "<br />"
   end
   
-  def show_published_in(document)
+  def show_parent(document)
     parent = document.parent
     return "" unless parent
-    return "Pubblicato in: " + link_to_unless_current(h(parent.title), :action => 'show', :id => parent.id)
+    case document.hierarchy_type
+    when "issued_with", "composition", "serial"
+      return "Pubblicato in: " + link_to_unless_current(h(parent.title), :action => 'show', :id => parent.id)
+    end
   end
   
-  def show_published_with(document)
+  def show_children(document)
     children = document.children
     return "" unless children.size > 0
-    result = "Pubblicato con: "
-    result += children.map {|child| h child.title}.join("; ")
+    case document.hierarchy_type
+    when "issued_with"
+      result = "Pubblicato con: "
+      result += children.map {|child| h child.title}.join("; ")
+    when "composition", "serial"
+      result = "Comprende: <ul>"
+      result += children.map {|child| list_item(h(child.title))}.join("\n")
+      result += "</ul>"
+    else
+      result = "Comprende: <ul>"
+      result += children.map {|child| list_item(h(child.title))}.join("\n")
+      result += "</ul>"
+    end
     result
+  end
+  
+  def list_item(x)
+    "<li>#{x}</li>"
   end
   
 end
