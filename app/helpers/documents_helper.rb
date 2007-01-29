@@ -22,10 +22,15 @@ module DocumentsHelper
   def show_parent(document)
     parent = document.parent
     return "" unless parent
-    case document.hierarchy_type
-    when "issued_with", "composition", "serial"
-      return "Pubblicato in: " + link_to_unless_current(h(parent.title), :action => 'show', :id => parent.id)
-    end
+
+    volume = " "
+    volume += document.month_of_serial if document.month_of_serial
+    volume += document.collection_volume if document.collection_volume    
+    "Pubblicato in: " + link_to_unless_current(h(parent.title), :action => 'show', :id => parent.id) + volume
+  end
+  
+  def link_to_document(document)
+    link_to h(document.title), document_url(document)
   end
   
   def show_children(document)
@@ -34,16 +39,12 @@ module DocumentsHelper
     case document.hierarchy_type
     when "issued_with"
       result = "Pubblicato con: "
-      result += children.map {|child| h child.title}.join("; ")
-    when "composition", "serial"
-      result = "Comprende: <ul>"
-      result += children.map {|child| list_item(h(child.title))}.join("\n")
-      result += "</ul>"
     else
-      result = "Comprende: <ul>"
-      result += children.map {|child| list_item(h(child.title))}.join("\n")
-      result += "</ul>"
+      result = "Comprende: "
     end
+    result += "<ul>"
+    result += children.map {|child| list_item link_to_document(child) }.join("\n")
+    result += "</ul>"
     result
   end
   

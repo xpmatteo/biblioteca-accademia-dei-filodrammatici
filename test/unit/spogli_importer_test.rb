@@ -22,28 +22,6 @@ class SpogliImporterTest < Test::Unit::TestCase
     assert_equal "CFIV017621", resp[0].author_id_sbn
   end
   
-  def test_should_remove_slash_and_author_name_from_title
-    assert_equal "Foo", @importer.clean_title("Foo / di Bar")
-    assert_equal "Bar", @importer.clean_title("Bar / de Foo")
-    assert_equal "Zork", @importer.clean_title("Zork / Foo Bar")
-  end
-  
-  def test_should_keep_info_after_author
-    assert_equal "Yepeto; traduzione di Nestor Garay",
-      @importer.clean_title("Yepeto / di Roberto Cossa ; traduzione di Nestor Garay")
-
-    assert_equal "Foo. Sei testi di autori contemporanei.",
-        @importer.clean_title("Foo / di Bla Bla. ((Sei testi di autori contemporanei.")
-  end
-
-  def test_should_not_touch_title_otherwise
-    assert_equal "Zork bla", @importer.clean_title("Zork bla")    
-  end
-
-  def test_should_remove_asterisk_from_title
-    assert_equal "Lo Zork", @importer.clean_title("Lo *Zork")    
-  end
-
   def test_should_remove_asterisk_from_author
     responsibilities = [SpogliImporter::AuthorDocument.new("*John *Doe", "id_autore", "id_spoglio")]
     set = AuthorSet.new(responsibilities)
@@ -63,15 +41,16 @@ class SpogliImporterTest < Test::Unit::TestCase
   def test_read_titles
     titles = @importer.read_titles(@fixtures_path + "/spogli-titles.csv")
     assert_equal 9, titles.size
-    assert_equal "CFI0156460", titles[0].parent_id_sbn
-    assert_equal "LO11048352", titles[0].id_sbn
-    assert_equal "La *bella e la bestia : commedia in due tempi / di Luigi Lunari", titles[0].title
+    assert_equal "CFI0055183", titles[0].parent_id_sbn
+    assert_equal "LO10043389", titles[0].id_sbn
+    assert_equal "La *Sicilia di \"Conversazione\" / di Piera Tomasoni", titles[0].title
+    assert_equal "N.s., vol. 8, n. 22 (feb. 1991), p. 61-78", titles[0].notes
   end
 
   def test_import_documents
     author = save_author(:name => "John Doe", :id_sbn => "id_autore")
 
-    titles = [SpogliImporter::Title.new("Foo", "id_spoglio", "id_periodico")]
+    titles = [SpogliImporter::Title.new("Foo", "id_spoglio", "id_periodico", "maggio 1963")]
     responsibilities = [SpogliImporter::AuthorDocument.new("John Doe", "id_autore", "id_spoglio")]
 
     @importer.do_import(titles, responsibilities)
@@ -85,6 +64,8 @@ class SpogliImporterTest < Test::Unit::TestCase
     assert_equal "serial", spoglio.parent.hierarchy_type
     assert_equal author, spoglio.author
     assert_equal [author], spoglio.names
+    assert_equal "maggio 1963", spoglio.month_of_serial
+    assert_equal "700", Responsibility.find(:first, :conditions => "document_id = #{spoglio.id}").unimarc_tag
   end
   
   def test_should_be_able_to_import_documents_without_author

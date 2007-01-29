@@ -7,7 +7,8 @@ class Document < ActiveRecord::Base
   validates_inclusion_of :document_type,  :in => %w(serial monograph set)
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
 
-  acts_as_tree :order => 'title'
+  # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
+  acts_as_tree :order => 'month_of_serial, cast(title as unsigned), title'
   
   has_many :responsibilities
   has_many :names, :source => :author, :through => :responsibilities, :order => :name

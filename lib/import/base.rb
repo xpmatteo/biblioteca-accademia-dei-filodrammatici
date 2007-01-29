@@ -1,7 +1,7 @@
 
 module Import
   
-  class Importer
+  class Base
     def initialize(verbose=false)
       @verbose = verbose
     end

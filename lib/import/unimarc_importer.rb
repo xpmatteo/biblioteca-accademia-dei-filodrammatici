@@ -1,7 +1,7 @@
 require 'rmarc'
 
 module Import 
-class UnimarcImporter < Importer
+class UnimarcImporter < Base
   
   attr_accessor :field
   attr_writer :verbose

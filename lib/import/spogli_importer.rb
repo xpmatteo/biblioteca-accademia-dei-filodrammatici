@@ -1,12 +1,10 @@
 
 module Import
   
-  class SpogliImporter < Importer
+  class SpogliImporter < Base
     AuthorDocument = Struct.new(:author_name, :author_id_sbn, :document_id_sbn)
-    Title = Struct.new(:title, :id_sbn, :parent_id_sbn)
+    Title = Struct.new(:title, :id_sbn, :parent_id_sbn, :notes)
 
-    attr_accessor :verbose
-  
     def read_responsibilities(responsibilities_path)
       result = []
       count = 0
@@ -21,7 +19,7 @@ module Import
       result = []
       count = 0
       CSV::Reader.parse(File.open(titles_path, 'rb')) do |row|
-        result << Title.new(row[4], row[2], row[0]) unless count == 0
+        result << Title.new(row[4], row[2], row[0], row[16]) unless count == 0
         count += 1
       end
       result
@@ -34,16 +32,17 @@ module Import
         parent = Document.find_by_id_sbn(title.parent_id_sbn)
         raise "parent not found: #{title.parent_id_sbn}" unless parent
         author = authors.author_of(title.id_sbn)
-      
+
         d = Document.new(:original_title => title.title, 
                          :title => clean_title(title.title), 
-                         :id_sbn => title.id_sbn)
+                         :id_sbn => title.id_sbn,
+                         :month_of_serial => title.notes)
         d.parent = parent
         d.hierarchy_type = "serial"
         d.author = author
         parent.update_attribute(:hierarchy_type, "serial")
         d.save || (puts "cannot save spoglio: #{d.id_sbn}: #{d.errors.full_messages}"; next)
-      
+
         log "no author for #{d.id_sbn}: #{d.title}" unless author  
         log count.to_s 
         count += 1
