@@ -8,13 +8,13 @@ task :import_documents => :environment do
   Document.delete_all
   Author.delete_all    
 
-  # Import::UnimarcImporter.new(true).import_binary 'dump/p6470870.LO14451.uni'
-  # sh 'mysqldump filo_development authors documents responsibilities > db/local-stage0.sql'
+  Import::UnimarcImporter.new(true).import_binary 'dump/p6470870.LO14451.uni'
+  sh 'mysqldump filo_development authors documents responsibilities > db/local-stage0.sql'
 
-  # Import::UnimarcImporter.new(true).import_xml "dump/dump.xml"
-  # sh 'mysqldump filo_development authors documents responsibilities > db/local-stage1.sql'
+  Import::UnimarcImporter.new(true).import_xml "dump/dump.xml"
+  sh 'mysqldump filo_development authors documents responsibilities > db/local-stage1.sql'
 
-  sh 'mysql filo_development < db/local-stage1.sql'
+#  sh 'mysql filo_development < db/local-stage1.sql'
   Import::SpogliImporter.new(true).import "dump/spogli/titoli.csv", "dump/spogli/responsabilita.csv"
   sh 'mysqldump filo_development authors documents responsibilities > db/local-stage2.sql'
 

@@ -33,7 +33,7 @@ class Document < ActiveRecord::Base
   def Document.prune_children(list)
     list.reject {|elem| list.member?(elem.parent)}
   end
-
+  
   private
   
   def add_author_to_names

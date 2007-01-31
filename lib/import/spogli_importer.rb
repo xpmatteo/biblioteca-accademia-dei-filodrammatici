@@ -40,6 +40,7 @@ module Import
         d.parent = parent
         d.hierarchy_type = "serial"
         d.author = author
+        d.responsibilities_denormalized = author.name if author
         parent.update_attribute(:hierarchy_type, "serial")
         d.save || (puts "cannot save spoglio: #{d.id_sbn}: #{d.errors.full_messages}"; next)
 

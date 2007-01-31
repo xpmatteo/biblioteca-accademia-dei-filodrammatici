@@ -64,6 +64,7 @@ class SpogliImporterTest < Test::Unit::TestCase
     assert_equal "serial", spoglio.parent.hierarchy_type
     assert_equal author, spoglio.author
     assert_equal [author], spoglio.names
+    assert_equal author.name, spoglio.responsibilities_denormalized
     assert_equal "maggio 1963", spoglio.month_of_serial
     assert_equal "700", Responsibility.find(:first, :conditions => "document_id = #{spoglio.id}").unimarc_tag
   end
