@@ -8,16 +8,16 @@
 # end
 
 #puts `mysql filo_development < db/local-stage2.sql`
+
 puts "Authors before: #{Author.count}"
 
-Author.consolidate!
+#Author.consolidate!
 
 count = 0
 Author.find(:all).each do |a|
   puts count if count % 100 == 0
   count += 1
   
-  add_author_to_names(a)
   if a.documents.size == 0
     puts "deleting #{a.attributes.inspect}"
     a.destroy
