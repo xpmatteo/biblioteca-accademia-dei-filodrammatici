@@ -1,5 +1,3 @@
-#require 'lib/import/unimarc_importer'
-require 'CSV'
 
 desc 'Import documents from marc.xml dump'
 task :import_documents => :environment do
