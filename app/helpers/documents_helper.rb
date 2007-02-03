@@ -30,7 +30,7 @@ module DocumentsHelper
   end
   
   def link_to_document(document)
-    link_to h(document.title), document_url(document)
+    link_to h(document.title.sub("*", "")), document_url(document)
   end
   
   def show_children(document)

@@ -231,7 +231,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_equal "Cronache teatrali del primo Novecento", @document.title
   end
   
-  def test_should_ignore_asterisk
+  def test_should_record_asterisk
     import <<-SCHEDA
     <collection>
       <record xmlns="http://www.loc.gov/MARC21/slim">
@@ -251,8 +251,8 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
       </record>
     </collection>
     SCHEDA
-    assert_title "L' Adargonte"
-    assert_collection_name "Les meilleurs auteurs classiques francais et etrangers"
+    assert_title "L' *Adargonte"
+    assert_collection_name "Les *meilleurs auteurs classiques francais et etrangers"
   end
   
   def test_should_cleanup_title_and_remember_original_title
@@ -363,7 +363,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/ancient.xml'
     assert_not_nil @document = Document.find_by_id_sbn("BVEE025199"), "not found"
     assert_author               "Abbati, Giovanni Battista"
-    assert_title                "Il Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto"
+    assert_title                "Il *Clotario tragedia da rappresentarsi nel teatro Grimani di S. Samuele l'anno 1723 / [Gio.Battista Abbati]. Consacrata all'illustrissimo, ed eccellentissimo sig. Giuseppe Lini patrizio veneto"
     assert_publication          "In Venezia: appresso Biasio Maldura. Si vende da Carlo Bonarigo in Spadaria"
     assert_physical_description "72 p. ; 12o."
     assert_notes                "Il nome dell'A. figura nella pref"

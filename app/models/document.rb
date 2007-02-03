@@ -8,7 +8,8 @@ class Document < ActiveRecord::Base
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
 
   # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
-  acts_as_tree :order => 'month_of_serial, cast(title as unsigned), title'
+  # e se contengono un asterisco, vanno ordinati a partire dall'asterisco
+  acts_as_tree :order => "cast(title as unsigned), right(title, length(title) - locate('*', title))"
   
   has_many :responsibilities
   has_many :names, :source => :author, :through => :responsibilities, :order => :name
@@ -34,7 +35,7 @@ class Document < ActiveRecord::Base
     list.reject {|elem| list.member?(elem.parent)}
   end
   
-  private
+private
   
   def add_author_to_names
     if author_id && ! names.member?(author)

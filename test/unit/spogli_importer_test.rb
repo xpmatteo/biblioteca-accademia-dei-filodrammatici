@@ -34,7 +34,7 @@ class SpogliImporterTest < Test::Unit::TestCase
 
   def test_complex_title
     original = "Gringoire : commedia in un atto ; Le *furberie di Nerina : commedia in unatto / Teodoro De Banville ; traduzione e presentazione di Giovanni Marcellini"
-    expected = "Gringoire: commedia in un atto; Le furberie di Nerina: commedia in unatto; traduzione e presentazione di Giovanni Marcellini"
+    expected = "Gringoire: commedia in un atto; Le *furberie di Nerina: commedia in unatto; traduzione e presentazione di Giovanni Marcellini"
     assert_equal expected, @importer.clean_title(original)
   end
 

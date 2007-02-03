@@ -24,8 +24,8 @@ class ImportBaseTest < Test::Unit::TestCase
     assert_equal "Zork bla", @importer.clean_title("Zork bla")    
   end
 
-  def test_should_remove_asterisk_from_title
-    assert_equal "Lo Zork", @importer.clean_title("Lo *Zork")    
+  def test_should_not_remove_asterisk_from_title
+    assert_equal "Lo *Zork", @importer.clean_title("Lo *Zork")    
   end
 end
 

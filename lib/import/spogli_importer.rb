@@ -1,3 +1,4 @@
+require 'CSV'
 
 module Import
   

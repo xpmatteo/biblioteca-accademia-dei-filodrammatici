@@ -67,7 +67,7 @@ class UnimarcImporter < Base
     when '215'
       d.physical_description = append(d.physical_description, construct_physical_description)
     when '225'
-      d.collection_name = cleanup_asterisk(sub_unless_nil('a'))
+      d.collection_name = restore_asterisk(sub_unless_nil('a'))
       d.collection_volume = sub_unless_nil('v')
     when '300'
       if d.notes
@@ -107,7 +107,7 @@ class UnimarcImporter < Base
   end
   
   def construct_title
-    cleanup_asterisk(sub('a')) + sub('e', " : ") + sub('f', " / ") + sub('g', " ; ") + sub('c', " . ")
+    restore_asterisk(sub('a')) + sub('e', " : ") + sub('f', " / ") + sub('g', " ; ") + sub('c', " . ")
   end
   
   def construct_publisher
@@ -208,8 +208,8 @@ class UnimarcImporter < Base
     value
   end
   
-  def cleanup_asterisk(str)
-    return $1 + $2 if str =~ /^H(.[^I]*)I(.*)$/
+  def restore_asterisk(str)
+    return $1 + "*" + $2 if str =~ /^H(.[^I]*)I(.*)$/
     str
   end
   
@@ -224,7 +224,7 @@ class UnimarcImporter < Base
     begin
       Responsibility.create!(:document_id => document.id, :author_id => author.id, :unimarc_tag => tag)
     rescue
-      log "duplicate name: #{author.name} for #{document.id_sbn}"
+#      log "duplicate responsibility: #{author.name} for #{document.id_sbn}"
     end
   end
 end

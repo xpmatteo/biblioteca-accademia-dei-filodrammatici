@@ -11,7 +11,6 @@ module Import
     end
 
     def clean_title(title)
-      title = title.sub("*", "")
       case title
       when /^(.*) \/ [^.]*\. (\(\()?(.*)$/
         title = $1 + ". " + $3 
