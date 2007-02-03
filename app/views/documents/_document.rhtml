@@ -5,7 +5,7 @@
     </p>
   <% end -%>
 
-  <%=show document.title.sub("*", ""), "", :title %>
+  <%=show document.title_without_asterisk, "", :title %>
   <%=show document.publication, "", :publication %>
   <%=show document.physical_description %>
   <% if document.collection %>

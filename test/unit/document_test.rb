@@ -125,6 +125,11 @@ class DocumentTest < Test::Unit::TestCase
     assert_raise (ActiveRecord::StatementInvalid) { d.names << a }
   end
   
+  def test_should_not_show_asterisks_in_title
+    d = Document.new(:title => "The *Foo", :id_sbn => "bla")
+    assert_equal "The Foo", d.title_without_asterisk
+  end
+  
 private
   def assert_found_by_keywords(expected, keywords)
     actual = Document.find_by_keywords(keywords).map { |d| d.title }

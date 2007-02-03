@@ -35,6 +35,10 @@ class Document < ActiveRecord::Base
     list.reject {|elem| list.member?(elem.parent)}
   end
   
+  def title_without_asterisk
+    title.gsub("*", "")
+  end
+  
 private
   
   def add_author_to_names

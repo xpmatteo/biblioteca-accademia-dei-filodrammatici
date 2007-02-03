@@ -31,7 +31,7 @@ class DocumentsController < ApplicationController
   
   def show
     document = Document.find(params[:id])
-    @page_title = document.title
+    @page_title = document.title_without_asterisk
     paginate_documents [document]
     render :template => 'documents/list'
   end

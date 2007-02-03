@@ -26,11 +26,11 @@ module DocumentsHelper
     volume = " "
     volume += document.month_of_serial if document.month_of_serial
     volume += document.collection_volume if document.collection_volume    
-    "Pubblicato in: " + link_to_unless_current(h(parent.title), :action => 'show', :id => parent.id) + volume
+    "Pubblicato in: " + link_to_unless_current(h(parent.title_without_asterisk), :action => 'show', :id => parent.id) + volume
   end
   
   def link_to_document(document)
-    link_to h(document.title.sub("*", "")), document_url(document)
+    link_to h(document.title_without_asterisk), document_url(document)
   end
   
   def show_children(document)
