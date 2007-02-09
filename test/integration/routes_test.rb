@@ -40,7 +40,7 @@ class RoutesTest < ActionController::IntegrationTest
     assert_equal "/biblio/scheda/146", 
       url_for(:controller => 'documents', :action => 'show', :id => 146, :only_path => true)
       
-    assert_equal "/biblio/collezione/foo+bar", 
+    assert_equal "/biblio/collezione?name=foo+bar", 
       url_for(:controller => 'documents', :action => 'collection', :name => 'foo bar', :only_path => true)
 
     assert_equal "/biblio/anno/1936", 

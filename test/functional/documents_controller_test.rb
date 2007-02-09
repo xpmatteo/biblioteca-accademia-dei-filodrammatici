@@ -119,7 +119,7 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'documents/list'
     assert_equal 'Marca "Un leone rampante": una scheda', assigns(:page_title), "titolo sbagliato"
-    assert_equal 1, assigns(:documents).size, "num doc"
     assert_equal ["Nell'anno 1802"], assigns(:documents).map {|d| d.title}, "assegnato i doc sbagliati"
   end  
+  
 end

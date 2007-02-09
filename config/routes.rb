@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.author_initial  'biblio/autori/:initial',   :controller => "documents", :action => "authors"
   map.author          'biblio/autore/:id',        :controller => "documents", :action => "author"
   map.document        'biblio/scheda/:id',        :controller => "documents", :action => "show"
-  map.collection      'biblio/collezione/:name',  :controller => "documents", :action => "collection"
+  map.collection      'biblio/collezione',        :controller => "documents", :action => "collection"
   map.connect         'biblio/marca/:id',         :controller => "documents", :action => "publishers_emblem"
   map.year            'biblio/anno/:year',        :controller => "documents", :action => "year"
   map.connect         'biblio/:action/:id',       :controller => "documents"
