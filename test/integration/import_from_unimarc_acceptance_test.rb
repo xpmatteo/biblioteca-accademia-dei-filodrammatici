@@ -1,13 +1,14 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require File.dirname(__FILE__) + '/../import_test_helper'
 
-class ImportFromUnimarcTest < Test::Unit::TestCase
+class ImportFromUnimarcAcceptanceTest < Test::Unit::TestCase
   include ImportTestHelper
 
   def setup
     Document.delete_all
     Author.delete_all
     Responsibility.delete_all
+    PublishersEmblem.delete_all
   end
 
   def test_scheda_moderna_teatro_elisabettiano
@@ -25,12 +26,12 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     Import::UnimarcImporter.new.import_xml File.dirname(__FILE__) + '/../fixtures/modern.xml'
     @document = Document.find_by_id_sbn('ANA0019058')
     assert_nil                  @document.author
-    assert_title                "Teatro elisabettiano: Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford"
+    assert_title                "Teatro elisabettiano: Kyd, Marlowe, Heywood, Marston, Jonson, Webster, Tourneur, Ford. [sotto la direzione di Mario Praz]"
     assert_publication          "Firenze: Sansoni, stampa 1948"
     assert_physical_description "XXVIII, 1274 p. ; 21 cm."
     assert_notes                "Trad. di Gabriele Baldini. Altra nota"
     assert_national_bibliography_number "1929 4793"
-    assert_signature            "S.I 14"
+    assert_collocation          "S.I 14"
     assert_names                ["Praz, Mario"]
     assert_collection           "I grandi classici stranieri"
   end
@@ -50,12 +51,12 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     @document = Document.find_by_id_sbn('MIL0066910')
     assert_author               "Grassi, Paolo <1919-1981>"
     assert_names                ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Strehler, Giorgio"]
-    assert_title                "Quarant'anni di palcoscenico; a cura di Emilio Pozzi; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
+    assert_title                "Quarant'anni di palcoscenico. Paolo Grassi; a cura di Emilio Pozzi; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
     assert_publication          "Milano: Mursia, 1977"
     assert_physical_description "2. ed.; 368 p. : \\16] c. di tav. ; 22 cm."
     assert_collection_volume    "11"
     assert_collection           "Voci, uomini e tempi; 11"
-    assert_signature            "O.IV 13"
+    assert_collocation          "O.IV 13"
   end
   
   def test_import_from_unimarc_binary_works
@@ -271,7 +272,7 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     </collection>
     SCHEDA
 
-    assert_title "Quarant'anni di palcoscenico; a cura di Emilio Pozzi; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
+    assert_title "Quarant'anni di palcoscenico. Paolo Grassi; a cura di Emilio Pozzi; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
     assert_original_title "Quarant'anni di palcoscenico / Paolo Grassi ; a cura di Emilio Pozzi ; in appendice: lettere di Giorgio Strehler e Claudio Abbado"
   end
   
@@ -370,79 +371,28 @@ class ImportFromUnimarcTest < Test::Unit::TestCase
     assert_footprint            "'ee, lido a.a, AcTe (3) 1723 (Q)"
     assert_names                ["Abbati, Giovanni Battista", "Buonarrigo, Carlo", "Maldura, Biagio"]
   end
+
+  def test_should_import_publishers_emblem    
+    import <<-SCHEDA
+    <collection>
+      <record xmlns="http://www.loc.gov/MARC21/slim">
+        <leader>03225nam0a2200517  I450 </leader>
+        <controlfield tag="001">FOO_BAR_BAZ</controlfield>
+        <datafield tag="200" ind1="1" ind2=" ">
+          <subfield code='a'>Libro con marca tipografica</subfield>
+        </datafield>    
+        <datafield tag="921" ind1=" " ind2=" ">
+          <subfield code="a">IT\\ICCU\\CFIM\\000022</subfield>
+          <subfield code="b">Un leone rampante</subfield>
+          <subfield code="c">V410</subfield>
+        </datafield>
+      </record>
+    </collection>
+    SCHEDA
+    assert_equal 1, PublishersEmblem.count
+    assert_equal "Un leone rampante", @document.publishers_emblem.description
+    assert_equal "CFIM000022", @document.publishers_emblem.id_sbn
+    assert_equal "V410", @document.publishers_emblem.code
+  end
   
-  # def test_scheda_antica_li_pregiudizj
-  #   # Bianchi, Antonio <1720-1775>
-  #   # Li pregiudizj della paterna prevenzione o sia l'onesta premiata. Commedia II
-  #   # Venezia, 1754!
-  #   # 71-490 p. ; 18 cm
-  #   # 
-  #   # Opera non completamente identificata per la mancanza delle prime 70 pagine contenenti la prima commedia, Il Tutore infedele, come si legge nella lettera dedicatoria dell'autore a i lettori a pag. 76
-  #   # Il luogo, la data e il nome dell'autore sono indicati a pag. 75 in fondo alla lettera dedicatoria a Sua Eccellenza il Sig. Marin Zorzi
-  #   # L'opera contiene inoltre le commedie terza, quarta, quinta e sesta : Il buon parente ; Il segretario domestico ; Il sensale da servi. Ovvero la moglie tollerante ; La vedova di Moliere o sia la vanarella
-  #   # 
-  #   # Bianchi , Antonio <1720-1775>
-  #   # ￼[Pubblicato con] Il buon parente. Commedia III  
-  #   #  Il segretario domestico. Commedia IV 
-  #   # Il sensale da servi. Ovvero la moglie tollerante. Commedia V 
-  #   # 
-  #   # IT\ICCU\LO1E\021147
-  #   
-  #   @document = Document.find_by_id_sbn('LO1E021147')
-  #   assert_author               "Bianchi, Antonio <1720-1775>"
-  #   assert_title                "Li pregiudizj della paterna prevenzione o sia l'onesta premiata. Commedia II"
-  #   assert_publication            "Venezia, 1754!"
-  #   assert_physical_description "71-490 p. ; 18 cm"
-  #   # tre occorrenze del tag 300; da concatenare con ". "
-  #   assert_notes                "Opera non completamente identificata per la mancanza delle prime 70 pagine contenenti la prima commedia, Il Tutore infedele, come si legge nella lettera dedicatoria dell'autore a i lettori a pag. 76. Il luogo, la data e il nome dell'autore sono indicati a pag. 75 in fondo alla lettera dedicatoria a Sua Eccellenza il Sig. Marin Zorzi. L'opera contiene inoltre le commedie terza, quarta, quinta e sesta : Il buon parente ; Il segretario domestico ; Il sensale da servi. Ovvero la moglie tollerante ; La vedova di Moliere o sia la vanarella."
-  #   assert_collection           nil
-  #   assert_names                ["Bianchi, Antonio <1720-1775>"]
-  #   assert_signature            "???"
-  #   # tre occorrenze del tag 423
-  #   assert_issued_with          ["Il buon parente. Commedia III", "Il segretario domestico. Commedia IV", "Il sensale da servi. Ovvero la moglie tollerante. Commedia V"]
-  # end
-  # 
-  # def test_scheda_antica_il_parto_finto
-  #   # Raimondo, Marco Antonio <fl. 1625>
-  #   # Il parto finto, comedia del sign. Marcantonio Raimondo romano
-  #   # In Venetia : presso Angelo Saluadori ; si vendono in Pesaro : all'insegna della Venetia, 1629
-  #   # 142, [2] p. ; 12°
-  #   # Marca di Salvadori (colomba. Motto: Salvia. Salvat.) sul front.
-  #   # Segn.: A-F12,  F12 bianca.
-  #   # Impronta - erel die. uiin teCo (3) 1629 (A)
-  #   # 
-  #   # Raimondo, Marco Antonio <fl. 1625>
-  #   # Salvadori, Angelo
-  #   # Alla insegna della Venetia
-  #   # 
-  #   # IT\ICCU\BVEE\022732
-  #   
-  #   @document = Document.find_by_id_sbn('BVEE022732')
-  #   assert_author               "Raimondo, Marco Antonio <fl. 1625>"
-  #   assert_title                "Il parto finto, comedia del sign. Marcantonio Raimondo romano"
-  #   assert_publication            "In Venetia : presso Angelo Saluadori ; si vendono in Pesaro : all'insegna della Venetia, 1629"
-  #   assert_physical_description "142, [2] p. ; 12°"
-  #   assert_notes                "Marca di Salvadori (colomba. Motto: Salvia. Salvat.) sul front."
-  #   assert_collection           nil
-  #   assert_signature            "A-F12,  F12 bianca."
-  #   assert_footprint            "erel die. uiin teCo (3) 1629 (A)"
-  #   assert_names                ["Raimondo, Marco Antonio <fl. 1625>", "Salvadori, Angelo", "Alla insegna della Venetia"]
-  #   assert_issued_with          nil
-  # end
-  # 
-  # def test_should_import_all_authors
-  #   authors = Author.find(:all, :order => 'name').map { |a| a.name }
-  #   assert_equal ["Abbado, Claudio", "Grassi, Paolo <1919-1981>", "Pozzi, Emilio", "Praz, Mario", "Strehler, Giorgio"],
-  #     authors
-  # end
-  # 
-  # def test_should_keep_sbn_data_in_duplicate_fields
-  #   for document in Document.find(:all)
-  #     for field in %w(title, publication, physical_description, notes, numbers, signature)
-  #       # assert_equal document.title, document.sbn_title
-  #       assert_equal document.attributes[field.to_sym], document.attributes[("sbn_" + field).to_sym]
-  #     end
-  #   end
-  # end
-  # 
 end

@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   scaffold :document
-  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection ]
+  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection, :year, :publishers_emblem ]
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :index }
 
@@ -37,13 +37,33 @@ class DocumentsController < ApplicationController
   end
   
   def collection
-    documents = Document.find(:all, :conditions => ["collection_name = ?", params[:name]], :order => "title")     
+    documents = find_documents(:collection_name, params[:name])
     @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede(documents.size)
     paginate_documents documents
     render :template => 'documents/list'
   end
   
+  def year
+    documents = find_documents(:year, params[:year])
+    paginate_documents documents
+    @page_title = 'Anno ' + params[:year] + ': ' + pluralize_schede(documents.size)
+    render :template => 'documents/list'
+  end
+  
+  def publishers_emblem
+    emblem = PublishersEmblem.find(params[:id])
+    documents = find_documents(:publishers_emblem_id, params[:id])
+    paginate_documents documents
+    @page_title = 'Marca "' + emblem.description + '": ' + pluralize_schede(documents.size)
+    render :template => 'documents/list'
+  end
+  
 private
+
+  def find_documents(col, val)
+    docs = Document.find(:all, :conditions => ["#{col.to_s} = ?", val], :order => Document::CANONICAL_ORDER)
+    Document.prune_children(docs)
+  end
 
   def paginate_documents(documents)
     @document_pages, @documents = paginate_collection documents, :page => params[:page]

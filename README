@@ -1,54 +1,5 @@
 == TODO
 
-Autori duplicati: Zanchi Bertelli, Antonio
-Autori senza schede: da dove vengono?
-
-- finire importazione libri moderni
-  - aggiornare form modifica schede
-  - salvare il tag nelle responsabilità (tag o altro?)
-  - riformattare il titolo secondo desideri Ombretta
-  
-- COntrollare "Bon, Francesco Augusto": perché non è collegato alla sua collezione?
-
-+ editing locale dei campi bibliografici   2
-+ implementa customer test moderni     3
-+ implementa customer test antichi     3
-+ - elimina tabelle legacy
-+ link a query per collezione
-- eliminare strani prefissi (rumore) es. scheda Fagan 1
-+ nella ricerca, riportare il numero di risultati 1
-
-bugfix
-+ nella ricerca semplice non funziona la paginazione 1
-+ togliere "next page" mettere in italiano 1
-
-+ sfruttare tutti i subfield da a - g per il titolo
-
-later
- - aggiungere scheda autore
- 
-
-
-
-Note: per interrogare il polo lombardo riguardo la segnatura di un libro, usare qs url
-
-http://www.biblioteche.regione.lombardia.it/OPACRL/catcop1/SDW?W%3DBID%20%3D%20%27AQ10031672%27%20AND%20GROUP=%270%27%20ORDER%20BY%20EVERY%20BIBLIOTECA/Ascend
-
-sostituendo "AQ10031672" con la parte finale del codice sbn
-
-
-Per estrarre con espr reg la segnatura, testare l'output di 
-http://biblioteche.regione.lombardia.it/OPACRL/catcop1/SDW?W%3DBID%20%3D%20%27AQ10031672%27%20AND%20GROUP=%270%27%20ORDER%20BY%20EVERY%20BIBLIOTECA/Ascend
-
-# recupera la collocazione, anche se la pag html presenta collocazioni in piu biblioteche
-ok = false
-IO.readlines("/Users/matteo/Desktop/collocazione.html").each do |line|
-  if line =~ %r|Biblioteca della Accademia dei Filodrammatici di Milano|
-    ok = true
-  end
-  
-  if ok && line =~ %r|<B>Collocazione:</B></TD><TD>([^<]*)</TD>|
-    puts $1
-    ok = false
-  end
-end
+- query per anno, secolo, ...
+- internazionalizza
+- picture

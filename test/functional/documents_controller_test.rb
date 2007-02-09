@@ -5,7 +5,7 @@ require 'documents_controller'
 class DocumentsController; def rescue_action(e) raise e end; end
 
 class DocumentsControllerTest < Test::Unit::TestCase
-  fixtures :documents, :authors, :responsibilities, :menu_items
+  fixtures :documents, :authors, :responsibilities, :publishers_emblems
   
   def setup
     @controller = DocumentsController.new
@@ -105,4 +105,21 @@ class DocumentsControllerTest < Test::Unit::TestCase
     get :collection, :name => "<script>"
     assert_select "h3", :text => "Collezione &quot;&lt;script&gt;&quot;: nessuna scheda"
   end
+  
+  def test_query_by_year
+    get :year, :year => 1936
+    assert_response :success
+    assert_template 'documents/list'
+    assert_equal [documents(:anno_1936)], assigns(:documents), "assegnato i doc sbagliati"
+    assert_equal 'Anno 1936: una scheda', assigns(:page_title), "titolo sbagliato"
+  end
+  
+  def test_query_by_publishers_emblem
+    get :publishers_emblem, :id => 1
+    assert_response :success
+    assert_template 'documents/list'
+    assert_equal 'Marca "Un leone rampante": una scheda', assigns(:page_title), "titolo sbagliato"
+    assert_equal 1, assigns(:documents).size, "num doc"
+    assert_equal ["Nell'anno 1802"], assigns(:documents).map {|d| d.title}, "assegnato i doc sbagliati"
+  end  
 end

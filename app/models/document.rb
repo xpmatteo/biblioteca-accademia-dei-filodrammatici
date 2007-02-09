@@ -9,11 +9,13 @@ class Document < ActiveRecord::Base
 
   # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
   # e se contengono un asterisco, vanno ordinati a partire dall'asterisco
-  acts_as_tree :order => "cast(title as unsigned), right(title, length(title) - locate('*', title))"
+  CANONICAL_ORDER = "cast(title as unsigned), right(title, length(title) - locate('*', title))"
+  acts_as_tree :order => CANONICAL_ORDER
   
   has_many :responsibilities
   has_many :names, :source => :author, :through => :responsibilities, :order => :name
   belongs_to :author
+  belongs_to :publishers_emblem
   
   after_save :add_author_to_names
   

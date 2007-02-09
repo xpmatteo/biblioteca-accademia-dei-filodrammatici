@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class DocumentTest < Test::Unit::TestCase
-  fixtures :authors, :documents, :responsibilities
+  fixtures :authors, :documents, :responsibilities, :publishers_emblems
   
   def test_names
     d = documents(:logica_umana)
@@ -128,6 +128,10 @@ class DocumentTest < Test::Unit::TestCase
   def test_should_not_show_asterisks_in_title
     d = Document.new(:title => "The *Foo", :id_sbn => "bla")
     assert_equal "The Foo", d.title_without_asterisk
+  end
+  
+  def test_publishers_emblem
+    assert_equal "Un leone rampante", documents(:anno_1802).publishers_emblem.description
   end
   
 private

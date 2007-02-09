@@ -26,4 +26,18 @@ un_altro:
   collection_name: Foo
   title: Pippo Topolino
   
+anno_1936:
+  id: 150
+  id_sbn: anno_1936
+  title: Nell'anno 1936
+  year: 1936
+  century: 20
   
+anno_1802:
+  id: 151
+  id_sbn: anno_1802
+  title: Nell'anno 1802
+  year: 1802
+  century: 19
+  publishers_emblem_id: 1
+

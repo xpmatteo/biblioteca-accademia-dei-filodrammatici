@@ -18,6 +18,10 @@ module DocumentsHelper
     return "" if result == ""
     result += "<br />"
   end
+
+  def show_publication(document)
+    show document.publication, "", :publication
+  end
   
   def show_parent(document)
     parent = document.parent

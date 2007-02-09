@@ -47,7 +47,7 @@ module ImportTestHelper
     SCHEDA
   end
   
-  %w(title publication notes signature footprint physical_description signature footnote 
+  %w(title publication notes signature footprint physical_description collocation 
     year place publisher century hierarchy_type document_type original_title
     national_bibliography_number collection_volume collection_name responsibilities_denormalized).each do |attribute|
     self.class_eval <<-END

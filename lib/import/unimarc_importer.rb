@@ -84,7 +84,9 @@ class UnimarcImporter < Base
       d.author = author if '700' == @field.tag
       @names << [author, @field.tag]
     when '950'
-      d.signature = sub('d')
+      d.collocation = sub('d')
+    when '921'
+      d.publishers_emblem = create_or_find_publishers_emblem(sub('a'), sub('b'), sub('c'))
     end    
   end
   
@@ -144,6 +146,15 @@ class UnimarcImporter < Base
       Author.new(:name => name, :id_sbn => id_sbn)
     author.save || (raise "can't save author: " + author.inspect + ": " + author.errors.full_messages.join("; "))
     author
+  end
+  
+  def create_or_find_publishers_emblem(id_sbn, description, code)
+    id_sbn = cleanup_id_sbn(id_sbn)
+    emblem = 
+      PublishersEmblem.find_by_id_sbn(id_sbn) || 
+      PublishersEmblem.new(:description => description, :id_sbn => id_sbn, :code => code)
+    emblem.save || (raise "can't save emblem: " + emblem.inspect + ": " + emblem.errors.full_messages.join("; "))
+    emblem
   end
   
   def append(a, b)
