@@ -35,5 +35,10 @@
     </em>
   </blockquote>
 
-  <p><%= admin_link_to "modifica", :action => :edit, :id => document %></p>
+  <% if authorized? %>
+  <p><%= admin_link_to "modifica", :action => :edit, :id => document %>
+   | <%= admin_link_to "aggiungi un documento collegato", :action => :new, :parent_id => document %>
+   | <%= admin_link_to 'cancella la scheda', { :action => :destroy, :id => document }, :confirm => 'Sei sicura?', :post => true %>   
+  </p>
+  <% end %>
 </div>

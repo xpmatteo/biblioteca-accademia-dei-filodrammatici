@@ -121,5 +121,28 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_equal 'Marca "Un leone rampante": una scheda', assigns(:page_title), "titolo sbagliato"
     assert_equal ["Nell'anno 1802"], assigns(:documents).map {|d| d.title}, "assegnato i doc sbagliati"
   end  
+
+  def test_create_child_document
+    parent = documents(:logica_umana)
+    assert_equal [], parent.children
+    
+    post_authenticated :create, :parent_id => parent, :document => { :title => 'Fooz', :id_sbn => 'xyz' }
+    assert_equal [], assigns(:document).errors.full_messages
+    
+    parent.reload
+    assert_equal 1, parent.children.count
+    child = parent.children[0]
+    assert_not_nil child, "come mai il figlio e' nil?"
+    assert_redirected_to :action => :show, :id => child.id
+  end
   
+  def test_destroy_document
+    document = documents(:logica_umana)
+    get_authenticated :destroy, :id => document
+    assert_redirected_to :action => :list
+    
+    post_authenticated :destroy, :id => document
+    assert_redirected_to :action => :index
+    assert_nil Document.find(:first, :conditions => ['id = ?', document.id] )
+  end  
 end

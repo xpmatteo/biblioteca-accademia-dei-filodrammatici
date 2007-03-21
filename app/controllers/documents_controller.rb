@@ -58,6 +58,27 @@ class DocumentsController < ApplicationController
     render :template => 'documents/list'
   end
   
+  def create
+    @document = Document.new(params[:document])
+    if params[:parent_id]
+      parent = Document.find(params[:parent_id])
+      parent.children << @document
+    end
+    if @document.save
+      flash[:notice] = 'Il documento &grave; stato creato.'
+      puts @document
+      redirect_to :action => 'show', :id => @document
+    else
+      render :action => 'new'
+    end
+  end
+    
+  def destroy
+    Document.destroy(params[:id])
+    flash[:notice] = "La scheda &egrave; stata cancellata"
+    redirect_to :action => :index
+  end
+
 private
 
   def find_documents(col, val)

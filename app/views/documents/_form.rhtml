@@ -1,12 +1,24 @@
 <%= error_messages_for 'document' %>
 
 <!--[form:document]-->
-<p>Id sbn: <a target="_blank" href="http://www.biblioteche.regione.lombardia.it/OPACRL/catleg/DDW?W=BID=%27<%= @document.id_sbn %>%27"><%= @document.id_sbn %></a><br/>
+<% if @document && @document.id.nil? %>
+  <p><label for="id_sbn">Id sbn</label><br/>
+  <%= text_field 'document', 'id_sbn', :size => 50  %></p>
+<% else %>
+  <p>Id sbn: <a target="_blank" href="http://www.biblioteche.regione.lombardia.it/OPACRL/catleg/DDW?W=BID=%27<%= @document.id_sbn %>%27"><%= @document.id_sbn %></a><br/>
+<% end %>
+
+<% if params[:parent_id] %>
+  <%= hidden_field_tag "parent_id", params[:parent_id] %>
+<% end%>
 
 <p><label for="document_title">Titolo</label><br/>
 <%= text_area 'document', 'title', :size => '50x6'  %></p>
 
 <p>Titolo non ripulito: <em style="white-space: normal;"><%= @document.original_title %></em><br/>
+  
+<p><label for="document_author">Autore:</label><br/>
+<%= select 'document', 'author_id', Author.find(:all, :order => 'name').map {|a| [a.name, a.id]}, { :include_blank => true } %></p>
 
 <p><label for="document_publication">Pubblicazione</label><br/>
 <%= text_field 'document', 'publication', :size => 50  %></p>
