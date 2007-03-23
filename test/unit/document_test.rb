@@ -133,6 +133,12 @@ class DocumentTest < Test::Unit::TestCase
   def test_publishers_emblem
     assert_equal "Un leone rampante", documents(:anno_1802).publishers_emblem.description
   end
+
+  def test_uniqueness
+    Document.new(:title => "pippo").save!
+    Document.new(:title => "pluto").save!
+    # expect no problems
+  end
   
 private
   def assert_found_by_keywords(expected, keywords)

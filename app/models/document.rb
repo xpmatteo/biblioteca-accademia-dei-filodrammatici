@@ -1,6 +1,6 @@
 class Document < ActiveRecord::Base
-  validates_uniqueness_of :id_sbn
-  validates_presence_of :id_sbn, :title
+  validates_uniqueness_of :id_sbn, :if => Proc.new {|doc| !doc.id_sbn.blank?}
+  validates_presence_of :title
   validates_numericality_of :value,   :allow_nil => true
   validates_numericality_of :century, :allow_nil => true, :only_integer => true
   validates_numericality_of :year,    :allow_nil => true, :only_integer => true

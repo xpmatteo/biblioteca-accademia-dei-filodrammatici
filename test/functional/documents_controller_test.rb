@@ -7,6 +7,9 @@ class DocumentsController; def rescue_action(e) raise e end; end
 class DocumentsControllerTest < Test::Unit::TestCase
   fixtures :documents, :authors, :responsibilities, :publishers_emblems
   
+  # la tabella documents deve usare MyIsam per la ricerca libera
+  self.use_transactional_fixtures = false
+  
   def setup
     @controller = DocumentsController.new
     @request    = ActionController::TestRequest.new
