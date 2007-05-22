@@ -14,7 +14,7 @@ test:
 
 production:
   adapter: mysql
-  database: filodr
-  username: matteo
-  password: PivNabMa
+  database: mvaccari_db1
+  username: mvaccari1
+  password: cCVimvzS2
   host: localhost

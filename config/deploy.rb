@@ -22,15 +22,15 @@ set :repository, "https://matteo.textdriven.com/svn/#{application}/trunk"
 # be used to single out a specific subset of boxes in a particular role, like
 # :primary => true.
 
-role :web, "pendrell.textdrive.com"
-role :app, "pendrell.textdrive.com"
-role :db,  "pendrell.textdrive.com", :primary => true
+role :web, "storm.unbit.it"
+role :app, "storm.unbit.it"
+role :db,  "storm.unbit.it", :primary => true
 
 # =============================================================================
 # OPTIONAL VARIABLES
 # =============================================================================
-set :deploy_to, "/home/matteo/domains/accademiadeifilodrammatici.it/versions"
-set :user, "matteo"
+set :deploy_to, "/accounts/mvaccari/rails/filo"
+set :user, "mvaccari"
 set :use_sudo, false
 set :keep_releases, 2
 # set :svn, "/path/to/svn"       # defaults to searching the PATH
@@ -40,7 +40,7 @@ set :keep_releases, 2
 # SSH OPTIONS
 # =============================================================================
 # ssh_options[:keys] = %w(/path/to/my/key /path/to/another/key)
-# ssh_options[:port] = 25
+ssh_options[:port] = 2217
 
 # =============================================================================
 # TASKS
