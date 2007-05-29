@@ -64,6 +64,14 @@ class DocumentTest < Test::Unit::TestCase
     assert_found_by_keywords [:logica_umana], "Carlo Mor"
   end
   
+  def test_filter_stopwords
+    assert_equal "corvo", Document.filter_stopwords("il corvo")
+    assert_equal "corvo", Document.filter_stopwords("Il corvo")
+    assert_equal "mistero  corvo", Document.filter_stopwords("mistero del corvo")
+    assert_equal "busillis", Document.filter_stopwords("busillis")
+    assert_equal "corvessa", Document.filter_stopwords("il la corvessa")
+  end
+  
   def test_issued_with
     root = documents(:teatro_elisabettiano)
     assert_nil root.parent, "non ha genitore"

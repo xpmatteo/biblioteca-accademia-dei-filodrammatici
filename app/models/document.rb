@@ -29,7 +29,9 @@ class Document < ActiveRecord::Base
     sql = "select * 
              from documents
             where match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
-                against (:keywords)"
+                against (:keywords) 
+                limit 200"
+    keywords = Document.filter_stopwords(keywords)            
     Document.find_by_sql([sql, {:keywords => keywords}])
   end
   
@@ -40,7 +42,18 @@ class Document < ActiveRecord::Base
   def title_without_asterisk
     title.gsub("*", "")
   end
-  
+
+  def self.filter_stopwords(query)
+    stopwords = %w( di in commedia la e del il un atti. tre de dramma da atti le traduzione en a due signor
+    tragedia i teatro atto versione dal per della cinque italiana sig et cura con actes quattro l' comedie
+    una inedita 3 tomo )
+
+    stopwords.each do |stop|
+      rx = Regexp.new("\\b#{stop}\\b", Regexp::IGNORECASE)
+      query.gsub!(rx, '')
+    end
+    query.strip
+  end
 private
   
   def add_author_to_names
