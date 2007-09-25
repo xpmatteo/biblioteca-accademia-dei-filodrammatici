@@ -11,6 +11,8 @@ role :app, "storm.unbit.it"
 role :db,  "storm.unbit.it", :primary => true
 
 desc "Restart the web server"
-task :restart, :roles => :app do
-  run "killall -USR1 ruby"
+namespace :deploy do
+  task :restart, :roles => :app do
+    run "killall -USR1 ruby"
+  end
 end
