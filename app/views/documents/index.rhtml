@@ -3,5 +3,7 @@
 
 <%= @content.body %>
 <%= admin_link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content %>
-
+|
 <%= admin_link_to 'inserisci nuovo documento', :controller => 'documents', :action => 'new' %>
+|
+<%= admin_link_to 'inserisci nuovo autore', :controller => 'authors', :action => 'new' %>

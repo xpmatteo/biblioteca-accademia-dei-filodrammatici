@@ -1,0 +1,21 @@
+<h1>Listing authors</h1>
+
+<%= admin_link_to 'Inserisci autore nuovo', :action => 'new' %>
+
+<table>
+  <tr>
+  <% for column in Author.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for author in @authors %>
+  <tr>
+  <% for column in Author.content_columns %>
+    <td><%=h author.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Modifica', :action => 'edit', :id => author %></td>
+  </tr>
+<% end %>
+</table>
+

@@ -1,6 +1,7 @@
 class Author < ActiveRecord::Base
-  validates_uniqueness_of :id_sbn
-  validates_presence_of :name, :id_sbn
+  validates_uniqueness_of :id_sbn, :if => :id_sbn_is_not_blank
+  validates_uniqueness_of :name
+  validates_presence_of :name
 
   has_many :responsibilities
   has_many :documents, :through => :responsibilities, :order => :title
@@ -53,6 +54,10 @@ class Author < ActiveRecord::Base
         puts $!
       end      
     end
+  end
+  
+  def id_sbn_is_not_blank
+    ! self[:id_sbn].blank?
   end
 end
 
