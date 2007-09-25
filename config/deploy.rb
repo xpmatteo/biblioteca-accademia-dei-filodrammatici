@@ -113,4 +113,6 @@ task :after_symlink, :roles => [:app, :web] do
   run "ln -nfs #{shared_path}/upload #{current_path}/public/upload"
 end
 
-
+task :restart do
+   run "killall ruby"
+end

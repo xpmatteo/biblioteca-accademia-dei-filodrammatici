@@ -139,6 +139,15 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => :show, :id => child.id
   end
   
+  def test_create_new_root_document    
+    documents_before = Document.count
+    
+    post_authenticated :create, :document => { :title => 'Fooz', :id_sbn => 'xyz' }
+    assert_equal [], assigns(:document).errors.full_messages
+    assert_redirected_to :action => :show, :id => assigns(:document).id
+    assert_equal documents_before+1, Document.count
+  end
+  
   def test_destroy_document
     document = documents(:logica_umana)
     get_authenticated :destroy, :id => document

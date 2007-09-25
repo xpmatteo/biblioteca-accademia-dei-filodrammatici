@@ -2,4 +2,6 @@
 <%= render :partial => "author_initials" %>
 
 <%= @content.body %>
-<%= admin_link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content if authorized? %>
+<%= admin_link_to 'modifica testo', :controller => 'content', :action => 'edit', :id => @content %>
+
+<%= admin_link_to 'inserisci nuovo documento', :controller => 'documents', :action => 'new' %>
