@@ -9,11 +9,9 @@ ActionController::Routing::Routes.draw do |map|
   # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
 
-  map.connect '', :controller => "welcome"
+  map.connect '', :controller => "documents"
+  map.connect         'login',                    :controller => "login", :action => "login"
 
-  map.connect         'notizie/:action/:id',      :controller => "news"
-  map.connect         'diplomati/:action/:id',    :controller => "graduates"
-  map.connect         'docenti/:action/:id',      :controller => "teachers"
   map.author_initial  'biblio/autori/:initial',   :controller => "documents", :action => "authors"
   map.author          'biblio/autore/:id',        :controller => "documents", :action => "author"
   map.document        'biblio/scheda/:id',        :controller => "documents", :action => "show"
@@ -21,9 +19,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect         'biblio/marca/:id',         :controller => "documents", :action => "publishers_emblem"
   map.year            'biblio/anno/:year',        :controller => "documents", :action => "year"
   map.connect         'biblio/:action/:id',       :controller => "documents"
-
-  map.connect         'login',                    :controller => "login", :action => "login"
-  map.connect         ':name',                    :controller => "content", :action => 'page'
 
   # Install the default route as the lowest priority.
   map.connect         ':controller/:action/:id'
