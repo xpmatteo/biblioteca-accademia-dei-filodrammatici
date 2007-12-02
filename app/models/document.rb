@@ -1,4 +1,6 @@
 class Document < ActiveRecord::Base
+  MAX_DOCUMENTS_TO_RETURN = 100
+  
   validates_uniqueness_of :id_sbn, :if => Proc.new {|doc| !doc.id_sbn.blank?}
   validates_presence_of :title
   validates_numericality_of :value,   :allow_nil => true
@@ -6,6 +8,8 @@ class Document < ActiveRecord::Base
   validates_numericality_of :year,    :allow_nil => true, :only_integer => true
   validates_inclusion_of :document_type,  :in => %w(serial monograph set)
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
+
+  acts_as_ferret :fields => %w(title  publication  notes  responsibilities_denormalized  national_bibliography_number  id_sbn)
 
   # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
   # e se contengono un asterisco, vanno ordinati a partire dall'asterisco
@@ -26,13 +30,7 @@ class Document < ActiveRecord::Base
   end
   
   def Document.find_by_keywords(keywords)
-    sql = "select * 
-             from documents
-            where match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
-                against (:keywords) 
-                limit 200"
-    keywords = Document.filter_stopwords(keywords)            
-    Document.find_by_sql([sql, {:keywords => keywords}])
+    Document.find_by_contents(keywords, :limit => MAX_DOCUMENTS_TO_RETURN)
   end
   
   def Document.prune_children(list)

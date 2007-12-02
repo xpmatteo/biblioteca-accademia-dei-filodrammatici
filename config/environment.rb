@@ -58,20 +58,3 @@ end
 # i campi con errori li voglio dentro a 'span', non 'div'
 ActionView::Base.field_error_proc = Proc.new {|html_tag, instance|  %(<span class="field-with-errors">#{html_tag}</span>)}
 
-# Date::MONTHNAMES.replace      [nil] + %w(gennaio febbraio marzo aprile maggio giugno luglio agosto settembre ottobre novembre dicembre)
-# Date::ABBR_MONTHNAMES.replace [nil] + %w(gen feb mar apr mag giu lug ago set ott nov dic)
-# Date::DAYNAMES.replace        %w(domenica lunedì martedì mercoledì giovedì venerdì sabato)
-# Date::ABBR_DAYNAMES.replace   %w(dom lun mar mer gio ven sab)
-
-class Time
-  alias :strftime_nolocale :strftime
-
-  def strftime(format)
-    format = format.dup
-    format.gsub!(/%a/, Date::ABBR_DAYNAMES[self.wday])
-    format.gsub!(/%A/, Date::DAYNAMES[self.wday])
-    format.gsub!(/%b/, Date::ABBR_MONTHNAMES[self.mon])
-    format.gsub!(/%B/, Date::MONTHNAMES[self.mon])
-    self.strftime_nolocale(format)
-  end
-end
