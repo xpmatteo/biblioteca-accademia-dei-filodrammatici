@@ -1,5 +1,13 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+  def sidebar_menu_items
+    [
+      ["La Biblioteca", "/"],
+      ["Ricerca per secolo", {:controller => "documents", :action => "secoli"}],
+      ["LIBRI SFOGLIABILI", "http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=2&amp;id_sez=17"],
+    ]
+  end
   
   def menuitem_is_current?(menuitem)
     return false if params[:controller] != menuitem.controller

@@ -11,6 +11,7 @@
   <%= tiny_mce if using_tiny_mce? %>
 </head>
 <body>
+  <p style="color: green"><%= flash[:notice]%></p>
   <%= yield %>
 </body>
 </html>

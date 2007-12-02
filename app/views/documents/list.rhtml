@@ -3,11 +3,4 @@
 
 <h3><%=h @page_title %></h3>
 
-<div id="documents">
-<%= render :partial => 'document', :collection => @documents %>
-</div>
-
-<%= link_to 'Precedenti', { :page => @document_pages.current.previous, :q => params[:q] } if @document_pages.current.previous %>
-<%= pagination_links @document_pages, :params => {:q => params[:q]} %>
-<%= link_to 'Prossimi', { :page => @document_pages.current.next, :q => params[:q] } if @document_pages.current.next %> 
-
+<%= render :partial => 'list' %>

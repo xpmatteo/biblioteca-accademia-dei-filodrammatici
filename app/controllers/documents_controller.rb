@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   scaffold :document
-  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection, :year, :publishers_emblem ]
+  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection, :year, :publishers_emblem, :secolo ]
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :index }
 
@@ -48,6 +48,16 @@ class DocumentsController < ApplicationController
     paginate_documents documents
     @page_title = 'Anno ' + params[:year] + ': ' + pluralize_schede(documents.size)
     render :template => 'documents/list'
+  end
+  
+  def secolo
+    @centuries = %w(XVI XVII XVIII XIX XX XXI)
+    @page_title = "Ricerca per secolo"
+    if params[:secolo]
+      documents = find_documents(:century, roman_to_decimal(params[:secolo]))
+      @page_title = 'Secolo ' + century_to_roman(params[:secolo]) + ': ' + pluralize_schede(documents.size)
+      paginate_documents documents
+    end
   end
   
   def publishers_emblem
@@ -122,5 +132,30 @@ private
     else
       count.to_s + " " + plural
     end
+  end
+
+  @@centuries = { 
+    10 => "X", 
+    11 => "XI",
+    12 => "XII",
+    13 => "XIII",
+    14 => "XIV",
+    15 => "XV",
+    16 => "XVI",
+    17 => "XVII",
+    18 => "XVIII",
+    19 => "XIX",
+    20 => "XX",
+    21 => "XXI",
+  }
+
+  def century_to_roman(century)
+    @@centuries[century] || century
+  end
+  
+  def roman_to_decimal(century)
+    @@centuries.each do |decimal, roman|
+      return decimal if roman == century
+    end    
   end
 end

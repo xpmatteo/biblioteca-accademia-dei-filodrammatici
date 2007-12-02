@@ -30,6 +30,9 @@ body {
 	font-style: none;
 	font-weight: bold;
 }
+a.menubianco:hover {
+	text-decoration: underline;
+}
 .footer {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;

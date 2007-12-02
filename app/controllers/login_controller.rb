@@ -1,5 +1,6 @@
 class LoginController < ApplicationController
   EXPECTED_PASSWORD = '9817'
+  layout "admin"
 
   def login
     if request.get?
@@ -8,7 +9,7 @@ class LoginController < ApplicationController
       if EXPECTED_PASSWORD == params[:password]
         session[:authenticated] = true
         flash[:notice] = 'Benvenuto, amministratore'
-        redirect_to (session[:original_uri] || {:controller => 'news'})
+        redirect_to (session[:original_uri] || {:controller => 'documents'})
         session[:original_uri] = nil
       else
         flash[:notice] = 'Password errata'

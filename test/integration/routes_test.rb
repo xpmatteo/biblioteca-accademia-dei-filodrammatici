@@ -3,17 +3,6 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class RoutesTest < ActionController::IntegrationTest
   fixtures :menu_items, :documents
 
-  def test_main_menu_contains_link_docenti
-    get '/'
-    assert_response :success    
-    assert_tag :tag => 'a', :attributes => { :href => '/docenti' }
-  end
-  
-  def test_link_docenti
-    get '/docenti'
-    assert_response :success    
-  end
-  
   def test_login_link
     get '/login'
     assert_response :success

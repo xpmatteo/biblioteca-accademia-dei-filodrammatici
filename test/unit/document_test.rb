@@ -142,10 +142,23 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal "Un leone rampante", documents(:anno_1802).publishers_emblem.description
   end
 
-  def test_uniqueness
+  def test_uniqueness_of_sbn_ignores_nils
     Document.new(:title => "pippo").save!
     Document.new(:title => "pluto").save!
     # expect no problems
+  end
+  
+  def test_search_by_century
+    Document.delete_all
+    Document.create!(:title => "seicento I", :century => "17")
+    Document.create!(:title => "seicento II", :century => "17")
+    Document.create!(:title => "no century")
+    Document.create!(:title => "settecento", :century => 18)
+    assert_equal ["seicento I", "seicento II"], Document.find_all_by_century(17).map(&:title)
+    assert_equal ["settecento"], Document.find_all_by_century(18).map(&:title)
+  end
+
+  def test_when_year_changes_century_changes_also
   end
   
 private

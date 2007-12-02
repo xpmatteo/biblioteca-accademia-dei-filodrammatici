@@ -157,4 +157,5 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => :index
     assert_nil Document.find(:first, :conditions => ['id = ?', document.id] )
   end  
+  
 end

@@ -7,7 +7,8 @@ class ConsolidateAuthorsTest < Test::Unit::TestCase
     Responsibility.delete_all
 
     @author_with_dupes = Author.create!(:name => "Pippo", :id_sbn => "123")
-    @dupe_author =       Author.create!(:name => "Pippo", :id_sbn => "456")
+    Author.connection.execute("insert into authors (name, id_sbn) values('Pippo', '456');") 
+    @dupe_author = Author.find_by_id_sbn("456")
     @document_of_awd =   Document.create!(:title => "foo", :id_sbn => "foo", :author_id => @author_with_dupes.id)
     @document_of_dupe =  Document.create!(:title => "bar", :id_sbn => "bar", :author_id => @dupe_author.id)
   end

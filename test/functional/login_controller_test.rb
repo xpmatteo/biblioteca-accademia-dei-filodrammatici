@@ -22,7 +22,7 @@ class LoginControllerTest < Test::Unit::TestCase
   
   def test_login_post_ok
     post :login, :password => LoginController::EXPECTED_PASSWORD
-    assert_redirected_to :controller => 'news'
+    assert_redirected_to :controller => 'documents'
     assert session[:authenticated]
     assert_equal 'Benvenuto, amministratore', flash[:notice]
   end
