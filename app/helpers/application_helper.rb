@@ -4,7 +4,7 @@ module ApplicationHelper
   def sidebar_menu_items
     [
       ["La Biblioteca", "/"],
-      ["Ricerca per secolo", {:controller => "documents", :action => "secoli"}],
+      ["Ricerca per secolo", {:controller => "documents", :action => "secolo"}],
       ["LIBRI SFOGLIABILI", "http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=2&amp;id_sez=17"],
     ]
   end
