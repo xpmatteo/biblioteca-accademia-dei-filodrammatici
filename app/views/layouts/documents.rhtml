@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,6 +7,7 @@
       Biblioteca della Accademia dei Filodrammatici <%= "&mdash; #{h(@page_title)}" if @page_title %>
     </title>
     <link rel="stylesheet" href="/stylesheets/mediacompass.css" type="text/css" />
+    <%= javascript_include_tag "flash_object" %>
   </head>
   <body>
     <table width="900" border="0" cellpadding="0" cellspacing="0">
@@ -105,21 +106,19 @@
           </table><!-- MenuBox END-->
         </td>
       </tr>
-      <tr>
-        <td colspan="4" bgcolor="#FFFFFF">
-          <img src="/images/mc/0_pixel.gif" width="1" height="1" />
-        </td>
-      </tr>
-      <tr bgcolor="#FFFFFF">
+      <tr bgcolor="#AFAEAE" >
         <!-- Banner SX -->
-        <td colspan="2" align="right" valign="middle" onmouseup="document.location='index.php'">
-          <a href="index.php"><img src="/images/logo-white.png" width="150" height="100" border="0" /></a>
-        </td><!-- Banner SX END-->
-        <!-- Banner DX  -->
-        <td colspan="2" bgcolor="#FFFFFF" align="left" valign="bottom" width="750" height="100" onmouseup="document.location='index.php'">
-          <a href="index.php"><img src="/images/mc/logoscritta.jpg" border="0" /></a> <!-- Banner DX END-->
+        <td colspan="2" align="right" valign="middle" onMouseUp="document.location='http://www.accademiadeifilodrammatici.it/'" ><a href="http://www.accademiadeifilodrammatici.it"><img src="http://accademiadeifilodrammatici.it/img/logointerno.jpg" width="150" height="100" border="0"></a></td>
+        <!-- Banner SX END-->
+        <td colspan="2" bgcolor="#AFAEAE" width="750" height="100" onMouseUp="document.location='index.php'" ><a href="index.php">
+          <!-- Banner DX  -->
+          <script type="text/javascript">
+          <!--
+          wfo('http://accademiadeifilodrammatici.it/included/slide_show/slide_show.swf', 'http://accademiadeifilodrammatici.it/photos/', 'http://accademiadeifilodrammatici.it/included/slide_show/biblioteca', '#AFAEAE');
+          //-->
+          </script>
         </td>
-      </tr>
+      </tr>      
       <tr>
         <td align="center" background="img/ombra.jpg">
           <img src="/images/mc/0_pixel.gif" width="1" height="10" />
@@ -201,6 +200,11 @@
             </tr>
           </table>
         </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"></td>
+        <td class="dida" align="left" valign="top">Progetto grafico MediaCompass.com</td>
+        <td colspan="2" class="dida" align="right">Biblioteca online software di <a href="http://matteo.vaccari.name/" class="dida">Matteo Vaccari</a></td>
       </tr>
     </table>
   </body>

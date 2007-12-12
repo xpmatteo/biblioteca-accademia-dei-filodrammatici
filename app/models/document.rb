@@ -9,8 +9,6 @@ class Document < ActiveRecord::Base
   validates_inclusion_of :document_type,  :in => %w(serial monograph set)
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
 
-#  acts_as_ferret :fields => %w(title  publication  notes  responsibilities_denormalized  national_bibliography_number  id_sbn)
-
   # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
   # e se contengono un asterisco, vanno ordinati a partire dall'asterisco
   CANONICAL_ORDER = "cast(title as unsigned), right(title, length(title) - locate('*', title))"
