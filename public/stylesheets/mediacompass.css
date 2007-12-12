@@ -272,3 +272,18 @@ a.notizie:hover {
 	background-color: #ffffff;
 	font-weight: bold;
 }
+
+/* documents */
+#documents {
+  width: 80%;
+}
+#documents p {
+  margin: 0pt;  
+}
+#documents div {
+  margin: 2em 0em;  
+}
+.document-author {
+  font-weight: bold;
+}
+/* end documents */
