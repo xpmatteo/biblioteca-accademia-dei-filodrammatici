@@ -27,15 +27,16 @@ class Document < ActiveRecord::Base
     collection_name + "; " + collection_volume
   end
   
-  def Document.find_by_keywords(keywords)
+  def Document.find_by_keywords(keywords, conditions=nil)
+    conditions = "and #{conditions}" if conditions
     sql = "select * 
              from documents
             where match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
                 against (:keywords) 
-                limit 200"
+                #{conditions}
+                limit #{MAX_DOCUMENTS_TO_RETURN}"
     keywords = Document.filter_stopwords(keywords)            
     Document.find_by_sql([sql, {:keywords => keywords}])
-#    Document.find_by_contents(keywords, :limit => MAX_DOCUMENTS_TO_RETURN)
   end
   
   def Document.prune_children(list)

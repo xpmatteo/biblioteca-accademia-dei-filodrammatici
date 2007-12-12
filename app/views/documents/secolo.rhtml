@@ -4,6 +4,7 @@
   <% @centuries.each do |roman| %>
     <%= radio_button_tag("secolo", roman, params[:secolo] == roman) + roman %>&nbsp;&nbsp;
   <% end %>
+  <%= text_field_tag "q", params[:q] %>
   <%= submit_tag "Cerca" %>
 <% end %>
 

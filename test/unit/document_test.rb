@@ -59,6 +59,7 @@ class DocumentTest < Test::Unit::TestCase
     assert_found_by_keywords [:logica_umana], "Rimini"
   end
   
+  
   def test_find_by_keywords_in_author
     assert_found_by_keywords [:logica_umana], "carlo"
     assert_found_by_keywords [:logica_umana], "Carlo Mor"

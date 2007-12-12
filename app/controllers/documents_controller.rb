@@ -54,7 +54,12 @@ class DocumentsController < ApplicationController
     @centuries = %w(XVI XVII XVIII XIX XX XXI)
     @page_title = "Ricerca per secolo"
     if params[:secolo]
-      documents = find_documents(:century, roman_to_decimal(params[:secolo]))
+      if params[:q].blank?
+        documents = find_documents(:century, roman_to_decimal(params[:secolo]))
+      else
+        documents = Document.find_by_keywords(params[:q], "century = #{roman_to_decimal(params[:secolo])}")
+        Document.prune_children(documents)
+      end
       @page_title = 'Secolo ' + century_to_roman(params[:secolo]) + ': ' + pluralize_schede(documents.size)
       paginate_documents documents
     end
