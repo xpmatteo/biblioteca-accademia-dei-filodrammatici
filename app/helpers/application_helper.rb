@@ -4,7 +4,8 @@ module ApplicationHelper
   def sidebar_menu_items
     [
       ["La Biblioteca", "/"],
-      ["Ricerca per secolo", {:controller => "documents", :action => "secolo"}],
+      ["Ricerca alfabetica", {:controller => "documents", :action => "authors", :initial => "A"}],
+      ["Ricerca per secolo", {:controller => "documents", :action => "secolo"}],      
     ]
   end
   
