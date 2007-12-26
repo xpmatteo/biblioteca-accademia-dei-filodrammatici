@@ -5,7 +5,7 @@ require 'content_controller'
 class ContentController; def rescue_action(e) raise e end; end
 
 class ContentControllerTest < Test::Unit::TestCase
-  fixtures :contents, :menu_items
+  fixtures :contents
   
   def setup
     @controller = ContentController.new

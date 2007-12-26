@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class RoutesTest < ActionController::IntegrationTest
-  fixtures :menu_items, :documents
+  fixtures :documents
 
   def test_login_link
     get '/login'

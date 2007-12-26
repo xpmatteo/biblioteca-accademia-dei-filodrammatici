@@ -8,45 +8,7 @@ module ApplicationHelper
       ["Ricerca per secolo", {:controller => "documents", :action => "secolo"}],      
     ]
   end
-  
-  def menuitem_is_current?(menuitem)
-    return false if params[:controller] != menuitem.controller
-    return true if menuitem.controller != 'content'
-    return false unless content = Content.find_by_name(params[:name])
-    content.id == menuitem.item_id
-  end
-  
-  def menuitem_is_current_section?(menuitem)
-    return true if menuitem_is_current?(menuitem)
-    for sub_item in menuitem.children
-      return true if menuitem_is_current?(sub_item)
-    end
-    false
-  end
-  
-  def menuitem_tag(menuitem, options={}, html_options={})
-    options[:controller] = menuitem.controller
-    options[:action] = 'index'
-    if options[:sub]
-      options[:sub] = nil
-      klass = ' class="submenuitem"'
-    end
-        
-    text = menuitem.title
-    if 'content' == options[:controller] && (content = Content.find(menuitem.item_id))
-      text = content.title
-      options[:name] = content.name
-      options[:action] = 'page'
-    end
     
-    # if not a link, then give it a meaningful id
-    item = link_to_unless_current(text, options, html_options) do |text|
-      "<span id='menuitem-current'>#{text}</span>"
-    end
-    
-    "<tr><td#{klass}>#{item}</td></tr>"
-  end
-  
   def upper_right_image
     if @content && @content.image
       url_for_file_column(@content, "image")

@@ -1,8 +1,0 @@
-<h1>Nuovo docente</h1>
-
-<% form_tag({:action => 'create'}, {:multipart => true}) do %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag "Crea" %>
-<% end %>
-
-<%= link_to 'Back', :action => 'list' %>
