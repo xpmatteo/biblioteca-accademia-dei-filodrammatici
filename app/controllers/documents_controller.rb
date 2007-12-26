@@ -55,12 +55,12 @@ class DocumentsController < ApplicationController
     @page_title = "Ricerca per secolo"
     if params[:secolo]
       if params[:q].blank?
-        documents = find_documents(:century, roman_to_decimal(params[:secolo]))
+        documents = find_documents(:century, RomanNumerals.roman_to_decimal(params[:secolo]))
       else
-        documents = Document.find_by_keywords(params[:q], "century = #{roman_to_decimal(params[:secolo])}")
+        documents = Document.find_by_keywords(params[:q], "century = #{RomanNumerals.roman_to_decimal(params[:secolo])}")
         Document.prune_children(documents)
       end
-      @page_title = 'Secolo ' + century_to_roman(params[:secolo]) + ': ' + pluralize_schede(documents.size)
+      @page_title = 'Secolo ' + RomanNumerals.decimal_to_roman(params[:secolo]) + ': ' + pluralize_schede(documents.size)
       paginate_documents documents
     end
   end
@@ -137,30 +137,5 @@ private
     else
       count.to_s + " " + plural
     end
-  end
-
-  @@centuries = { 
-    10 => "X", 
-    11 => "XI",
-    12 => "XII",
-    13 => "XIII",
-    14 => "XIV",
-    15 => "XV",
-    16 => "XVI",
-    17 => "XVII",
-    18 => "XVIII",
-    19 => "XIX",
-    20 => "XX",
-    21 => "XXI",
-  }
-
-  def century_to_roman(century)
-    @@centuries[century] || century
-  end
-  
-  def roman_to_decimal(century)
-    @@centuries.each do |decimal, roman|
-      return decimal if roman == century
-    end    
   end
 end

@@ -1,6 +1,6 @@
 class Document < ActiveRecord::Base
   MAX_DOCUMENTS_TO_RETURN = 100
-  
+
   validates_uniqueness_of :id_sbn, :if => Proc.new {|doc| !doc.id_sbn.blank?}
   validates_presence_of :title
   validates_numericality_of :value,   :allow_nil => true
@@ -41,6 +41,29 @@ class Document < ActiveRecord::Base
   
   def Document.prune_children(list)
     list.reject {|elem| list.member?(elem.parent)}
+  end
+
+  def Document.find_all_by_options(options)
+    conditions = []    
+    conditions << "year >= :year_from" if options[:year_from]
+    conditions << "year <= :year_to"   if options[:year_to]
+    
+    if options[:century]  
+      options[:century] = RomanNumerals.roman_to_decimal(options[:century])
+      conditions << "century = :century" 
+    end
+    
+    if options[:keywords]
+      options[:keywords] = Document.prepare_keywords_for_boolean_mode_query(options[:keywords])
+      conditions << 
+        "match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
+         against (:keywords in boolean mode)"
+    end
+    
+    return [] if conditions.empty?
+    where = conditions.join(" and ")
+    sql = "select * from documents where #{where} limit #{MAX_DOCUMENTS_TO_RETURN}"
+    Document.find_by_sql([sql, options])      
   end
   
   def title_without_asterisk

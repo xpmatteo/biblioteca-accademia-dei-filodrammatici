@@ -44,13 +44,4 @@ class DocumentsControllerSearchByCenturyTest < Test::Unit::TestCase
     assert_equal "Ricerca per secolo", assigns(:page_title)
   end
   
-  def test_century_to_roman
-    assert_equal "foo", @controller.send(:century_to_roman, "foo")
-    assert_equal "XV", @controller.send(:century_to_roman, 15)
-  end
-  
-  def test_roman_to_decimal
-    assert_equal 15, @controller.send(:roman_to_decimal, "XV")
-  end
-  
 end

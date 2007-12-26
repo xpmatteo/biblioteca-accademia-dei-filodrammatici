@@ -139,7 +139,4 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal ["settecento"], Document.find_all_by_century(18).map(&:title)
   end
 
-  def test_when_year_changes_century_changes_also
-  end
-  
 end
