@@ -25,4 +25,8 @@ module ApplicationHelper
         "&nbsp;" 
     end
   end
+    
+  def all_authors
+    Author.find(:all, :order => 'name').map {|a| [a.name, a.id]}
+  end
 end
