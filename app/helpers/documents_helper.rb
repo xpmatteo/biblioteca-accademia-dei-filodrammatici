@@ -3,10 +3,18 @@ module DocumentsHelper
     return "" if x.blank?
     prefix + "<span class='document-#{klass}'>" + h(x) + "</span>"
   end
+
+  def make_entry(x)
+    if "" == x
+      ""
+    else
+      x + "<br />"
+    end
+  end
   
   def show(x, prefix="", klass=:data)
     return "" if x.blank?
-    prefix + "<span class='document-#{klass}'>" + h(x) + "</span><br />"
+    make_entry(prefix + "<span class='document-#{klass}'>" + h(x) + "</span>")
   end
   
   def show_names(document)
@@ -15,8 +23,7 @@ module DocumentsHelper
       result += "; " unless 0 == index
       result += link_to_unless_current h(author.name), :action => 'author', :id => author
     end
-    return "" if result == ""
-    result += "<br />"
+    make_entry(result)
   end
 
   def show_publication(document)
@@ -30,7 +37,9 @@ module DocumentsHelper
     volume = " "
     volume += document.month_of_serial if document.month_of_serial
     volume += document.collection_volume if document.collection_volume    
-    "Pubblicato in: " + link_to_unless_current(h(parent.title_without_asterisk), :action => 'show', :id => parent.id) + volume
+    make_entry("Pubblicato in: " + 
+      link_to_unless_current(h(parent.title_without_asterisk), :action => 'show', :id => parent.id) + 
+      volume)
   end
   
   def link_to_document(document)
@@ -49,7 +58,7 @@ module DocumentsHelper
     result += "<ul>"
     result += children.map {|child| list_item link_to_document(child) }.join("\n")
     result += "</ul>"
-    result
+    make_entry(result)
   end
   
   def list_item(x)

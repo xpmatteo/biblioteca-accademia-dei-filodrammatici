@@ -25,14 +25,7 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal "+foo +bar", Document.prepare_keywords_for_boolean_mode_query("foo bar")
     assert_equal "+foo +bar", Document.prepare_keywords_for_boolean_mode_query("foo      bar")
   end
-  
-  # def test_relevance
-  #   Document.create!(:title => "Logica, logica e ancora logica inumana", :id_sbn => "123")
-  #   Document.create!(:title => "Logica, ma non troppo", :id_sbn => "456")
-  #   found = Document.find_by_keywords("logica").map { |d| d.id_sbn }
-  #   assert_equal ["123", "456", "IT\\ICCU\\ANA\\0077010"], found
-  # end
-  
+    
 private
   def assert_found_by_keywords(expected, keywords)
     actual = Document.find_by_keywords(keywords).map { |d| d.title }

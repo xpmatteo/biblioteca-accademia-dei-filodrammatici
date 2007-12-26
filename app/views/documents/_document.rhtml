@@ -19,7 +19,6 @@
   <% end %>
   <%=show document.notes, "", :notes %>
   <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
-  <%=show document.collocation, "Coll.: " %>
   <p class='document-names'>
     <%=show_names document %>
   </p>
@@ -29,6 +28,7 @@
   <% if authorized? %>
     <%= show number_to_currency(document.value, :unit => "", :separator => ",", :delimiter => "."), "Valore: &euro;" %>
   <% end %>
+  <%=show document.collocation, "Coll.: ", :collocation %>
   <blockquote>
     <em>
       <%= show document.admin_notes %>
