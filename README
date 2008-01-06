@@ -13,7 +13,7 @@ Document.find_all_by_options(options) deve essere usato ovunque in luogo di find
 
 - query avanzata
   + range anni
-  - tipo documento (testo/rivista/spoglio)
+  + tipo documento (testo/rivista/spoglio)
   - nome rivista
 
 TODO
@@ -23,11 +23,6 @@ TODO
 
 NICE TO HAVE
 
-- suddividere i risultati per tipo:
-  - testi
-  - riviste
-  - spogli
-  
 - pagina stats 
 
 - salvare i doc cancellati

@@ -20,6 +20,8 @@ class Document < ActiveRecord::Base
   CANONICAL_ORDER = "cast(title as unsigned), right(title, length(title) - locate('*', title))"
   acts_as_tree :order => CANONICAL_ORDER
   
+  acts_as_versioned
+  
   has_many :responsibilities
   has_many :names, :source => :author, :through => :responsibilities, :order => :name
   belongs_to :author
