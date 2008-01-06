@@ -39,8 +39,8 @@ class Document < ActiveRecord::Base
     options = options.dup
 
     conditions = []    
-    conditions << "year >= :year_from" if options[:year_from]
-    conditions << "year <= :year_to"   if options[:year_to]
+    conditions << "year >= :year_from" unless options[:year_from].blank?
+    conditions << "year <= :year_to"   unless options[:year_to].blank?
     
     unless options[:century].blank?
       options[:century] = RomanNumerals.roman_to_decimal(options[:century])

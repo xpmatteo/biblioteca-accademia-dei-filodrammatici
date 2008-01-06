@@ -23,3 +23,11 @@ a.menubianco:hover {
 .document-collocation {
   font-weight: bold;
 }
+
+form.search input, form.search select {
+  margin: 0 0 1em 0;
+}
+
+form.search td {
+  padding-right: 1em;
+}

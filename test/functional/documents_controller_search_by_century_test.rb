@@ -23,7 +23,7 @@ class DocumentsControllerSearchByCenturyTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'documents/search'
     assert_equal 'Ricerca completa', assigns(:page_title), "titolo sbagliato"
-    assert_select "form[method='get']"
+    assert_select "form.search[method='get']"
     assert_nil assigns(:documents), "non deve assegnare a @documents"
   end  
 
@@ -51,6 +51,30 @@ class DocumentsControllerSearchByCenturyTest < Test::Unit::TestCase
     end    
     assert_equal ["seicento secondo"], assigns(:documents).map(&:title)
     assert_equal "Ricerca completa: una scheda", assigns(:page_title)
+  end
+  
+  def test_search_by_year_range
+    Document.delete_all
+    Document.create!(:title => "pippo", :year => 1900)
+    Document.create!(:title => "pluto", :year => 1910)
+    Document.create!(:title => "paperino", :year => 1920)
+
+    get :search
+    submit_form :year_from => 1900, :year_to => 1910
+    assert_equal ["pippo", "pluto"], assigns(:documents).map(&:title)    
+
+    get :search
+    submit_form :year_from => 1910
+    assert_equal ["paperino", "pluto"], assigns(:documents).map(&:title)    
+
+    get :search
+    submit_form :year_to => 1920
+    assert_equal ["paperino", "pippo", "pluto"], assigns(:documents).map(&:title)    
+  end
+  
+  def test_pagination
+    Document.delete_all
+    
   end
 
 end

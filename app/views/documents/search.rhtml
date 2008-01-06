@@ -1,13 +1,25 @@
 <% @centuries = [""] + %w(XVI XVII XVIII XIX XX XXI) %>
+
 <h3><%=h @page_title %></h3>
 
-<% form_tag({}, :method => 'get') do %>
+<% form_tag({}, :method => 'get', :class => "search") do %>
   Secolo:<br/>
   <%= select_tag "century", options_for_select(@centuries, params[:century]) %><br/>
+
+  <table cellspacing="0">
+    <tr>
+      <td>
+        Dall'anno:<br/> <%= text_field_tag "year_from", params[:year_from], :size => 10 %>
+      </td>
+      <td>
+        Fino all'anno:<br/> <%= text_field_tag "year_to", params[:year_to], :size => 10 %><br/>
+      </td>
+    </tr>
+  </table>
   
   Parole chiave:<br/>
   <%= text_field_tag "keywords", params[:keywords] %><br/>
-  <%= submit_tag "Cerca" %>
+  <input type="submit" value="Cerca" />
 <% end %>
 
 <% if @documents %>
