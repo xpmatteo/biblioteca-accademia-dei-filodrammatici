@@ -12,9 +12,9 @@ devi trasformare la "ric per secolo" in "ricerca completa".
 Document.find_all_by_options(options) deve essere usato ovunque in luogo di find_by_keywords
 
 - query avanzata
-  - range anni
-  - nome rivista
+  + range anni
   - tipo documento (testo/rivista/spoglio)
+  - nome rivista
 
 TODO
 

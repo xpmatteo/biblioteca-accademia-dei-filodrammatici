@@ -2,6 +2,6 @@
 <%= render :partial => 'document', :collection => @documents %>
 </div>
 
-<%= link_to 'Precedenti', { :page => @document_pages.current.previous, :q => params[:q], :secolo => params[:secolo] } if @document_pages.current.previous %>
-<%= pagination_links @document_pages, :params => {:q => params[:q], :secolo => params[:secolo]} %>
-<%= link_to 'Prossimi', { :page => @document_pages.current.next, :q => params[:q], :secolo => params[:secolo] } if @document_pages.current.next %> 
+<%= link_to 'Precedenti', params.merge(:page => @document_pages.current.previous) if @document_pages.current.previous %>
+<%= pagination_links @document_pages, :params => params %>
+<%= link_to 'Prossimi', params.merge(:page => @document_pages.current.next) if @document_pages.current.next %> 

@@ -3,8 +3,12 @@
 <h3><%=h @page_title %></h3>
 
 <% form_tag({}, :method => 'get', :class => "search") do %>
+
   Secolo:<br/>
   <%= select_tag "century", options_for_select(@centuries, params[:century]) %><br/>
+
+  Tipo documento:<br/>
+  <%= select_tag "document_type", options_for_select(Document::DOCUMENT_TYPES, params[:document_type]) %><br/>
 
   <table cellspacing="0">
     <tr>

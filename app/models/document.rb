@@ -1,12 +1,18 @@
 class Document < ActiveRecord::Base
   MAX_DOCUMENTS_TO_RETURN = 100
 
+  DOCUMENT_TYPES = [
+    ["Monografia", "monograph"],
+    ["Periodico", "serial"],
+    ["Spoglio di periodico", "in-serial"],
+    ]
+
   validates_uniqueness_of :id_sbn, :if => Proc.new {|doc| !doc.id_sbn.blank?}
   validates_presence_of :title
   validates_numericality_of :value,   :allow_nil => true
   validates_numericality_of :century, :allow_nil => true, :only_integer => true
   validates_numericality_of :year,    :allow_nil => true, :only_integer => true
-  validates_inclusion_of :document_type,  :in => %w(serial monograph set)
+  validates_inclusion_of :document_type,  :in => %w(serial monograph set in-serial)
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
 
   # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
@@ -41,6 +47,7 @@ class Document < ActiveRecord::Base
     conditions = []    
     conditions << "year >= :year_from" unless options[:year_from].blank?
     conditions << "year <= :year_to"   unless options[:year_to].blank?
+    conditions << "document_type = :document_type"   unless options[:document_type].blank?
     
     unless options[:century].blank?
       options[:century] = RomanNumerals.roman_to_decimal(options[:century])

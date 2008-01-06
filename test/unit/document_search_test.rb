@@ -48,6 +48,17 @@ class DocumentSearchTest < Test::Unit::TestCase
     assert_equal original, copy
   end
 
+  def test_search_by_document_type
+    Document.delete_all
+    Document.create!(:title => "foo", :document_type => "monograph")
+    Document.create!(:title => "bar", :document_type => "serial")
+    Document.create!(:title => "baz", :document_type => "in-serial")
+    
+    assert_equal ["foo"], search(:document_type => 'monograph')
+    assert_equal ["bar"], search(:document_type => 'serial')
+    assert_equal ["baz"], search(:document_type => 'in-serial')
+  end
+  
 private
 
   def search(options)
