@@ -27,16 +27,8 @@ class Document < ActiveRecord::Base
     collection_name + "; " + collection_volume
   end
   
-  def Document.find_by_keywords(keywords, conditions=nil)
-    conditions = "and #{conditions}" if conditions
-    sql = "select * 
-             from documents
-            where match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
-                against (:keywords in boolean mode) 
-                #{conditions}
-                limit #{MAX_DOCUMENTS_TO_RETURN}"
-    keywords = Document.prepare_keywords_for_boolean_mode_query(keywords)            
-    Document.find_by_sql([sql, {:keywords => keywords}])
+  def Document.find_by_keywords(keywords)
+    Document.find_all_by_options(:keywords => keywords)
   end
   
   def Document.prune_children(list)
@@ -44,28 +36,32 @@ class Document < ActiveRecord::Base
   end
 
   def Document.find_all_by_options(options)
+    options = options.dup
+
     conditions = []    
     conditions << "year >= :year_from" if options[:year_from]
     conditions << "year <= :year_to"   if options[:year_to]
     
-    if options[:century]  
+    unless options[:century].blank?
       options[:century] = RomanNumerals.roman_to_decimal(options[:century])
       conditions << "century = :century" 
     end
     
-    if options[:keywords]
+    unless options[:keywords].blank?
       options[:keywords] = Document.prepare_keywords_for_boolean_mode_query(options[:keywords])
       conditions << 
         "match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
          against (:keywords in boolean mode)"
     end
-    
-    return [] if conditions.empty?
+
+    return nil if conditions.empty?
     where = conditions.join(" and ")
-    sql = "select * from documents where #{where} limit #{MAX_DOCUMENTS_TO_RETURN}"
+    sql = "select * from documents where #{where} 
+         order by #{CANONICAL_ORDER} 
+            limit #{MAX_DOCUMENTS_TO_RETURN}"
     Document.find_by_sql([sql, options])      
   end
-  
+
   def title_without_asterisk
     title.gsub("*", "")
   end
@@ -73,9 +69,9 @@ class Document < ActiveRecord::Base
   def Document.prepare_keywords_for_boolean_mode_query(keywords)
     keywords.split(" ").map {|word| "+#{word}"}.join(" ")
   end
-  
+
 private
-  
+
   def add_author_to_names
     if author_id && ! names.member?(author)
       Responsibility.create!(:document_id => id, :author_id => author.id, :unimarc_tag => "700")

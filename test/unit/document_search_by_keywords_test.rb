@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DocumentTest < Test::Unit::TestCase
+class DocumentSearchByKeywordsTest < Test::Unit::TestCase
   fixtures :authors, :documents, :responsibilities, :publishers_emblems
 
   self.use_transactional_fixtures = false
@@ -15,7 +15,7 @@ class DocumentTest < Test::Unit::TestCase
     assert_found_by_keywords [:logica_umana], "carlo"
     assert_found_by_keywords [:logica_umana], "Carlo Mor"
   end
-  
+
   def test_find_by_all_words
     Document.create!(:title => "Logica inumana", :id_sbn => "boh")
     assert_found_by_keywords [:logica_umana], "logica umana"
@@ -28,7 +28,7 @@ class DocumentTest < Test::Unit::TestCase
     
 private
   def assert_found_by_keywords(expected, keywords)
-    actual = Document.find_by_keywords(keywords).map { |d| d.title }
+    actual = Document.find_all_by_options(:keywords => keywords).map { |d| d.title }
     expected = expected.map { |sym| documents(sym).title }
     assert_equal expected, actual
   end

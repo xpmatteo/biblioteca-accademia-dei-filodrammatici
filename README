@@ -1,5 +1,34 @@
-== TODO
+== TODO per gennaio 2008
 
-- query per anno, secolo, ...
-- internazionalizza
-- picture
+Fatturare 3000 + IVA
+
+DONE
++ migliorare ricerca libera
+
+IN PROGRESS
+
+devi trasformare la "ric per secolo" in "ricerca completa".  
+
+Document.find_all_by_options(options) deve essere usato ovunque in luogo di find_by_keywords
+
+- query avanzata
+  - range anni
+  - nome rivista
+  - tipo documento (testo/rivista/spoglio)
+
+TODO
+
+- poter cancellare gli autori se #documenti = 0
+- poter editare le collane e riviste di riferimento
+
+NICE TO HAVE
+
+- suddividere i risultati per tipo:
+  - testi
+  - riviste
+  - spogli
+  
+- pagina stats 
+
+- salvare i doc cancellati
+- salvare le versioni

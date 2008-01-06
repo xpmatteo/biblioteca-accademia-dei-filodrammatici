@@ -1,14 +1,19 @@
 class DocumentsController < ApplicationController
   scaffold :document
-  before_filter :check_user_is_admin, :except => [ :index, :list, :find, :show, :author, :authors, :collection, :year, :publishers_emblem, :secolo ]
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :index }
+
+  before_filter :check_user_is_admin, 
+    :except => [ :index, :list, :find, :show, :author, :authors, 
+                 :collection, :year, :publishers_emblem, :secolo, :search ]
+
+  verify :method => :post, 
+    :only => [ :destroy, :create, :update ],
+    :redirect_to => { :action => :index }
 
   def index
     @content = Content.find_by_name("biblioteca") || Content.new(:title => 'Biblioteca', :body => "Testo da modificare", :name => "biblioteca")
     @content.save if @content.new_record?
   end
-  
+
   def authors
     @authors = Author.find(:all, :order => 'name', :conditions => ['upper(left(name, 1)) = upper(?)', params[:initial]])
     @page_title = "Iniziale '#{params[:initial]}': " + pluralize(@authors.size, "autore", "autori")
@@ -50,21 +55,6 @@ class DocumentsController < ApplicationController
     render :template => 'documents/list'
   end
   
-  def secolo
-    @centuries = %w(XVI XVII XVIII XIX XX XXI)
-    @page_title = "Ricerca per secolo"
-    if params[:secolo]
-      if params[:q].blank?
-        documents = find_documents(:century, RomanNumerals.roman_to_decimal(params[:secolo]))
-      else
-        documents = Document.find_by_keywords(params[:q], "century = #{RomanNumerals.roman_to_decimal(params[:secolo])}")
-        Document.prune_children(documents)
-      end
-      @page_title = 'Secolo ' + RomanNumerals.decimal_to_roman(params[:secolo]) + ': ' + pluralize_schede(documents.size)
-      paginate_documents documents
-    end
-  end
-  
   def publishers_emblem
     emblem = PublishersEmblem.find(params[:id])
     documents = find_documents(:publishers_emblem_id, params[:id])
@@ -81,7 +71,6 @@ class DocumentsController < ApplicationController
     end
     if @document.save
       flash[:notice] = 'Il documento &grave; stato creato.'
-      puts @document
       redirect_to :action => 'show', :id => @document
     else
       render :action => 'new'
@@ -92,6 +81,17 @@ class DocumentsController < ApplicationController
     Document.destroy(params[:id])
     flash[:notice] = "La scheda &egrave; stata cancellata"
     redirect_to :action => :index
+  end
+  
+  def search
+    documents = Document.find_all_by_options(params)
+    if documents
+      Document.prune_children(documents)
+      paginate_documents documents
+      @page_title = 'Ricerca completa: ' + pluralize_schede(documents.size)
+    else
+      @page_title = "Ricerca completa"
+    end
   end
 
 private

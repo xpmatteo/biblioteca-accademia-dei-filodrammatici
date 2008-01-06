@@ -1,0 +1,15 @@
+<% @centuries = [""] + %w(XVI XVII XVIII XIX XX XXI) %>
+<h3><%=h @page_title %></h3>
+
+<% form_tag({}, :method => 'get') do %>
+  Secolo:<br/>
+  <%= select_tag "century", options_for_select(@centuries, params[:century]) %><br/>
+  
+  Parole chiave:<br/>
+  <%= text_field_tag "keywords", params[:keywords] %><br/>
+  <%= submit_tag "Cerca" %>
+<% end %>
+
+<% if @documents %>
+  <%= render :partial => "list" %>
+<% end %>

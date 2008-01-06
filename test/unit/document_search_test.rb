@@ -17,8 +17,8 @@ class DocumentSearchTest < Test::Unit::TestCase
   end
   
   def test_search_by_nothing
-    assert_equal [], search({})
-    assert_equal [], search({:foo => "bar"})
+    assert_equal nil, search({})
+    assert_equal nil, search({:foo => "bar"})
   end
 
   def test_search_by_century
@@ -37,14 +37,21 @@ class DocumentSearchTest < Test::Unit::TestCase
 
   def test_all_keywords_are_required
     Document.create!(:title => "Logica inumana", :id_sbn => "boh")
-    assert_equal ["Logica umana", "Logica inumana"], search(:keywords => "logica")
+    assert_equal ["Logica inumana", "Logica umana"], search(:keywords => "logica")
     assert_equal ["Logica umana"], search(:keywords => "logica umana")
   end
-
   
+  def test_no_modifications_to_params
+    original = { :keywords => "Logica", :century => "XVII" }
+    copy = original.dup
+    Document.find_all_by_options(copy)
+    assert_equal original, copy
+  end
+
 private
 
   def search(options)
-    Document.find_all_by_options(options).map(&:title)
+    documents = Document.find_all_by_options(options)
+    documents.map(&:title) if documents
   end
 end

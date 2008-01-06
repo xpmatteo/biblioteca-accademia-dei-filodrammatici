@@ -5,7 +5,7 @@ module ApplicationHelper
     [
       ["La Biblioteca", "/"],
       ["Ricerca alfabetica", {:controller => "documents", :action => "authors", :initial => "A"}],
-      ["Ricerca per secolo", {:controller => "documents", :action => "secolo"}],      
+      ["Ricerca completa", {:controller => "documents", :action => "search"}],      
     ]
   end
     

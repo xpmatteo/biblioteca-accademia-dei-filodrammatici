@@ -21,6 +21,7 @@ module RomanNumerals
   def RomanNumerals.roman_to_decimal(century)
     @@centuries.each do |decimal, roman|
       return decimal if roman == century
-    end    
+    end
+    nil
   end  
 end

@@ -9,5 +9,6 @@ class RomanNumeralsTest < Test::Unit::TestCase
   
   def test_roman_to_decimal
     assert_equal 15, RomanNumerals.roman_to_decimal("XV")
+    assert_equal nil, RomanNumerals.roman_to_decimal("")
   end
 end
