@@ -59,6 +59,7 @@ class DocumentSearchTest < Test::Unit::TestCase
     assert_equal ["baz"], search(:document_type => 'in-serial')
   end
   
+  
 private
 
   def search(options)

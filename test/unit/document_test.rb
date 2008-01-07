@@ -139,4 +139,12 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal ["settecento"], Document.find_all_by_century(18).map(&:title)
   end
 
+  class DocumentVersions < ActiveRecord::Base; end
+  
+  def test_versions_are_not_deleted
+    document = Document.create!(:title => "pippo")
+    assert_equal 1, DocumentVersions.find_all_by_document_id(document.id).size
+    document.destroy
+    assert_equal 1, DocumentVersions.find_all_by_document_id(document.id).size, "versioni perse!"
+  end
 end

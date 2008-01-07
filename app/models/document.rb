@@ -79,6 +79,12 @@ class Document < ActiveRecord::Base
     keywords.split(" ").map {|word| "+#{word}"}.join(" ")
   end
 
+  # proteggi le versioni salvate; non verranno cancellate quando
+  # il documento viene cancellato
+  self.versioned_class.class_eval do
+    def self.delete_all(conditions = nil); return; end
+  end
+  
 private
 
   def add_author_to_names
