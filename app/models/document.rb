@@ -51,6 +51,12 @@ class Document < ActiveRecord::Base
     conditions << "year <= :year_to"   unless options[:year_to].blank?
     conditions << "document_type = :document_type"   unless options[:document_type].blank?
     
+    unless options[:author_id].blank?
+      by_author = "(author_id is not null and author_id = :author_id)"
+      by_responsibility = "id in (select document_id from responsibilities where author_id = :author_id)"
+      conditions << "(#{by_author} or #{by_responsibility})"
+    end
+    
     unless options[:century].blank?
       options[:century] = RomanNumerals.roman_to_decimal(options[:century])
       conditions << "century = :century" 
@@ -65,7 +71,12 @@ class Document < ActiveRecord::Base
 
     return nil if conditions.empty?
     where = conditions.join(" and ")
-    sql = "select * from documents where #{where} 
+    
+    # il discorso di parent_id serve ad evitare di restituire documenti il cui
+    # padre viene giò restituito dalla stessa query
+    sql = "select * from documents 
+            where #{where}
+              and (parent_id is null or parent_id not in (select id from documents where #{where}))
          order by #{CANONICAL_ORDER} 
             limit #{MAX_DOCUMENTS_TO_RETURN}"
     Document.find_by_sql([sql, options])      
@@ -80,7 +91,7 @@ class Document < ActiveRecord::Base
   end
 
   # proteggi le versioni salvate; non verranno cancellate quando
-  # il documento viene cancellato
+  # il documento viene cancellato (thanks http://ward.vandewege.net/blog/2007/02/27/116/)
   self.versioned_class.class_eval do
     def self.delete_all(conditions = nil); return; end
   end

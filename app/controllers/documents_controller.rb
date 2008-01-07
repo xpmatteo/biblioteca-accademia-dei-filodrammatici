@@ -21,7 +21,7 @@ class DocumentsController < ApplicationController
   
   def author
     author = Author.find(params[:id])
-    documents = Document.prune_children(author.documents)
+    documents = Document.find_all_by_options(:author_id => author.id)
     paginate_documents documents
     @page_title = author.name + ": " + pluralize_schede(documents.size)
     render :template => 'documents/list'
@@ -86,7 +86,6 @@ class DocumentsController < ApplicationController
   def search
     documents = Document.find_all_by_options(params)
     if documents
-      Document.prune_children(documents)
       paginate_documents documents
       @page_title = 'Ricerca completa: ' + pluralize_schede(documents.size)
     else

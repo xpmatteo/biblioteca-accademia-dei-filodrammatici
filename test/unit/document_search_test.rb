@@ -59,6 +59,21 @@ class DocumentSearchTest < Test::Unit::TestCase
     assert_equal ["baz"], search(:document_type => 'in-serial')
   end
   
+  def test_search_prunes_children
+    Document.delete_all
+    parent = Document.create!(:title => "foo", :document_type => "monograph")
+    child = parent.children.create!(:title => "bar", :document_type => "monograph")
+    assert_equal ["foo"], search(:document_type => "monograph")
+  end
+  
+  def test_search_by_author
+    assert_equal ["Logica umana"], search(:author_id => authors(:mor_carlo))
+    assert_nil documents(:teatro_elisabettiano).author
+    assert_equal ["Teatro Elisabettiano"], search(:author_id => authors(:baldini_gabriele))
+
+    Responsibility.delete_all
+    assert_equal ["Logica umana"], search(:author_id => authors(:mor_carlo))
+  end
   
 private
 
