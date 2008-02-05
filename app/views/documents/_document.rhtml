@@ -1,4 +1,7 @@
 <div>
+  <% if document["result_index"] && @document_pages %>
+  <p>Risultato <%= document["result_index"] %></p>
+  <% end %>
   <% if document.author -%>
     <p class="document-author">
       <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>

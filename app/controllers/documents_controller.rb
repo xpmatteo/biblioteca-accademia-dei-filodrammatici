@@ -28,7 +28,7 @@ class DocumentsController < ApplicationController
   end
 
   def find
-    documents = Document.prune_children(Document.find_by_keywords(params[:q]))
+    documents = Document.find_by_keywords(params[:q])
     @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(documents.size, "risultato", "risultati")
     paginate_documents documents
     render :template => 'documents/list'

@@ -73,8 +73,10 @@ class Document < ActiveRecord::Base
     where = conditions.join(" and ")
     
     # il discorso di parent_id serve ad evitare di restituire documenti il cui
-    # padre viene giò restituito dalla stessa query
-    sql = "select * from documents 
+    # padre viene già restituito dalla stessa query
+    Document.connection.execute("set @n := 0");
+    sql = "select @n := @n + 1 as result_index, documents.* 
+             from documents 
             where #{where}
               and (parent_id is null or parent_id not in (select id from documents where #{where}))
          order by #{CANONICAL_ORDER} 

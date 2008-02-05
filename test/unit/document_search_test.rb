@@ -75,6 +75,14 @@ class DocumentSearchTest < Test::Unit::TestCase
     assert_equal ["Logica umana"], search(:author_id => authors(:mor_carlo))
   end
   
+  def test_search_pagination
+    Document.delete_all
+    100.times do |n| Document.create(:title => "foo-#{n}", :document_type => "monograph"); end
+    actual = Document.find_all_by_options(:document_type => "monograph", :page => 2)
+    assert_equal 10, actual.size
+    assert_equal %w(foo-10 foo-11 ...), actual.last.map(&:title)
+  end
+  
 private
 
   def search(options)
