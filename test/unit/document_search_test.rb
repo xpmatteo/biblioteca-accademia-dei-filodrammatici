@@ -74,14 +74,19 @@ class DocumentSearchTest < Test::Unit::TestCase
     Responsibility.delete_all
     assert_equal ["Logica umana"], search(:author_id => authors(:mor_carlo))
   end
-  
-  def test_search_pagination
-    Document.delete_all
-    100.times do |n| Document.create(:title => "foo-#{n}", :document_type => "monograph"); end
-    actual = Document.find_all_by_options(:document_type => "monograph", :page => 2)
-    assert_equal 10, actual.size
-    assert_equal %w(foo-10 foo-11 ...), actual.last.map(&:title)
-  end
+
+  # nota: prima di abilitare la paginazione nella find_by_... occorre:
+  # - convertire _tutte_ le ricerche fatte da documents_controller all'uso di find_all_by_options
+  # - eliminare la vecchia paginazione e inserire quella alla will_paginate
+  # def test_search_pagination
+  #   Document.delete_all
+  #   100.times do |n| 
+  #     Document.create(:title => sprintf("foo-%02d", n), :document_type => "monograph")
+  #   end
+  #   actual = Document.find_all_by_options(:document_type => "monograph", :page => "2")
+  #   assert_equal 10, actual.size
+  #   assert_equal %w(foo-20 foo-21 foo-22 foo-23 foo-24 foo-25 foo-26 foo-27 foo-28 foo-29), actual.map(&:title)
+  # end
   
 private
 

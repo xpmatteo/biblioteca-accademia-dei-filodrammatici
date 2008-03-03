@@ -147,4 +147,14 @@ class DocumentTest < Test::Unit::TestCase
     document.destroy
     assert_equal 1, DocumentVersions.find_all_by_document_id(document.id).size, "versioni perse!"
   end
+  
+  def test_creazione_documento_collegato
+    author = authors(:mor_carlo)
+    parent = Document.create!(:id_sbn => "boh", :title => "mah", :author_id => author.id)
+    new_child = Document.new(:id_sbn => "child", :title => "child", :author_id => author.id)
+    parent.children << new_child    
+    assert_nothing_raised {
+      new_child.save
+    }
+  end
 end

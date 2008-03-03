@@ -32,4 +32,30 @@ class AuthorTest < Test::Unit::TestCase
     assert_equal 'Teatro Elisabettiano', a.documents[0].title
   end
   
+  def test_cant_destroy_an_author_if_he_is_the_author_of_books
+    assert_cant_destroy authors(:mor_carlo)
+    
+    author_without_books = Author.create!(:name => 'Baz', :id_sbn => '999')
+    assert_can_destroy author_without_books
+  end
+
+  def test_cant_destroy_an_author_if_he_has_responsibilities
+    assert_cant_destroy authors(:praz_mario)
+  end
+
+private
+  def assert_cant_destroy(model)
+    assert_raise RuntimeError do
+      model.destroy
+    end
+    model.reload
+  end
+  
+  def assert_can_destroy(model)
+    model.destroy
+    assert_raise ActiveRecord::RecordNotFound do
+      model.reload
+    end
+  end
+  
 end

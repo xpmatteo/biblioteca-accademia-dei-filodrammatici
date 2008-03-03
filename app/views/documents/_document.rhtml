@@ -1,6 +1,6 @@
 <div>
   <% if document["result_index"] && @document_pages.page_count > 1 %>
-  <p>Risultato <%= document["result_index"] %></p>
+  <p><%= document["result_index"] %>.</p>
   <% end %>
   <% if document.author -%>
     <p class="document-author">

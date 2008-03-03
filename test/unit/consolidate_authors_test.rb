@@ -30,14 +30,16 @@ class ConsolidateAuthorsTest < Test::Unit::TestCase
   end
 
   def test_should_move_responsibility_from_author_to_author
-    assert_equal 1, Author.find(@author_with_dupes).documents.count    
+    assert_equal 1, @dupe_author.documents.count    
+    assert_equal 1, @author_with_dupes.documents.count    
     Author.transfer_responsibilities_from_to(@dupe_author, @author_with_dupes)
-    assert_equal 2, Author.find(@author_with_dupes).documents.count    
+    assert_equal 0, @dupe_author.reload.documents.count    
+    assert_equal 2, @author_with_dupes.reload.documents.count    
   end
 
   def test_should_delete_dupe_after_transfer
     Author.consolidate!
-    assert_nil Author.find_by_id(@dupe_author.id), "non lo ha cancellato"        
+    assert_nil Author.find_by_id(@dupe_author.id), "non lo ha cancellato"
   end
   
   def test_should_mantain_primary_authorship

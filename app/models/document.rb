@@ -1,5 +1,6 @@
 class Document < ActiveRecord::Base
   MAX_DOCUMENTS_TO_RETURN = 100
+  PAGE_SIZE = 10
 
   DOCUMENT_TYPES = [
     ["Monografia", "monograph"],
@@ -72,6 +73,14 @@ class Document < ActiveRecord::Base
     return nil if conditions.empty?
     where = conditions.join(" and ")
     
+    # if options[:page]
+    #   offset = PAGE_SIZE * options[:page].to_i
+    #   limit = PAGE_SIZE
+    # else
+      offset = 0
+      limit = MAX_DOCUMENTS_TO_RETURN
+    # end
+    
     # il discorso di parent_id serve ad evitare di restituire documenti il cui
     # padre viene già restituito dalla stessa query
     Document.connection.execute("set @n := 0");
@@ -80,7 +89,7 @@ class Document < ActiveRecord::Base
             where #{where}
               and (parent_id is null or parent_id not in (select id from documents where #{where}))
          order by #{CANONICAL_ORDER} 
-            limit #{MAX_DOCUMENTS_TO_RETURN}"
+            limit #{limit} offset #{offset}"
     Document.find_by_sql([sql, options])      
   end
 
@@ -101,7 +110,7 @@ class Document < ActiveRecord::Base
 private
 
   def add_author_to_names
-    if author_id && ! names.member?(author)
+    if author_id && !Responsibility.find_by_author_id_and_document_id(author.id, id)
       Responsibility.create!(:document_id => id, :author_id => author.id, :unimarc_tag => "700")
     end
   end

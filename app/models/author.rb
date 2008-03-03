@@ -45,11 +45,9 @@ class Author < ActiveRecord::Base
       doc = Document.find(resp.document_id)
       begin
         if doc.author == from
-          doc.author = to 
-          doc.save!
-        else
-          resp.update_attribute(:author_id, to.id)
+          doc.update_attribute :author_id, to.id 
         end        
+        resp.update_attribute(:author_id, to.id)
       rescue         
         puts $!
       end      
@@ -58,6 +56,14 @@ class Author < ActiveRecord::Base
   
   def id_sbn_is_not_blank
     ! self[:id_sbn].blank?
+  end
+  
+  def before_destroy
+    books_with_me_as_authors = Document.count(:all, :conditions => ["author_id = ?", self.id])
+    if books_with_me_as_authors > 0 || responsibilities.count > 0
+      raise "can't destroy #{self.name}, it has #{books_with_me_as_authors} books and #{responsibilities.count} responsibilities" +
+       " #{responsibilities.inspect}"
+    end
   end
 end
 

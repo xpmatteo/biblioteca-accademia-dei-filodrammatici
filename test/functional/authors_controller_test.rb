@@ -78,16 +78,17 @@ class AuthorsControllerTest < Test::Unit::TestCase
   end
 
   def test_destroy
+    author_without_responsibilities = Author.create!(:name => "foo", :id_sbn => "whoknows")
     assert_nothing_raised {
-      Author.find(@first_id)
+      Author.find(author_without_responsibilities.id)
     }
 
-    post_authenticated :destroy, :id => @first_id
+    post_authenticated :destroy, :id => author_without_responsibilities
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      Author.find(@first_id)
+      Author.find(author_without_responsibilities.id)
     }
   end
 
