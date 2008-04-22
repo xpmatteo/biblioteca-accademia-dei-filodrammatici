@@ -1,1 +1,0 @@
-ssh -p 2217 mvaccari@storm.unbit.it  mysql -umvaccari1 -pcCVimvzS2 mvaccari_db1 < db/filo-backup.20070526.sql 

@@ -16,5 +16,5 @@ production:
   adapter: mysql
   database: mvaccari_db1
   username: mvaccari1
-  password: cCVimvzS2
+  password: questa-e-difficilissima-da-indovinare-percio-l-ho-scelta
   host: localhost
