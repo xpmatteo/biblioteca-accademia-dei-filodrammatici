@@ -43,7 +43,9 @@ module DocumentsHelper
   end
   
   def link_to_document(document)
-    link_to h(document.title_without_asterisk), document_url(document)
+    # FIXME document_url(document) crashes on Storm, don't know why
+    url = "/biblio/scheda/#{document.id}"
+    link_to h(document.title_without_asterisk), url
   end
   
   def show_children(document)
