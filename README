@@ -1,3 +1,13 @@
+== TODO riunione con Ombretta 17/11/08
+
+* modificare ricerca avanzata: restituire tutti i risultati, non solo una parte 
+* modificare ricerca avanzata: fornire la scelta di ordinamento per autore, titolo o anno
+* modificare elenchi di spogli di riviste: ordinarli per anno
+* aggiungere ricerca alfabetica per titoli
+* ricerca per secolo: deve considerare anche l'anno se il secolo manca
+
+
+
 == TODO per gennaio 2008
 
 Fatturare 3000 + IVA

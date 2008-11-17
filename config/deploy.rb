@@ -1,5 +1,5 @@
 set :application, "filo"
-set :repository, "https://matteo.textdriven.com/svn/#{application}/trunk"
+set :repository, "http://matteo.textdriven.com/svn/#{application}/trunk"
 set :deploy_to, "/accounts/mvaccari/rails/filo"
 set :user, "mvaccari"
 set :use_sudo, false

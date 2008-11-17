@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>app/models/author.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>app</string>
 			<key>regexFolderFilter</key>
@@ -17,8 +13,6 @@
 			<string>app</string>
 		</dict>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>config</string>
 			<key>regexFolderFilter</key>
@@ -27,8 +21,6 @@
 			<string>config</string>
 		</dict>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>db</string>
 			<key>regexFolderFilter</key>
@@ -45,8 +37,6 @@
 			<string>public</string>
 		</dict>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>test</string>
 			<key>regexFolderFilter</key>
@@ -76,7 +66,7 @@
 			<key>filename</key>
 			<string>README</string>
 			<key>lastUsed</key>
-			<date>2008-02-22T15:57:10Z</date>
+			<date>2008-11-17T13:14:45Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -86,23 +76,9 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>383</integer>
+	<integer>175</integer>
 	<key>metaData</key>
 	<dict>
-		<key>app/models/author.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>app/views/documents/_document.rhtml</key>
 		<dict>
 			<key>caret</key>
@@ -341,20 +317,6 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>db/migrate/028_add_constraint_on_responsibility.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>73</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>db/migrate/029_convert_document_notes_to_text.rb</key>
 		<dict>
 			<key>caret</key>
@@ -453,54 +415,10 @@
 			<key>firstVisibleLine</key>
 			<integer>54</integer>
 		</dict>
-		<key>vendor/plugins/form_test_helper-1.0.1/README</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>11</integer>
-				<key>line</key>
-				<integer>67</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>test/functional/authors_controller_test.rb</string>
-		<string>vendor/plugins/form_test_helper-1.0.1/README</string>
-		<string>db/migrate/028_add_constraint_on_responsibility.rb</string>
-		<string>db/migrate/029_convert_document_notes_to_text.rb</string>
-		<string>db/migrate/030_more_document_refactorings.rb</string>
-		<string>db/migrate/031_rename_signature_collocation.rb</string>
-		<string>db/migrate/032_create_publishers_emblems.rb</string>
-		<string>db/migrate/033_delete_obsolete_tables.rb</string>
-		<string>db/migrate/034_change_type_to_spoglio.rb</string>
-		<string>app/views/documents/new.rhtml</string>
-		<string>app/views/documents/list.rhtml</string>
-		<string>app/views/documents/edit.rhtml</string>
-		<string>app/views/documents/authors.rhtml</string>
-		<string>app/views/login/login.rhtml</string>
-		<string>app/views/documents/_document.rhtml</string>
-		<string>app/views/documents/_form.rhtml</string>
-		<string>app/models/author.rb</string>
-		<string>db/migrate/018_remove_derived_fields_from_document.rb</string>
-		<string>db/migrate/019_create_authorships.rb</string>
-		<string>db/migrate/020_denormalize_subfields.rb</string>
-		<string>db/migrate/021_drop_table_authorships.rb</string>
-		<string>db/migrate/022_index_authors.rb</string>
-		<string>db/migrate/023_full_text.rb</string>
-		<string>db/migrate/024_add_second_image_to_content.rb</string>
-		<string>db/migrate/025_refactor_document.rb</string>
-		<string>db/migrate/026_add_automatic_fields.rb</string>
-		<string>db/migrate/027_add_admin_fields_to_document.rb</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{718, 4}, {962, 742}}</string>
+	<string>{{402, 136}, {962, 742}}</string>
 </dict>
 </plist>
