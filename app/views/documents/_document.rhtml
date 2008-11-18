@@ -1,6 +1,6 @@
 <div>
-  <% if document["result_index"] && @document_pages.page_count > 1 %>
-  <p><%= document["result_index"] %>.</p>
+  <% if document["result_index"] && @documents.total_entries > Document::PAGE_SIZE %>
+  <p><%= 1+document["result_index"] %>.</p>
   <% end %>
   <% if document.author -%>
     <p class="document-author">

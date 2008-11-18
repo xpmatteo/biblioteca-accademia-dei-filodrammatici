@@ -61,15 +61,6 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal ["Logica umana"], root.children.map {|child| child.title }, "ha un figlio"
     assert_equal Document.find_by_title("Logica umana").parent, root
   end
-
-  def test_should_not_include_children_when_parent_is_present
-    save author = Author.new(:name => 'Pippo', :id_sbn => "xyz")
-    parent = Document.new(:title => "parent", :author => author, :id_sbn => "foo")
-    child = Document.new(:title => "child", :author => author, :id_sbn => "bar")
-    parent.children << child
-    save parent
-    assert_equal [parent], Document.prune_children([parent, child])
-  end
   
   def test_should_use_monograph_as_default_type
     d = Document.new(:title => "foo", :id_sbn => "5431")

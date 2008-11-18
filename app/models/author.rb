@@ -1,3 +1,4 @@
+
 class Author < ActiveRecord::Base
   validates_uniqueness_of :id_sbn, :if => :id_sbn_is_not_blank
   validates_uniqueness_of :name
@@ -22,7 +23,7 @@ class Author < ActiveRecord::Base
       duplicates_of(awd).each do |dupe|
         transfer_responsibilities_from_to(dupe, awd)
         dupe.destroy
-        puts "consolidating: #{count += 1} authors done" if count % 10 == 0
+#        puts "consolidating: #{count += 1} authors done" if count % 10 == 0
       end
     end
   end

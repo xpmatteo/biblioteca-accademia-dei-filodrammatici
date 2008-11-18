@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-  MAX_DOCUMENTS_TO_RETURN = 100
+  MAX_DOCUMENTS_TO_RETURN = 100000
   PAGE_SIZE = 10
 
   DOCUMENT_TYPES = [
@@ -36,61 +36,14 @@ class Document < ActiveRecord::Base
     collection_name + "; " + collection_volume
   end
   
-  def Document.find_by_keywords(keywords)
-    Document.find_all_by_options(:keywords => keywords)
-  end
-  
-  def Document.prune_children(list)
-    list.reject {|elem| list.member?(elem.parent)}
-  end
-
-  def Document.find_all_by_options(options)
-    options = options.dup
-
-    conditions = []    
-    conditions << "year >= :year_from" unless options[:year_from].blank?
-    conditions << "year <= :year_to"   unless options[:year_to].blank?
-    conditions << "document_type = :document_type"   unless options[:document_type].blank?
-    
-    unless options[:author_id].blank?
-      by_author = "(author_id is not null and author_id = :author_id)"
-      by_responsibility = "id in (select document_id from responsibilities where author_id = :author_id)"
-      conditions << "(#{by_author} or #{by_responsibility})"
-    end
-    
-    unless options[:century].blank?
-      options[:century] = RomanNumerals.roman_to_decimal(options[:century])
-      conditions << "century = :century" 
-    end
-    
-    unless options[:keywords].blank?
-      options[:keywords] = Document.prepare_keywords_for_boolean_mode_query(options[:keywords])
-      conditions << 
-        "match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
-         against (:keywords in boolean mode)"
-    end
-
-    return nil if conditions.empty?
-    where = conditions.join(" and ")
-    
-    # if options[:page]
-    #   offset = PAGE_SIZE * options[:page].to_i
-    #   limit = PAGE_SIZE
-    # else
-      offset = 0
-      limit = MAX_DOCUMENTS_TO_RETURN
-    # end
-    
-    # il discorso di parent_id serve ad evitare di restituire documenti il cui
-    # padre viene già restituito dalla stessa query
-    Document.connection.execute("set @n := 0");
-    sql = "select @n := @n + 1 as result_index, documents.* 
-             from documents 
-            where #{where}
-              and (parent_id is null or parent_id not in (select id from documents where #{where}))
-         order by #{CANONICAL_ORDER} 
-            limit #{limit} offset #{offset}"
-    Document.find_by_sql([sql, options])      
+  def self.paginate(options)
+    options = options.dup    
+    options[:per_page] ||= PAGE_SIZE
+    options[:page] ||= 1
+    sql = sql_for_find(options)
+    return nil unless sql
+    results = Document.paginate_by_sql(sql, options)
+    results.each_with_index { |doc, index| doc["result_index"] = index + offset(options) }
   end
 
   def title_without_asterisk
@@ -113,5 +66,53 @@ private
     if author_id && !Responsibility.find_by_author_id_and_document_id(author.id, id)
       Responsibility.create!(:document_id => id, :author_id => author.id, :unimarc_tag => "700")
     end
+  end
+  
+  def self.sql_for_find(options)
+    conditions = []    
+    conditions << "year >= :year_from" unless options[:year_from].blank?
+    conditions << "year <= :year_to"   unless options[:year_to].blank?
+    conditions << "document_type = :document_type"   unless options[:document_type].blank?
+    
+    unless options[:author_id].blank?
+      by_author = "(author_id is not null and author_id = :author_id)"
+      by_responsibility = "id in (select document_id from responsibilities where author_id = :author_id)"
+      conditions << "(#{by_author} or #{by_responsibility})"
+    end
+    
+    unless options[:century].blank?
+      options[:century] = RomanNumerals.roman_to_decimal(options[:century])
+      conditions << "century = :century" 
+    end
+    
+    unless options[:q].blank?
+      options[:keywords] = options[:q]
+    end
+    
+    unless options[:keywords].blank?
+      options[:keywords] = Document.prepare_keywords_for_boolean_mode_query(options[:keywords])
+      conditions << 
+        "match (title, publication, notes, responsibilities_denormalized, national_bibliography_number, id_sbn) 
+         against (:keywords in boolean mode)"
+    end
+
+    return nil if conditions.empty?
+    where = conditions.join(" and ")
+    
+    # il discorso di parent_id serve ad evitare di restituire documenti il cui
+    # padre viene già restituito dalla stessa query
+    "select documents.* 
+             from documents 
+            where #{where}
+              and (parent_id is null or parent_id not in (select id from documents where #{where}))
+         order by #{CANONICAL_ORDER}"    
+  end
+  
+  def self.offset(options)
+    if options[:page]
+      PAGE_SIZE * (options[:page].to_i - 1)
+    else
+      0
+    end 
   end
 end

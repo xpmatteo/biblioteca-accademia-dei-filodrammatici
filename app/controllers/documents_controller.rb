@@ -21,16 +21,14 @@ class DocumentsController < ApplicationController
   
   def author
     author = Author.find(params[:id])
-    documents = Document.find_all_by_options(:author_id => author.id)
-    paginate_documents documents
-    @page_title = author.name + ": " + pluralize_schede(documents.size)
+    @documents = Document.paginate(:author_id => author.id, :page => params[:page])
+    @page_title = author.name + ": " + pluralize_schede(@documents.total_entries)
     render :template => 'documents/list'
   end
 
   def find
-    documents = Document.find_by_keywords(params[:q])
-    @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(documents.size, "risultato", "risultati")
-    paginate_documents documents
+    @documents = Document.paginate(params)
+    @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
     render :template => 'documents/list'
   end
   
@@ -42,7 +40,7 @@ class DocumentsController < ApplicationController
   end
   
   def collection
-    documents = find_documents(:collection_name, params[:name])
+    @documents = find_documents(:collection_name, params[:name])
     @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede(documents.size)
     paginate_documents documents
     render :template => 'documents/list'
@@ -84,10 +82,9 @@ class DocumentsController < ApplicationController
   end
   
   def search
-    documents = Document.find_all_by_options(params)
-    if documents
-      paginate_documents documents
-      @page_title = 'Ricerca completa: ' + pluralize_schede(documents.size)
+    @documents = Document.paginate(params)
+    if @documents
+      @page_title = 'Ricerca completa: ' + pluralize_schede(@documents.total_entries)
     else
       @page_title = "Ricerca completa"
     end
@@ -96,25 +93,11 @@ class DocumentsController < ApplicationController
 private
 
   def find_documents(col, val)
+    raise "todo"
     docs = Document.find(:all, :conditions => ["#{col.to_s} = ?", val], :order => Document::CANONICAL_ORDER)
     Document.prune_children(docs)
   end
 
-  def paginate_documents(documents)
-    @document_pages, @documents = paginate_collection documents, :page => params[:page]
-  end
-
-  def paginate_collection(collection, options = {})
-    default_options = {:per_page => 10, :page => 1}
-    options = default_options.merge options
-
-    pages = Paginator.new self, collection.size, options[:per_page], options[:page]
-    first = pages.current.offset
-    last = [first + options[:per_page], collection.size].min
-    slice = collection[first...last]
-    return [pages, slice]
-  end
-  
   def pluralize_schede(count)
     pluralize(count, "scheda", "schede", :feminine => true)
   end

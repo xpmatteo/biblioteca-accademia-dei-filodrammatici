@@ -2,6 +2,4 @@
 <%= render :partial => 'document', :collection => @documents %>
 </div>
 
-<%= link_to 'Precedenti', params.merge(:page => @document_pages.current.previous) if @document_pages.current.previous %>
-<%= pagination_links @document_pages, :params => params %>
-<%= link_to 'Prossimi', params.merge(:page => @document_pages.current.next) if @document_pages.current.next %> 
+<%= will_paginate @documents, :previous_label => "&laquo; Precedenti", :next_label => "Prossimi &raquo;"  %>

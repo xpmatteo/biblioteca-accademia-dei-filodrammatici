@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class DocumentSearchTest < Test::Unit::TestCase
   fixtures :authors, :documents, :responsibilities
   
+  self.use_transactional_fixtures = false
+
   def test_search_by_year_range
       Document.delete_all
       (1900..1910).each do |year|
@@ -35,16 +37,10 @@ class DocumentSearchTest < Test::Unit::TestCase
     assert_equal ["Logica umana"], search(:keywords => "logica")
   end
 
-  def test_all_keywords_are_required
-    Document.create!(:title => "Logica inumana", :id_sbn => "boh")
-    assert_equal ["Logica inumana", "Logica umana"], search(:keywords => "logica")
-    assert_equal ["Logica umana"], search(:keywords => "logica umana")
-  end
-  
   def test_no_modifications_to_params
     original = { :keywords => "Logica", :century => "XVII" }
     copy = original.dup
-    Document.find_all_by_options(copy)
+    Document.paginate(copy)
     assert_equal original, copy
   end
 
@@ -74,24 +70,11 @@ class DocumentSearchTest < Test::Unit::TestCase
     Responsibility.delete_all
     assert_equal ["Logica umana"], search(:author_id => authors(:mor_carlo))
   end
-
-  # nota: prima di abilitare la paginazione nella find_by_... occorre:
-  # - convertire _tutte_ le ricerche fatte da documents_controller all'uso di find_all_by_options
-  # - eliminare la vecchia paginazione e inserire quella alla will_paginate
-  # def test_search_pagination
-  #   Document.delete_all
-  #   100.times do |n| 
-  #     Document.create(:title => sprintf("foo-%02d", n), :document_type => "monograph")
-  #   end
-  #   actual = Document.find_all_by_options(:document_type => "monograph", :page => "2")
-  #   assert_equal 10, actual.size
-  #   assert_equal %w(foo-20 foo-21 foo-22 foo-23 foo-24 foo-25 foo-26 foo-27 foo-28 foo-29), actual.map(&:title)
-  # end
   
 private
 
   def search(options)
-    documents = Document.find_all_by_options(options)
+    documents = Document.paginate(options)
     documents.map(&:title) if documents
   end
 end
