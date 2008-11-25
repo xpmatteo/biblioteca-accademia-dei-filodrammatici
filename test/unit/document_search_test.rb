@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class DocumentSearchTest < Test::Unit::TestCase
-  fixtures :authors, :documents, :responsibilities
+  fixtures :authors, :documents, :responsibilities, :publishers_emblems
   
   self.use_transactional_fixtures = false
 
@@ -69,6 +69,22 @@ class DocumentSearchTest < Test::Unit::TestCase
 
     Responsibility.delete_all
     assert_equal ["Logica umana"], search(:author_id => authors(:mor_carlo))
+  end
+  
+  def test_by_emblem
+    assert_equal [], search(:publishers_emblem_id => 0)
+    assert_equal ["Nell'anno 1802"], search(:publishers_emblem_id => 1)
+  end
+  
+  def test_by_year
+    assert_equal [], search(:year => 2111)
+    assert_equal ["Nell'anno 1802"], search(:year => 1802)
+    assert_equal ["Nell'anno 1936"], search(:year => 1936)
+  end
+  
+  def test_by_collection_name
+    assert_equal [], search(:collection_name => "zot")
+    assert_equal ["Pippo Topolino"], search(:collection_name => "Foo")
   end
   
 private

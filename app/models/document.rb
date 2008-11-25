@@ -85,6 +85,18 @@ private
       conditions << "century = :century" 
     end
     
+    unless options[:publishers_emblem_id].blank?
+      conditions << "publishers_emblem_id = :publishers_emblem_id"
+    end
+    
+    unless options[:year].blank?
+      conditions << "year = :year"
+    end
+    
+    unless options[:collection_name].blank?
+      conditions << "collection_name = :collection_name"
+    end
+    
     unless options[:q].blank?
       options[:keywords] = options[:q]
     end

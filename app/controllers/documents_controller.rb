@@ -22,7 +22,7 @@ class DocumentsController < ApplicationController
   def author
     author = Author.find(params[:id])
     @documents = Document.paginate(:author_id => author.id, :page => params[:page])
-    @page_title = author.name + ": " + pluralize_schede(@documents.total_entries)
+    @page_title = author.name + ": " + pluralize_schede
     render :template => 'documents/list'
   end
 
@@ -35,29 +35,26 @@ class DocumentsController < ApplicationController
   def show
     document = Document.find(params[:id])
     @page_title = document.title_without_asterisk
-    paginate_documents [document]
+    @documents = singleton_collection(document)
     render :template => 'documents/list'
   end
   
   def collection
-    @documents = find_documents(:collection_name, params[:name])
-    @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede(documents.size)
-    paginate_documents documents
+    @documents = Document.paginate(:collection_name => params[:name])
+    @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede
     render :template => 'documents/list'
   end
   
   def year
-    documents = find_documents(:year, params[:year])
-    paginate_documents documents
-    @page_title = 'Anno ' + params[:year] + ': ' + pluralize_schede(documents.size)
+    @documents = Document.paginate(:year => params[:year])
+    @page_title = 'Anno ' + params[:year] + ': ' + pluralize_schede
     render :template => 'documents/list'
   end
   
   def publishers_emblem
     emblem = PublishersEmblem.find(params[:id])
-    documents = find_documents(:publishers_emblem_id, params[:id])
-    paginate_documents documents
-    @page_title = 'Marca "' + emblem.description + '": ' + pluralize_schede(documents.size)
+    @documents = Document.paginate(:publishers_emblem_id => params[:id])
+    @page_title = 'Marca "' + emblem.description + '": ' + pluralize_schede
     render :template => 'documents/list'
   end
   
@@ -84,7 +81,7 @@ class DocumentsController < ApplicationController
   def search
     @documents = Document.paginate(params)
     if @documents
-      @page_title = 'Ricerca completa: ' + pluralize_schede(@documents.total_entries)
+      @page_title = 'Ricerca completa: ' + pluralize_schede
     else
       @page_title = "Ricerca completa"
     end
@@ -92,13 +89,7 @@ class DocumentsController < ApplicationController
 
 private
 
-  def find_documents(col, val)
-    raise "todo"
-    docs = Document.find(:all, :conditions => ["#{col.to_s} = ?", val], :order => Document::CANONICAL_ORDER)
-    Document.prune_children(docs)
-  end
-
-  def pluralize_schede(count)
+  def pluralize_schede(count=@documents.total_entries)
     pluralize(count, "scheda", "schede", :feminine => true)
   end
 
@@ -119,5 +110,9 @@ private
     else
       count.to_s + " " + plural
     end
+  end
+  
+  def singleton_collection(document)
+    WillPaginate::Collection.create(1, 10) { |pager| pager.replace [document] }
   end
 end
