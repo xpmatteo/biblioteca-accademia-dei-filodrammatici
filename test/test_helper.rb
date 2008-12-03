@@ -66,4 +66,10 @@ class Test::Unit::TestCase
   def assert_invalid(record, message=nil)
     assert_false record.valid?, message
   end
+  
+  def create_100_documents_with(options)    
+    100.times do |n| 
+      Document.create options.merge(:title => sprintf("foo-%02d", n))
+    end
+  end
 end

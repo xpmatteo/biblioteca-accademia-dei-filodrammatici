@@ -39,7 +39,7 @@ class Document < ActiveRecord::Base
   def self.paginate(options)
     options = options.dup    
     options[:per_page] ||= PAGE_SIZE
-    options[:page] ||= 1
+    options[:page] || raise("missing page parameter")
     sql = sql_for_find(options)
     return nil unless sql
     results = Document.paginate_by_sql(sql, options)
@@ -95,10 +95,6 @@ private
     
     unless options[:collection_name].blank?
       conditions << "collection_name = :collection_name"
-    end
-    
-    unless options[:q].blank?
-      options[:keywords] = options[:q]
     end
     
     unless options[:keywords].blank?

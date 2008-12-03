@@ -31,14 +31,9 @@ class DocumentSearchByKeywordsTest < Test::Unit::TestCase
     assert_equal "+foo +bar", Document.prepare_keywords_for_boolean_mode_query("foo      bar")
   end
   
-  def test_q_is_short_for_keywords
-    actual = Document.paginate(:q => "carlo").map { |d| d.title }
-    assert_equal ["Logica umana"], actual    
-  end
-    
 private
   def assert_found_by_keywords(expected, keywords)
-    actual = Document.paginate(:keywords => keywords).map { |d| d.title }
+    actual = Document.paginate(:keywords => keywords, :page => "1").map { |d| d.title }
     assert_equal expected, actual
   end
 

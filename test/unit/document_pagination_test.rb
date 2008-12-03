@@ -10,9 +10,13 @@ class DocumentPaginationTest < Test::Unit::TestCase
 
   def setup
     Document.delete_all
-    100.times do |n| 
-      Document.create(:title => sprintf("foo-%02d", n), :document_type => "monograph")
-    end    
+    create_100_documents_with :document_type => "monograph"
+  end
+
+  def test_paginate_raises_exception_if_no_page_parameter
+    assert_raises RuntimeError do
+      Document.paginate(:document_type => "monograph")
+    end
   end
 
   def test_search_pagination
@@ -36,11 +40,6 @@ class DocumentPaginationTest < Test::Unit::TestCase
   def test_total_entries
     actual = Document.paginate(:document_type => "monograph", :page => "3")
     assert_equal 100, actual.total_entries  
-  end
-  
-  def test_default_pagination_params
-    actual = Document.paginate(:document_type => "monograph")
-    assert_equal array(0, 10), actual.map(&:result_index)
   end
   
   private

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>app/controllers/documents_controller.rb</string>
+	<string>test/functional/documents_controller_pagination_test.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -92,26 +92,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>123</integer>
+				<integer>117</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>87</integer>
-		</dict>
-		<key>app/models/document.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>90</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>71</integer>
+			<integer>88</integer>
 		</dict>
 		<key>app/views/documents/_form.rhtml</key>
 		<dict>
@@ -421,11 +407,25 @@
 			<key>firstVisibleLine</key>
 			<integer>54</integer>
 		</dict>
+		<key>test/functional/documents_controller_pagination_test.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>30</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>app/models/document.rb</string>
 		<string>app/controllers/documents_controller.rb</string>
+		<string>test/functional/documents_controller_pagination_test.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

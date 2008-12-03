@@ -1,3 +1,6 @@
+BUG: se cambio l'autore di una scheda, non gli toglie la "responsabilità"
+BUG: se inserisco una scheda senza alcun autore, assegna una responsabilità inspiegata a Cornelius Afer
+
 == TODO riunione con Ombretta 17/11/08
 
 * modificare ricerca avanzata: restituire tutti i risultati, non solo 100

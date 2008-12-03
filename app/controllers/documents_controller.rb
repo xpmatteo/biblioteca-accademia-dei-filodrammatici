@@ -21,13 +21,13 @@ class DocumentsController < ApplicationController
   
   def author
     author = Author.find(params[:id])
-    @documents = Document.paginate(:author_id => author.id, :page => params[:page])
+    @documents = paginate(:author_id => author.id)
     @page_title = author.name + ": " + pluralize_schede
     render :template => 'documents/list'
   end
 
   def find
-    @documents = Document.paginate(params)
+    @documents = paginate(:keywords => params[:q])
     @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
     render :template => 'documents/list'
   end
@@ -40,20 +40,20 @@ class DocumentsController < ApplicationController
   end
   
   def collection
-    @documents = Document.paginate(:collection_name => params[:name])
+    @documents = paginate(:collection_name => params[:name])
     @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede
     render :template => 'documents/list'
   end
   
   def year
-    @documents = Document.paginate(:year => params[:year])
+    @documents = paginate(:year => params[:year])
     @page_title = 'Anno ' + params[:year] + ': ' + pluralize_schede
     render :template => 'documents/list'
   end
   
   def publishers_emblem
     emblem = PublishersEmblem.find(params[:id])
-    @documents = Document.paginate(:publishers_emblem_id => params[:id])
+    @documents = paginate(:publishers_emblem_id => params[:id])
     @page_title = 'Marca "' + emblem.description + '": ' + pluralize_schede
     render :template => 'documents/list'
   end
@@ -79,7 +79,7 @@ class DocumentsController < ApplicationController
   end
   
   def search
-    @documents = Document.paginate(params)
+    @documents = paginate(params)
     if @documents
       @page_title = 'Ricerca completa: ' + pluralize_schede
     else
@@ -88,6 +88,13 @@ class DocumentsController < ApplicationController
   end
 
 private
+
+  def paginate(options)
+    unless options[:page]
+      options.merge!(:page => params[:page] || "1") 
+    end
+    Document.paginate(options)
+  end
 
   def pluralize_schede(count=@documents.total_entries)
     pluralize(count, "scheda", "schede", :feminine => true)

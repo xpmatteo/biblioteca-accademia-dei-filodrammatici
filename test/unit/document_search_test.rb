@@ -38,7 +38,7 @@ class DocumentSearchTest < Test::Unit::TestCase
   end
 
   def test_no_modifications_to_params
-    original = { :keywords => "Logica", :century => "XVII" }
+    original = { :keywords => "Logica", :century => "XVII", :page => "111" }
     copy = original.dup
     Document.paginate(copy)
     assert_equal original, copy
@@ -90,7 +90,7 @@ class DocumentSearchTest < Test::Unit::TestCase
 private
 
   def search(options)
-    documents = Document.paginate(options)
+    documents = Document.paginate(options.merge(:page => "1"))
     documents.map(&:title) if documents
   end
 end
