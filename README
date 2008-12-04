@@ -1,41 +1,24 @@
+BUG: la lista autori dovrebbe ignorare quelli che hanno 0 schede
+
 BUG: se cambio l'autore di una scheda, non gli toglie la "responsabilità"
 BUG: se inserisco una scheda senza alcun autore, assegna una responsabilità inspiegata a Cornelius Afer
 
 == TODO riunione con Ombretta 17/11/08
 
-* modificare ricerca avanzata: restituire tutti i risultati, non solo 100
-* modificare ricerca avanzata: fornire la scelta di ordinamento per autore, titolo o anno
-* modificare elenchi di spogli di riviste: ordinarli per anno
-* aggiungere ricerca alfabetica per titoli
-* ricerca per secolo: deve considerare anche l'anno se il secolo manca
-
++ modificare ricerca avanzata: restituire tutti i risultati, non solo 100
+- modificare ricerca avanzata: fornire la scelta di ordinamento per autore, titolo o anno
+- modificare elenchi di spogli di riviste: ordinarli per anno
+- aggiungere ricerca alfabetica per titoli
+- ricerca per secolo: deve considerare anche l'anno se il secolo manca
 
 
 == TODO per gennaio 2008
 
 Fatturare 3000 + IVA
 
-DONE
-+ migliorare ricerca libera
-
-IN PROGRESS
-
-- query avanzata
-  + range anni
-  + tipo documento (testo/rivista/spoglio)
-  - nome rivista
-
 TODO
 
 + togliere "risultato"
-
-
-> si perde qualche scheda come in "Sessa Gio. Battista e Sessa Bernardo" che
-> ha perso "I torti amorosi" che é pure di tali tipografi. Si può
-> ripristinare?
-
-- risultato ordinato per anni oppure alfabetico nella ric completa
-
 
 - poter cancellare gli autori se #documenti = 0
 - poter editare le collane e riviste di riferimento
