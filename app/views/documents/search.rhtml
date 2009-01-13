@@ -23,6 +23,10 @@
   
   Parole chiave:<br/>
   <%= text_field_tag "keywords", params[:keywords] %><br/>
+
+  Risultati ordinati per:<br/>
+  <%= select_tag "order", options_for_select(Document::ORDER_OPTIONS, params[:order]) %><br/>
+
   <input type="submit" value="Cerca" />
 <% end %>
 

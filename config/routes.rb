@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect         'login',                    :controller => "login", :action => "login"
 
   map.author_initial  'biblio/autori/:initial',   :controller => "documents", :action => "authors"
+  map.title_initial   'biblio/titoli/:title_initial',   :controller => "documents", :action => "titles"
   map.author          'biblio/autore/:id',        :controller => "documents", :action => "author"
   map.document        'biblio/scheda/:id',        :controller => "documents", :action => "show"
   map.collection      'biblio/collezione',        :controller => "documents", :action => "collection"

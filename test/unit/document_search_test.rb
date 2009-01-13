@@ -33,6 +33,12 @@ class DocumentSearchTest < Test::Unit::TestCase
     assert_equal ["settecento"], search(:century => "XVIII")
   end
   
+  def test_search_by_century_infers_century_from_year
+    Document.delete_all
+    Document.create!(:title => "son nel ventesimo", :year => "1999")
+    assert_equal ["son nel ventesimo"], search(:century => "XX")
+  end
+  
   def test_search_by_keywords
     assert_equal ["Logica umana"], search(:keywords => "logica")
   end

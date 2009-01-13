@@ -7,6 +7,12 @@ class Document < ActiveRecord::Base
     ["Periodico", "serial"],
     ["Spoglio di periodico", "in-serial"],
     ]
+    
+  ORDER_OPTIONS = [
+    ["Titolo", "title"],
+    ["Autore", "author"],
+    ["Anno", "year"],
+  ]
 
   validates_uniqueness_of :id_sbn, :if => Proc.new {|doc| !doc.id_sbn.blank?}
   validates_presence_of :title
@@ -16,9 +22,12 @@ class Document < ActiveRecord::Base
   validates_inclusion_of :document_type,  :in => %w(serial monograph set in-serial)
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
 
+  THE_PART_OF_TITLE_BEFORE_THE_ASTERISK = "trim(right(title, length(title) - locate('*', title)))"
+
   # l'idea è che se i titoli iniziano con un numero, è meglio ordinare numericamente
   # e se contengono un asterisco, vanno ordinati a partire dall'asterisco
-  CANONICAL_ORDER = "cast(title as unsigned), right(title, length(title) - locate('*', title))"
+  CANONICAL_ORDER = "cast(title as unsigned), #{THE_PART_OF_TITLE_BEFORE_THE_ASTERISK}"
+
   acts_as_tree :order => CANONICAL_ORDER
   
   acts_as_versioned
@@ -29,6 +38,15 @@ class Document < ActiveRecord::Base
   belongs_to :publishers_emblem
   
   after_save :add_author_to_names
+  
+  def self.title_initials
+     sql = "select distinct upper(left(#{THE_PART_OF_TITLE_BEFORE_THE_ASTERISK}, 1)) as initial 
+            from documents
+            order by initial"
+     self.find_by_sql(sql).map do |g|
+       g.initial
+     end
+  end
   
   def collection
     return nil if collection_name.blank?
@@ -82,7 +100,7 @@ private
     
     unless options[:century].blank?
       options[:century] = RomanNumerals.roman_to_decimal(options[:century])
-      conditions << "century = :century" 
+      conditions << "(century = :century or year div 100 + 1 = :century)" 
     end
     
     unless options[:publishers_emblem_id].blank?
@@ -97,6 +115,11 @@ private
       conditions << "collection_name = :collection_name"
     end
     
+    unless options[:title_initial].blank?
+      options[:title_initial] = options[:title_initial] + '%'
+      conditions << "#{THE_PART_OF_TITLE_BEFORE_THE_ASTERISK} like :title_initial"
+    end
+    
     unless options[:keywords].blank?
       options[:keywords] = Document.prepare_keywords_for_boolean_mode_query(options[:keywords])
       conditions << 
@@ -104,16 +127,28 @@ private
          against (:keywords in boolean mode)"
     end
 
+    options[:order] ||= ""
+    if options[:order] == "year"
+      order = "coalesce(year, (century-1) * 100, 9999)"
+      tables = "documents D"
+    elsif options[:order] == "author"
+      order = "A.name"
+      tables = "documents D left join authors A on (D.author_id = A.id)"
+    else
+      order = CANONICAL_ORDER
+      tables = "documents D"
+    end
+
     return nil if conditions.empty?
     where = conditions.join(" and ")
     
     # il discorso di parent_id serve ad evitare di restituire documenti il cui
     # padre viene già restituito dalla stessa query
-    "select documents.* 
-             from documents 
+    "select D.* 
+             from #{tables} 
             where #{where}
               and (parent_id is null or parent_id not in (select id from documents where #{where}))
-         order by #{CANONICAL_ORDER}"    
+         order by #{order}"    
   end
   
   def self.offset(options)

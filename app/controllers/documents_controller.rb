@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
 
   before_filter :check_user_is_admin, 
     :except => [ :index, :list, :find, :show, :author, :authors, 
-                 :collection, :year, :publishers_emblem, :secolo, :search ]
+                 :collection, :year, :publishers_emblem, :secolo, :search, :titles ]
 
   verify :method => :post, 
     :only => [ :destroy, :create, :update ],
@@ -29,6 +29,13 @@ class DocumentsController < ApplicationController
   def find
     @documents = paginate(:keywords => params[:q])
     @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
+    render :template => 'documents/list'
+  end
+  
+  def titles
+    @documents = paginate(:title_initial => params[:title_initial])
+    @page_title = "Titoli che iniziano per '#{params[:title_initial]}': " + 
+      pluralize(@documents.total_entries, "scheda", "schede", :feminine => true)
     render :template => 'documents/list'
   end
   

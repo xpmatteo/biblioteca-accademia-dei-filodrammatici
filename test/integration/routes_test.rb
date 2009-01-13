@@ -37,6 +37,9 @@ class RoutesTest < ActionController::IntegrationTest
 
     assert_equal "/biblio/marca/123", 
       url_for(:controller => 'documents', :action => 'publishers_emblem', :id => '123', :only_path => true)
+
+    assert_equal "/biblio/titoli/Z", 
+      url_for(:controller => 'documents', :action => 'titles', :title_initial => "Z", :only_path => true)
   end
   
 private

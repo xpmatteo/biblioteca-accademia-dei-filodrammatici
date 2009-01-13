@@ -6,10 +6,12 @@ BUG: se inserisco una scheda senza alcun autore, assegna una responsabilità ins
 == TODO riunione con Ombretta 17/11/08
 
 + modificare ricerca avanzata: restituire tutti i risultati, non solo 100
-- modificare ricerca avanzata: fornire la scelta di ordinamento per autore, titolo o anno
-- modificare elenchi di spogli di riviste: ordinarli per anno
++ modificare ricerca avanzata: fornire la scelta di ordinamento per autore, titolo o anno
 - aggiungere ricerca alfabetica per titoli
-- ricerca per secolo: deve considerare anche l'anno se il secolo manca
+  - manca il template con le iniziali dei titoli
+  - manca la ricerca di tutte le iniziali...
++ ricerca per secolo: deve considerare anche l'anno se il secolo manca
+- modificare elenchi di spogli di riviste: ordinarli per anno
 
 
 == TODO per gennaio 2008

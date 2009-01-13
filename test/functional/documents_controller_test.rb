@@ -27,6 +27,14 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => authors(:mor_carlo).name, :attributes => { :href => '/biblio/autore/' + authors(:mor_carlo).id.to_s }
   end
   
+  def test_search_by_title_initial
+    get :titles, :title_initial => 'L'
+    assert_response :success
+    assert_equal [documents(:logica_umana)], assigns(:documents)
+    assert_equal "Titoli che iniziano per 'L': una scheda", assigns(:page_title)
+    assert_template 'list'
+  end
+  
   def test_author_by_id
     get :author, :id => authors(:mor_carlo).id
     assert_response :success

@@ -148,4 +148,13 @@ class DocumentTest < Test::Unit::TestCase
       new_child.save
     }
   end
+  
+  def test_title_initials
+    Document.delete_all
+    Document.create(:title => "Foo")
+    Document.create(:title => "Bar* Bar")
+    Document.create(:title => "Lo *Zork")
+    Document.create(:title => "azz")
+    assert_equal %w(A B F Z), Document.title_initials
+  end
 end
