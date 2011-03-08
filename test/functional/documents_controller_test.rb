@@ -152,6 +152,38 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => :show, :id => assigns(:document).id
     assert_equal documents_before+1, Document.count
   end
+
+  def test_create_new_manuscript
+    documents_before = Document.count
+    
+    post_authenticated :create, :document => { 
+      :title => 'a Manuscript', 
+      :document_type => 'manuscript',
+      :author_id => authors(:mor_carlo).id,
+      :publication => "a casa mia",
+      :year => 1971,
+      :notes => "some notes",
+      :admin_notes => "some admin notes",
+      :collocation => "some collocation"
+       }
+    document = assigns(:document)
+    assert_equal [], document.errors.full_messages
+    
+    assert_redirected_to :action => :show, :id => document.id
+    assert_equal 'a Manuscript', document.title
+    assert_equal 'manuscript', document.document_type
+    assert_equal authors(:mor_carlo).id, document.author_id
+    assert_equal 'a casa mia', document.publication
+    assert_equal 1971, document.year
+    assert_equal "some notes", document.notes
+    assert_equal "some admin notes", document.admin_notes
+    assert_equal "some collocation", document.collocation
+    assert_equal nil, document.responsibilities_denormalized, "responsibilities"
+    # assert_equal 20, document.century
+    
+    assert_equal documents_before+1, Document.count
+  end
+  
   
   def test_destroy_document
     document = documents(:logica_umana)

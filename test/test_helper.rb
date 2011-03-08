@@ -72,4 +72,21 @@ class Test::Unit::TestCase
       Document.create options.merge(:title => sprintf("foo-%02d", n))
     end
   end
+  
+  def assert_xml(contents=@response.body)
+    contents.gsub!('\\\'', '&apos;')
+    @xdoc = REXML::Document.new(contents)
+  end
+
+  def assert_xpath(path, message = '')
+    former = @xdoc
+    @xdoc = REXML::XPath.first(@xdoc, path)
+
+    assert_not_nil @xdoc, message +
+            "\nseeking: #{path.inspect} in\n#{former.to_s}"
+
+    yield(@xdoc) if block_given?
+  ensure
+    @xdoc = former
+  end  
 end

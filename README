@@ -1,7 +1,38 @@
 
-== TO DEPLOY
+- DOCUMENT_TYPES: += "copione", "tesi di laurea"
 
-cap deploy
+- title
+- document_type choice
+- author
+  - link INSERIMENTO NUOVO AUTORE
+- traduttore < che è uno degli "autori" con ruolo "traduttore"
+- publication (campo di testo)
+- year
+  - century is derived
+- notes
+- Segnatura (Collocazione) | collocation
+- admin_notes
+
+
+== TODO Manoscritti e tesi di laurea, Ombretta 
+
+1. Aggiungere una voce "Copioni e Tesi di Laurea" al menu laterale. Questa voce deve aprire una pagina che contiene l'elenco per esteso di tutti i copioni e tutte le tesi di laurea, in ordine alfabetico per autore.  Cliccando su una di queste voci si apre la scheda bibliografica corrispondente.  La pagina conterrà una nota "Questo materiale non può essere richiesto, ma solamente consultato presso la sede della Biblioteca dei Filodrammatici."
+
+2. Aggiungere, solo per gli amministratori, una pagina per l'inserimento di Copioni o Tesi di Laurea.  I campi da compilare per ciascuno di questi documenti sono:
+      1. Titolo
+      2. Tipo: a scelta fra "Copione" o "Tesi di Laurea"
+      3. Autore (scelta dagli autori esistenti, oppure inserimento di un autore nuovo)
+      4. Traduttore
+      5. Pubblicazione
+      6. Anno e secolo (per le ricerche)
+      7. Note
+      8. Segnatura (collocazione)
+      9. Note private
+
+3. I Copioni e Tesi di Laurea saranno rintracciabili anche tramite gli altri metodi di ricerca già esistenti: la ricerca libera, la ricerca per autore, la ricerca avanzata.
+
+
+== BUG list
 
 BUG: la lista autori dovrebbe ignorare quelli che hanno 0 schede
 
@@ -22,8 +53,6 @@ BUG: se inserisco una scheda senza alcun autore, assegna una responsabilità ins
 
 == TODO per gennaio 2008
 
-Fatturare 3000 + IVA
-
 TODO
 
 + togliere "risultato"
@@ -38,3 +67,8 @@ NICE TO HAVE
 + salvare i doc cancellati
   (vedi http://ward.vandewege.net/blog/2007/02/27/116/)
 + salvare le versioni
+
+
+== TO DEPLOY
+
+cap deploy

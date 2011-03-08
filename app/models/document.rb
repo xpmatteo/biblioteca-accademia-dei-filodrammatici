@@ -6,7 +6,9 @@ class Document < ActiveRecord::Base
     ["Monografia", "monograph"],
     ["Periodico", "serial"],
     ["Spoglio di periodico", "in-serial"],
-    ]
+    ["Tesi di Laurea", "thesis"],
+    ["Manoscritto", "manuscript"],
+  ]
     
   ORDER_OPTIONS = [
     ["Titolo", "title"],
@@ -19,7 +21,7 @@ class Document < ActiveRecord::Base
   validates_numericality_of :value,   :allow_nil => true
   validates_numericality_of :century, :allow_nil => true, :only_integer => true
   validates_numericality_of :year,    :allow_nil => true, :only_integer => true
-  validates_inclusion_of :document_type,  :in => %w(serial monograph set in-serial)
+  validates_inclusion_of :document_type,  :in => %w(serial monograph set in-serial manuscript thesis)
   validates_inclusion_of :hierarchy_type, :in => %w(serial composition issued_with), :allow_nil => true
 
   THE_PART_OF_TITLE_BEFORE_THE_ASTERISK = "trim(right(title, length(title) - locate('*', title)))"

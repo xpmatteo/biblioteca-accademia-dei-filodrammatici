@@ -5,7 +5,7 @@
   <p><label for="id_sbn">Id sbn</label><br/>
   <%= text_field 'document', 'id_sbn', :size => 50  %></p>
 <% else %>
-  <p>Id sbn: <a target="_blank" href="http://www.biblioteche.regione.lombardia.it/OPACRL/catleg/DDW?W=BID=%27<%= @document.id_sbn %>%27"><%= @document.id_sbn %></a><br/>
+  <p>Id sbn: <a target="_blank" href="http://www.biblioteche.regione.lombardia.it/OPACRL/catleg/DDW?W=BID=%27<%= @document.id_sbn %>%27"><%= @document.id_sbn %></a><br/></p>
 <% end %>
 
 <% if params[:parent_id] %>
@@ -15,7 +15,7 @@
 <p><label for="document_title">Titolo</label><br/>
 <%= text_area 'document', 'title', :size => '50x6'  %></p>
 
-<p>Titolo non ripulito: <em style="white-space: normal;"><%= @document.original_title %></em><br/>
+<p>Titolo non ripulito: <em style="white-space: normal;"><%= @document.original_title %></em><br/></p>
   
 <p><label for="document_author">Autore:</label><br/>
 <%= select 'document', 'author_id', all_authors, { :include_blank => true } %></p>

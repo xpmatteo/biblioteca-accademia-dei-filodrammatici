@@ -66,5 +66,10 @@ module DocumentsHelper
   def list_item(x)
     "<li>#{x}</li>"
   end
-  
+
+  def filo_text_field label_text, field_name
+    %Q|<p><label for="document_#{field_name}">#{label_text}</label><br/>\n| +
+    text_field('document', field_name, :size => 50) +
+    "</p>\n"
+  end
 end
