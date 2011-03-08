@@ -1,3 +1,8 @@
+
+== TO DEPLOY
+
+cap deploy
+
 BUG: la lista autori dovrebbe ignorare quelli che hanno 0 schede
 
 BUG: se cambio l'autore di una scheda, non gli toglie la "responsabilità"
@@ -7,6 +12,7 @@ BUG: se inserisco una scheda senza alcun autore, assegna una responsabilità ins
 
 + modificare ricerca avanzata: restituire tutti i risultati, non solo 100
 + modificare ricerca avanzata: fornire la scelta di ordinamento per autore, titolo o anno
+- mettere i libri senza autore in fondo nell'ordinamento per autore
 - aggiungere ricerca alfabetica per titoli
   - manca il template con le iniziali dei titoli
   - manca la ricerca di tutte le iniziali...

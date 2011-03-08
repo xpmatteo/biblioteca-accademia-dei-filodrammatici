@@ -15,6 +15,8 @@
 			<string>app</string>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>config</string>
 			<key>regexFolderFilter</key>
@@ -23,6 +25,8 @@
 			<string>config</string>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>db</string>
 			<key>regexFolderFilter</key>
@@ -70,15 +74,19 @@
 			<key>filename</key>
 			<string>README</string>
 			<key>lastUsed</key>
-			<date>2008-12-04T17:15:23Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2009-03-18T07:30:36Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>Capfile</string>
 			<key>lastUsed</key>
 			<date>2008-01-06T14:22:38Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>test/functional/foo_test.rb</string>
+			<key>lastUsed</key>
+			<date>2009-08-27T06:30:59Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -93,20 +101,6 @@
 				<integer>47</integer>
 				<key>line</key>
 				<integer>20</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>app/views/documents/authors.rhtml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -219,20 +213,6 @@
 				<integer>43</integer>
 				<key>line</key>
 				<integer>8</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>db/migrate/023_full_text.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -397,6 +377,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{504, 300}, {962, 578}}</string>
+	<string>{{316, 0}, {1120, 878}}</string>
 </dict>
 </plist>
