@@ -94,6 +94,9 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def new_manuscript
+    @document = Document.new(:document_type => 'manuscript')
+  end
 private
 
   def paginate(options)

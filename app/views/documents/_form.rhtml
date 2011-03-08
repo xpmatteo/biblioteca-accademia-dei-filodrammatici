@@ -1,6 +1,5 @@
 <%= error_messages_for 'document' %>
 
-<!--[form:document]-->
 <% if @document && @document.id.nil? %>
   <p><label for="id_sbn">Id sbn</label><br/>
   <%= text_field 'document', 'id_sbn', :size => 50  %></p>
@@ -12,58 +11,27 @@
   <%= hidden_field_tag "parent_id", params[:parent_id] %>
 <% end%>
 
-<p><label for="document_title">Titolo</label><br/>
-<%= text_area 'document', 'title', :size => '50x6'  %></p>
+
+<%= filo_text_area 'Titolo', 'title'%>
 
 <p>Titolo non ripulito: <em style="white-space: normal;"><%= @document.original_title %></em><br/></p>
   
 <p><label for="document_author">Autore:</label><br/>
 <%= select 'document', 'author_id', all_authors, { :include_blank => true } %></p>
 
-<p><label for="document_publication">Pubblicazione</label><br/>
-<%= text_field 'document', 'publication', :size => 50  %></p>
-
-<p><label for="document_publisher">Editore (usato solo per le ricerche)</label><br/>
-<%= text_field 'document', 'publisher', :size => 50  %></p>
-
-<p><label for="document_place">Luogo (usato solo per le ricerche)</label><br/>
-<%= text_field 'document', 'place', :size => 50  %></p>
-
-<p><label for="document_year">Anno (usato solo per le ricerche)</label><br/>
-<%= text_field 'document', 'year', :size => 50  %></p>
-
-<p><label for="document_year">Secolo (usato solo per le ricerche)</label><br/>
-<%= text_field 'document', 'century', :size => 50  %></p>
-
-<p><label for="document_notes">Note</label><br/>
-<%= text_area 'document', 'notes', :size => '50x6'  %></p>
-
-<p><label for="document_collocation">Segnatura</label><br/>
-<%= text_field 'document', 'collocation', :size => 50  %></p>
-
-<p><label for="document_footprint">Impronta</label><br/>
-<%= text_field 'document', 'footprint', :size => 50  %></p>
-
-<p><label for="document_physical_description">Descrizione fisica</label><br/>
-<%= text_field 'document', 'physical_description', :size => 50  %></p>
-
-<p><label for="document_national_bibliography_number">Numero bibliografia nazionale</label><br/>
-<%= text_field 'document', 'national_bibliography_number', :size => 50  %></p>
-
-<p><label for="document_collection_name">Collezione</label><br/>
-<%= text_field 'document', 'collection_name', :size => 50  %></p>
-
-<p><label for="document_collection_volume">Volume o tomo (relativo alla collezione)</label><br/>
-<%= text_field 'document', 'collection_volume', :size => 50  %></p>
-
-<p><label for="document_collection_volume">Numero della rivista in cui compare (se è uno spoglio)</label><br/>
-<%= text_field 'document', 'month_of_serial', :size => 50  %></p>
-
-<p><label for="document_value">Valore</label><br/>
-<%= text_field 'document', 'value', :size => 50  %></p>
-
-<p><label for="document_admin_notes">Note private dell'amministratore</label><br/>
-<%= text_area 'document', 'admin_notes', :size => '50x6'  %></p>
-
-<!--[eoform:document]-->
+<%= filo_text_field "Pubblicazione", 'publication' %>
+<%= filo_text_field "Editore (usato solo per le ricerche)", 'publisher' %>
+<%= filo_text_field "Luogo (usato solo per le ricerche)", 'place' %>
+<%= filo_text_field "Anno (usato solo per le ricerche)", 'year' %>
+<%= filo_text_field "Secolo (usato solo per le ricerche)", 'century' %>
+<%= filo_text_area "Note", 'notes' %>
+<%= filo_text_field "Segnatura", 'collocation' %>
+<%= filo_text_field "Impronta", 'footprint' %>
+<%= filo_text_field "Descrizione fisica", 'physical_description' %>
+<%= filo_text_field "Numero bibliografia nazionale", 'national_bibliography_number' %>
+<%= filo_text_field "Collezione", 'collection_name' %>
+<%= filo_text_field "Volume o tomo (relativo alla collezione)", 'collection_volume' %>
+<%= filo_text_field "Numero della rivista in cui compare (se è uno spoglio)", 'month_of_serial' %>
+<%= filo_text_field "Valore", 'value' %>
+<%= filo_text_area "Note private dell'amministratore", 'admin_notes' %>
 

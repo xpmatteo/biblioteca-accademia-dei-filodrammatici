@@ -183,7 +183,12 @@ class DocumentsControllerTest < Test::Unit::TestCase
     
     assert_equal documents_before+1, Document.count
   end
-  
+
+  def test_new_manuscript
+    get_authenticated :new_manuscript
+    assert_response :success
+    assert_equal 'manuscript', assigns(:document).document_type
+  end
   
   def test_destroy_document
     document = documents(:logica_umana)

@@ -68,8 +68,16 @@ module DocumentsHelper
   end
 
   def filo_text_field label_text, field_name
+    raise "Matteo, 'document_' is implicit!" if field_name.start_with? "document"
     %Q|<p><label for="document_#{field_name}">#{label_text}</label><br/>\n| +
     text_field('document', field_name, :size => 50) +
     "</p>\n"
   end
+  
+  def filo_text_area label_text, field_name
+    raise "Matteo, 'document_' is implicit!" if field_name.start_with? "document"
+    %Q|<p><label for="document_#{field_name}">#{label_text}</label><br/>\n| +
+    text_area('document', field_name, :size => "50x6") +
+    "</p>\n"
+  end  
 end
