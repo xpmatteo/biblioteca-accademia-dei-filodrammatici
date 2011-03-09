@@ -5,28 +5,18 @@
 <div id="documents">
   <table>
     <tr valign="top">
-      <td>
+      <td style="padding: 0 3em">
         <h3>Manoscritti</h3>
-        <% for manuscript in @manuscripts %>
-          <div>
-            <p><a href="/documents/show/<%= manuscript.id %>"><%= manuscript.title %></a></p>
-            <% if manuscript.author %>
-              <p><%= manuscript.author.name %></p>
-            <% end %>
-          </div>
-        <% end %>        
+        <%= render :partial => 'manuscripts' %>
       </td>
-      <td>
+      <% if @theses.size > 0 %>
+      <td style="padding: 0 3em">
         <h3>Tesi di Laurea</h3>
-        <% for thesis in @theses %>
-          <div>
-            <p><a href="/documents/show/<%= thesis.id %>"><%= thesis.title %></a></p>
-            <% if thesis.author %>
-              <p><%= thesis.author.name %></p>
-            <% end %>
-          </div>
-        <% end %>        
+        <%= render :partial => 'manuscripts', :object => @theses %>
       </td>
+      <% end %>
     </tr>
   </table>
 </div>
+
+<%= render :partial => 'admin_links' %>

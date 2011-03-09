@@ -1,0 +1,9 @@
+<p>
+  <% if authorized? %>
+    <%= admin_link_to 'inserisci nuovo documento', :controller => 'documents', :action => 'new' %>
+    |
+    <%= admin_link_to 'inserisci nuovo manoscritto o tesi', :controller => 'documents', :action => 'new_manuscript' %>
+    |
+    <%= admin_link_to 'inserisci nuovo autore', :controller => 'authors', :action => 'new' %>
+  <% end %>  
+</p>

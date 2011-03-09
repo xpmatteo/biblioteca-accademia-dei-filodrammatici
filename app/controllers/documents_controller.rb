@@ -102,6 +102,7 @@ class DocumentsController < ApplicationController
     @manuscripts = Document.find(:all, :conditions => {:document_type => "manuscript"}, :order => "title")
     @theses = Document.find(:all, :conditions => {:document_type => "thesis"}, :order => "title")
   end
+
 private
 
   def paginate(options)
