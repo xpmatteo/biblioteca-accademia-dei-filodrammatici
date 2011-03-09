@@ -9,7 +9,7 @@ class LoginController < ApplicationController
       if EXPECTED_PASSWORD == params[:password]
         session[:authenticated] = true
         flash[:notice] = 'Benvenuto, amministratore'
-        redirect_to (session[:original_uri] || {:controller => 'documents'})
+        redirect_to(session[:original_uri] || {:controller => 'documents'})
         session[:original_uri] = nil
       else
         flash[:notice] = 'Password errata'
@@ -19,6 +19,6 @@ class LoginController < ApplicationController
 
   def logout
     session[:authenticated] = nil
-    redirect_to params[:original_uri] || {:controller => 'news'}
+    redirect_to params[:original_uri] || {:controller => 'documents'}
   end
 end
