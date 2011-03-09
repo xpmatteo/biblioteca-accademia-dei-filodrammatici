@@ -45,7 +45,10 @@ a_manuscript:
   id: 152
   title: A manuscript
   translator: A translator
+  document_type: manuscript
 
 a_thesis:
   id: 153
-  title: A thesis  
+  title: A thesis
+  document_type: thesis
+

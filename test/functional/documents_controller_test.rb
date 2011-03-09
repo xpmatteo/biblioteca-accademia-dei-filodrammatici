@@ -202,10 +202,11 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_nil Document.find(:first, :conditions => ['id = ?', document.id] )
   end  
   
-  # def test_manuscripts_page    
-  #   get :manuscripts
-  #   assert_response :success
-  #   assert
-  # end
+  def test_manuscripts_page    
+    get :manuscripts
+    assert_response :success
+    assert_equal [documents(:a_manuscript)], assigns(:manuscripts)
+    assert_equal [documents(:a_thesis)], assigns(:theses)
+  end
   
 end

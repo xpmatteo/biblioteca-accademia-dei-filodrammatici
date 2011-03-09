@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
 
   before_filter :check_user_is_admin, 
     :except => [ :index, :list, :find, :show, :author, :authors, 
-                 :collection, :year, :publishers_emblem, :secolo, :search, :titles ]
+                 :collection, :year, :publishers_emblem, :secolo, :search, :titles, :manuscripts ]
 
   verify :method => :post, 
     :only => [ :destroy, :create, :update ],
@@ -96,6 +96,11 @@ class DocumentsController < ApplicationController
 
   def new_manuscript
     @document = Document.new(:document_type => 'manuscript')
+  end
+  
+  def manuscripts
+    @manuscripts = Document.find(:all, :conditions => {:document_type => "manuscript"}, :order => "title")
+    @theses = Document.find(:all, :conditions => {:document_type => "thesis"}, :order => "title")
   end
 private
 
