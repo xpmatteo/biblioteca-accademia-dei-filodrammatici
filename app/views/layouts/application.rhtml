@@ -1,30 +1,213 @@
-<%= render :partial => 'layouts/header' %>
-  <div id="page" align='left'>
-    <table border="0" cellspacing="0" cellpadding="0">
-      <tr id='head'>
-        <td><a href="/"><%= image_tag 'logo.gif', :alt => 'home' %></a></td>
-        <td><%= image_tag upper_right_image, :alt => '' %></td>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      Biblioteca della Accademia dei Filodrammatici <%= "&mdash; #{h(@page_title)}" if @page_title %>
+    </title>
+    <link rel="stylesheet" href="http://accademiadeifilodrammatici.it/css/css.css" type="text/css" />
+    <%= stylesheet_link_tag "documents" %>
+    <%= javascript_include_tag "flash_object" %>
+  </head>
+  <body>
+    <table width="900" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <img src="/images/mc/0_pixel.gif" alt="" width="50" height="1" />
+        </td>
+        <td>
+          <img src="/images/mc/0_pixel.gif" alt="" width="200" height="10" />
+        </td>
+        <td width="0%"></td>
+        <td width="100%"></td>
+      </tr>
+      <tr>
+        <td align="right" valign="bottom"></td>
+        <td valign="bottom">
+          <img src="/images/mc/0_pixel.gif" alt="" width="1" height="20" />
+        </td>
+        <td colspan="2" align="left" valign="bottom">
+          <!-- MenuBox -->
+          <table border="0" cellspacing="0" cellpadding="0" align="left">
+            <tr>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+              </td>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="100" height="25" valign="bottom">
+                      <a href="http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=1" title="Vai a L'Accademia"><img alt="L'Accademia" name="home1" border="0" src="/images/mc/accademia.gif" width="100" height="25" id="home1" /></a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+              </td>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="100" height="25" valign="bottom">
+                      <a href="http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=3" title="Vai a La scuola"><img alt="La scuola" name="home2" border="0" src="/images/mc/scuola.gif" width="100" height="25" id="home2" /></a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+              </td>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="100" height="25" valign="bottom">
+                      <a href="http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=4" title="Vai a Le ammissioni"><img alt="Ammissioni" name="home3" border="0" src="/images/mc/ammissioni.gif" width="100" height="25" id="home3" /></a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+              </td>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="100" height="25" valign="bottom">
+                      <a href="http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=9" title="Vai a Le notizie"><img alt="Notizie" name="home4" border="0" src="/images/mc/notizie.gif" width="100" height="25" id="home4" /></a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+              </td>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="100" height="25" valign="bottom">
+                      <a href="/" title="Vai a La biblioteca"><img alt="La biblioteca" name="home5" border="0" src="/images/mc/biblioteca.gif" width="100" height="25" id="home5" /></a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+              </td>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="100" height="25" valign="bottom">
+                      <a href="http://www.accademiadeifilodrammatici.it/home.php?lang=ita&amp;id_home=5" title="Vai a I diplomati"><img alt="Diplomati" name="home6" border="0" src="/images/mc/diplomati.gif" width="100" height="25" id="home6" /></a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table><!-- MenuBox END-->
+        </td>
+      </tr>
+      <tr bgcolor="#AFAEAE" >
+        <!-- Banner SX -->
+        <td colspan="2" align="right" valign="middle" onmouseup="document.location='http://www.accademiadeifilodrammatici.it'" ><a href="http://www.accademiadeifilodrammatici.it"><img alt="Home" src="http://accademiadeifilodrammatici.it/img/logointerno.jpg" width="150" height="100" border="0"/></a></td>
+        <!-- Banner SX END-->
+        <td colspan="2" bgcolor="#AFAEAE" width="750" height="100" onmouseup="document.location='http://www.accademiadeifilodrammatici.it'" ><a href="http://www.accademiadeifilodrammatici.it">
+          <!-- Banner DX  -->
+          <script type="text/javascript">
+          <!--
+          wfo('http://accademiadeifilodrammatici.it/included/slide_show/slide_show.swf', 'http://accademiadeifilodrammatici.it/photos/', 'http://accademiadeifilodrammatici.it/included/slide_show/biblioteca', '#AFAEAE');
+          //-->
+          </script>
+          </a>
+        </td>
+      </tr>      
+      <tr>
+        <td align="center">
+          <img src="/images/mc/0_pixel.gif" alt="" width="1" height="10" />
+        </td>
+        <td align="right" valign="top" bgcolor="#20ACDA">
+          <!-- Menu-news -->
+          <!-- Menu-news END-->
+        </td>
+        <td align="center">
+          <img src="/images/mc/0_pixel.gif" alt="" width="25" height="1" />
+        </td>
+        <td width="100%" align="center">
+          <img src="/images/mc/0_pixel.gif" alt="" width="1" height="10" />
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top">
+          <img src="/images/mc/0_pixel.gif" alt="" width="1" height="230" />
+        </td>
+        <td align="right" valign="top" bgcolor="#20ACDA">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" align="right">
+            <tr>
+              <td height="240">
+                <img src="/images/mc/0_pixel.gif" alt="" width="1" height="1" />
+              </td>
+              <td align="right" valign="top">
+                <!-- Menu sez List -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <% for item in sidebar_menu_items %>
+                  <tr>
+                    <td>
+                      <img src="/images/mc/0_pixel.gif" alt="" width="1" height="8" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right" class="menubianco">
+                      <%= link_to_unless_current item.first.upcase, item.last, :class => "menubianco" %>
+                    </td>
+                  </tr>
+                  <% end %>
+                  <tr>
+                    <td align="center">
+                      <img src="/images/mc/0_pixel.gif" alt="" width="1" height="2" />
+                    </td>
+                  </tr>
+                </table>
+                <!-- Menu sez List END-->
+              </td>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="1" height="1" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <img src="/images/mc/0_pixel.gif" alt="" width="1" height="50" />
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td></td>
+        <td align="left" valign="top">
+          <%= yield %>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"></td>
+        <td align="right" valign="top" bgcolor="#20ACDA" height="100"> 
+          &nbsp;
+        </td>
+        <td colspan="2" align="left" valign="bottom" class="menubianco">
+          <table width="100%" border="0" cellpadding="1" cellspacing="0" bgcolor="#AFAEAE">
+            <tr>
+              <td>
+                <img src="/images/mc/0_pixel.gif" alt="" width="5" height="1" />
+              </td>
+              <td width="100%" nowrap="nowrap" class="footer">
+                ©2007-2011&nbsp;Accademia dei Filodrammatici - Via Filodrammatici 1 - 20121 Milano - Tel. 02.86460849 - Fax 02.86910551
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"></td>
+        <td class="dida" align="left" valign="top">Progetto grafico MediaCompass.com</td>
+        <td colspan="2" class="dida" align="right">Biblioteca online software di <a href="http://matteo.vaccari.name/" class="dida">Matteo Vaccari</a></td>
       </tr>
     </table>
-    <table border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td id='navigation' valign='top'>
-        </td>
-        <td id='content' valign='top'>
-          <% if flash[:notice] %>
-            <p id='flash'><%= flash[:notice] %></p>
-          <% end %>
-          <%= yield %>
-        </td>      
-      </tr>
-      <tr>
-        <td id='foot' colspan='2'>
-          &copy; 2005-7 Accademia dei Filodrammatici 
-          | <%= link_to 'area privata', :controller => 'login', :original_uri => request.request_uri if !authorized? %>
-            <%= link_to 'logout', :controller => 'login', :action => 'logout', :original_uri => request.request_uri if authorized? %>
-        </td>
-      </tr>
-    </table>    
-  </div>
-</body>
+  </body>
 </html>

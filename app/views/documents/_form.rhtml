@@ -24,7 +24,8 @@
   
 <p><label for="document_author">Autore:</label><br/>
 <%= select 'document', 'author_id', all_authors, { :include_blank => true } %></p>
-
+<%= admin_link_to 'inserisci nuovo autore', :controller => 'authors', :action => 'new' %>
+  
 <%= manuscript_text_field "Pubblicazione", 'publication' %>
 <%= document_text_field "Editore (usato solo per le ricerche)", 'publisher' %>
 <%= document_text_field "Luogo (usato solo per le ricerche)", 'place' %>

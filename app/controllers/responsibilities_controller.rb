@@ -1,6 +1,4 @@
 class ResponsibilitiesController < ApplicationController
-  layout "documents"
-
   before_filter :check_user_is_admin, :except => [ :list ]
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :controller => :documents }

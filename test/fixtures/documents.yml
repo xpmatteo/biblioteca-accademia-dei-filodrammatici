@@ -41,3 +41,11 @@ anno_1802:
   century: 19
   publishers_emblem_id: 1
 
+a_manuscript:
+  id: 152
+  title: A manuscript
+  translator: A translator
+
+a_thesis:
+  id: 153
+  title: A thesis  
