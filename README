@@ -3,19 +3,12 @@
 
 
 
-- DOCUMENT_TYPES: += "copione", "tesi di laurea"
 
-- title
-- document_type choice
 - author
   - link INSERIMENTO NUOVO AUTORE
 - traduttore < che è uno degli "autori" con ruolo "traduttore"
-- publication (campo di testo)
 - year
   - century is derived
-- notes
-- Segnatura (Collocazione) | collocation
-- admin_notes
 
 
 == TODO Manoscritti e tesi di laurea, Ombretta 

@@ -13,6 +13,9 @@ a.menubianco:hover {
 #documents p {
   margin: 0pt;  
 }
+#documents p.document_type {
+  margin: 1em 0;  
+}
 #documents div {
   margin: 2em 0em;  
 }

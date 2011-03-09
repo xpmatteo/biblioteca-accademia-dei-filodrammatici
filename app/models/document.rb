@@ -9,6 +9,11 @@ class Document < ActiveRecord::Base
     ["Tesi di Laurea", "thesis"],
     ["Manoscritto", "manuscript"],
   ]
+  
+  DOCUMENT_TYPES_FOR_MANUSCRIPT = [
+    ["Manoscritto", "manuscript"],
+    ["Tesi di Laurea", "thesis"],
+  ]
     
   ORDER_OPTIONS = [
     ["Titolo", "title"],
@@ -40,6 +45,7 @@ class Document < ActiveRecord::Base
   belongs_to :publishers_emblem
   
   after_save :add_author_to_names
+  before_save :compute_century
   
   def self.title_initials
      sql = "select distinct upper(left(#{THE_PART_OF_TITLE_BEFORE_THE_ASTERISK}, 1)) as initial 
@@ -48,6 +54,10 @@ class Document < ActiveRecord::Base
      self.find_by_sql(sql).map do |g|
        g.initial
      end
+  end
+
+  def edited_with_manuscript_form
+    %w(manuscript thesis).include? self.document_type
   end
   
   def collection
@@ -85,6 +95,12 @@ private
   def add_author_to_names
     if author_id && !Responsibility.find_by_author_id_and_document_id(author.id, id)
       Responsibility.create!(:document_id => id, :author_id => author.id, :unimarc_tag => "700")
+    end
+  end
+  
+  def compute_century
+    if self.century.blank? and not self.year.blank?
+      self.century = self.year / 100 + 1
     end
   end
   

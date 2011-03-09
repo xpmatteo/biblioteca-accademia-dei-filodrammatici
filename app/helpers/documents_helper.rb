@@ -66,18 +66,37 @@ module DocumentsHelper
   def list_item(x)
     "<li>#{x}</li>"
   end
-
-  def filo_text_field label_text, field_name
-    raise "Matteo, 'document_' is implicit!" if field_name.start_with? "document"
-    %Q|<p><label for="document_#{field_name}">#{label_text}</label><br/>\n| +
-    text_field('document', field_name, :size => 50) +
-    "</p>\n"
+  
+  def use_manuscript_form
+    @document && @document.edited_with_manuscript_form
   end
   
-  def filo_text_area label_text, field_name
-    raise "Matteo, 'document_' is implicit!" if field_name.start_with? "document"
-    %Q|<p><label for="document_#{field_name}">#{label_text}</label><br/>\n| +
-    text_area('document', field_name, :size => "50x6") +
-    "</p>\n"
+  def manuscript_only_text_field label_text, field_name
+    return "" unless use_manuscript_form
+    document_form_element :text_field, label_text, field_name, :size => 50
+  end
+
+  def manuscript_text_field label_text, field_name
+    document_form_element :text_field, label_text, field_name, :size => 50
+  end
+
+  def manuscript_text_area label_text, field_name
+    document_form_element :text_area, label_text, field_name, :size => "50x6"
+  end
+
+  def document_text_field label_text, field_name
+    return "" if use_manuscript_form
+    document_form_element :text_field, label_text, field_name, :size => 50
+  end
+  
+  def document_text_area label_text, field_name
+    return "" if use_manuscript_form
+    document_form_element :text_area, label_text, field_name, :size => "50x6"
   end  
+  
+  def document_form_element kind, label_text, field_name, options
+    %Q|<p><label for="document_#{field_name}">#{label_text}</label><br/>\n| +
+    self.send(kind, 'document', field_name, options) +
+    "</p>\n"
+  end
 end

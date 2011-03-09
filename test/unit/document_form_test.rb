@@ -29,6 +29,7 @@ class DocumentFormTest < Test::Unit::TestCase
     assert_xml "<div>" + @response.body + "</div>"
 
     assert_text_area "Titolo", "title"
+    assert_text_field "Id sbn", "id_sbn"    
     assert_text_field "Pubblicazione", "publication"
     assert_text_field "Editore (usato solo per le ricerche)", "publisher"
     assert_text_field "Luogo (usato solo per le ricerche)", "place"

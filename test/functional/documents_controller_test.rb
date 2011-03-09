@@ -164,8 +164,9 @@ class DocumentsControllerTest < Test::Unit::TestCase
       :year => 1971,
       :notes => "some notes",
       :admin_notes => "some admin notes",
-      :collocation => "some collocation"
-       }
+      :collocation => "some collocation",
+      :translator => "a translator",
+    }
     document = assigns(:document)
     assert_equal [], document.errors.full_messages
     
@@ -179,7 +180,8 @@ class DocumentsControllerTest < Test::Unit::TestCase
     assert_equal "some admin notes", document.admin_notes
     assert_equal "some collocation", document.collocation
     assert_equal nil, document.responsibilities_denormalized, "responsibilities"
-    # assert_equal 20, document.century
+    assert_equal 20, document.century
+    assert_equal "a translator", document.translator
     
     assert_equal documents_before+1, Document.count
   end

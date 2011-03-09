@@ -1,9 +1,8 @@
 <%= error_messages_for 'document' %>
 
 <% if @document && @document.id.nil? %>
-  <p><label for="id_sbn">Id sbn</label><br/>
-  <%= text_field 'document', 'id_sbn', :size => 50  %></p>
-<% else %>
+  <%= document_text_field 'Id sbn', 'id_sbn'  %>
+<% elsif not use_manuscript_form %>
   <p>Id sbn: <a target="_blank" href="http://www.biblioteche.regione.lombardia.it/OPACRL/catleg/DDW?W=BID=%27<%= @document.id_sbn %>%27"><%= @document.id_sbn %></a><br/></p>
 <% end %>
 
@@ -12,26 +11,34 @@
 <% end%>
 
 
-<%= filo_text_area 'Titolo', 'title'%>
+<%= manuscript_text_area 'Titolo', 'title'%>
 
+<% unless use_manuscript_form %>
 <p>Titolo non ripulito: <em style="white-space: normal;"><%= @document.original_title %></em><br/></p>
+<% end %>
+
+<% if use_manuscript_form %>
+  <p><label for="document_document_type">Tipo:</label><br/>
+  <%= select 'document', 'document_type', Document::DOCUMENT_TYPES_FOR_MANUSCRIPT, { :include_blank => false } %></p>
+<% end %>
   
 <p><label for="document_author">Autore:</label><br/>
 <%= select 'document', 'author_id', all_authors, { :include_blank => true } %></p>
 
-<%= filo_text_field "Pubblicazione", 'publication' %>
-<%= filo_text_field "Editore (usato solo per le ricerche)", 'publisher' %>
-<%= filo_text_field "Luogo (usato solo per le ricerche)", 'place' %>
-<%= filo_text_field "Anno (usato solo per le ricerche)", 'year' %>
-<%= filo_text_field "Secolo (usato solo per le ricerche)", 'century' %>
-<%= filo_text_area "Note", 'notes' %>
-<%= filo_text_field "Segnatura", 'collocation' %>
-<%= filo_text_field "Impronta", 'footprint' %>
-<%= filo_text_field "Descrizione fisica", 'physical_description' %>
-<%= filo_text_field "Numero bibliografia nazionale", 'national_bibliography_number' %>
-<%= filo_text_field "Collezione", 'collection_name' %>
-<%= filo_text_field "Volume o tomo (relativo alla collezione)", 'collection_volume' %>
-<%= filo_text_field "Numero della rivista in cui compare (se è uno spoglio)", 'month_of_serial' %>
-<%= filo_text_field "Valore", 'value' %>
-<%= filo_text_area "Note private dell'amministratore", 'admin_notes' %>
+<%= manuscript_text_field "Pubblicazione", 'publication' %>
+<%= document_text_field "Editore (usato solo per le ricerche)", 'publisher' %>
+<%= document_text_field "Luogo (usato solo per le ricerche)", 'place' %>
+<%= manuscript_text_field "Anno (usato solo per le ricerche)", 'year' %>
+<%= document_text_field "Secolo (usato solo per le ricerche)", 'century' %>
+<%= manuscript_only_text_field "Traduttore", 'translator' %>
+<%= manuscript_text_area "Note", 'notes' %>
+<%= manuscript_text_field "Segnatura", 'collocation' %>
+<%= document_text_field "Impronta", 'footprint' %>
+<%= document_text_field "Descrizione fisica", 'physical_description' %>
+<%= document_text_field "Numero bibliografia nazionale", 'national_bibliography_number' %>
+<%= document_text_field "Collezione", 'collection_name' %>
+<%= document_text_field "Volume o tomo (relativo alla collezione)", 'collection_volume' %>
+<%= document_text_field "Numero della rivista in cui compare (se è uno spoglio)", 'month_of_serial' %>
+<%= document_text_field "Valore", 'value' %>
+<%= manuscript_text_area "Note private dell'amministratore", 'admin_notes' %>
 

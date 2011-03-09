@@ -102,7 +102,9 @@ class DocumentTest < Test::Unit::TestCase
     a = authors(:mor_carlo)
     d = Document.new(:title => "foo", :id_sbn => "xyz321", :author_id => a.id)
     save d
-    assert_raise (ActiveRecord::StatementInvalid) { d.names << a }
+    assert_raise(ActiveRecord::StatementInvalid) { 
+      d.names << a 
+    }
   end
   
   def test_should_not_show_asterisks_in_title
@@ -156,5 +158,18 @@ class DocumentTest < Test::Unit::TestCase
     Document.create(:title => "Lo *Zork")
     Document.create(:title => "azz")
     assert_equal %w(A B F Z), Document.title_initials
+  end
+  
+  def test_compute_century
+    assert_equal 20,  create_document(:year => 1900).century
+    assert_equal 19,  create_document(:year => 1800, :century => 19).century
+    assert_equal nil, create_document(:title => "any").century
+  end
+  
+  private
+  
+  def create_document(options)
+    options = {:title => "x"}.merge options
+    Document.create!(options).reload
   end
 end

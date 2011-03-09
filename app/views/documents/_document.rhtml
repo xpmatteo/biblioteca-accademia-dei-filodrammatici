@@ -12,6 +12,15 @@
   <%=show_publication document %>
   <%=show document.physical_description %>
   <%=show document.footprint, "Impronta: " %>
+  <% if "manuscript" == document.document_type %>
+    <p class='document_type'>Manoscritto</p>
+  <% end %>
+  <% if "thesis" == document.document_type %>
+    <p class='document_type'>Tesi di Laurea</p>
+  <% end %>
+  <% if document.translator %>
+    <p>Traduttore: <%= document.translator %></p>
+  <% end %>
   <% if document.publishers_emblem %>
     Marca: <%= link_to document.publishers_emblem.description, :action => :publishers_emblem, :id => document.publishers_emblem.id %>
     <br />
