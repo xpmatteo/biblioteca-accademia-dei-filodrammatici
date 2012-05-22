@@ -1,15 +1,15 @@
 development:
   adapter: mysql
   database: filo_development
-  username: matteo
-  password:
+  username: filo
+  password: filo
   host: localhost
 
 test:
   adapter: mysql
   database: filo_test
-  username: matteo
-  password:
+  username: filo
+  password: filo
   host: localhost
 
 production:
