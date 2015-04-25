@@ -6,6 +6,7 @@ gem 'json', '1.8.1'
 gem 'mysql', '2.8.1'
 gem 'rake', '0.8.3'  
 gem 'rmagick', '2.13.3'
+gem 'mongrel', '1.1.5'
 
 # On Faraona:
 # actionmailer (1.3.5)
