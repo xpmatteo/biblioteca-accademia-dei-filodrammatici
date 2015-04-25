@@ -62,7 +62,7 @@ ssh $host << EOF
 	cd filo
 	git merge deployment
 	bundle
-	pkill -9 -f 'ruby script/server -p 3001 -d' || true
+	kill $(tmp/pids/mongrel.pid) || true
 	RAILS_ENV=production script/server -p 3001 -d
     # [ -f tmp/production.pid ] && kill \$(cat tmp/production.pid)
     # puma config.ru -d -p 4567 -e production --pidfile tmp/production.pid -C config.puma.rb

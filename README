@@ -3,7 +3,7 @@
 
 Comandi utili:
 
-    rvm rubygems 1.6.2 --force
+    rvm rubygems 1.4.1 --force
     sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev
     
     mysql -uroot -p
