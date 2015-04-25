@@ -1,0 +1,5 @@
+/tmp
+/log/*
+/dump
+/bak
+/db/*_structure.sql

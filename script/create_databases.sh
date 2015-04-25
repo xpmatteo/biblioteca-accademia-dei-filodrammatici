@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # define key information
-dump=/Users/matteo/bak/filodrammatici/filo-20120501171642.sql.gz
+dump=~/bak/filodrammatici/filo-20120501171642.sql.gz
 name=filo
 
 # no customization needed beyond this line
