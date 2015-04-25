@@ -4,6 +4,13 @@
 Comandi utili:
 
     rvm rubygems 1.6.2 --force
+    sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev
+    
+    mysql -uroot -p
+        create database filo_production;
+        grant all on filo_production.* to 'filo'@localhost identified by '....';
+
+    gunzip < $dump | mysql -ufilo -p filo_production
 
 
 - gestire il traduttore

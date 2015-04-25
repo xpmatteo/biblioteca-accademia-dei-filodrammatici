@@ -14,7 +14,7 @@ test:
 
 production:
   adapter: mysql
-  database: mvaccari_db1
-  username: mvaccari1
-  password: questa-e-difficilissima-da-indovinare-percio-l-ho-scelta
+  database: filo_production
+  username: filo
+  password: du2choo0meuF9eey
   host: localhost
