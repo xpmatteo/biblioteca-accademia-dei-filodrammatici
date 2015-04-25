@@ -4,7 +4,8 @@ gem 'rails', '1.2.5'
 gem 'flexmock', '0.9.0'
 gem 'json', '1.8.1'
 gem 'mysql', '2.8.1'
-gem 'rake', '0.8.3'
+gem 'rake', '0.8.3'  
+gem 'rmagick', '2.13.3'
 
 # On Faraona:
 # actionmailer (1.3.5)

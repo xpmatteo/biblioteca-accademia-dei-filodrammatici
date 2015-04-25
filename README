@@ -1,4 +1,11 @@
 
+== Restauro 25/04/2015
+
+Comandi utili:
+
+    rvm rubygems 1.6.2 --force
+
+
 - gestire il traduttore
 
 
