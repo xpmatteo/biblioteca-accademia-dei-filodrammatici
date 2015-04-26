@@ -1,0 +1,414 @@
+# Logfile created on Sat Apr 25 17:03:11 +0200 2015 by logger.rb/1.2.6
+  [4;36;1mSQL (0.000135)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.000960)[0m   [0mSHOW FULL TABLES WHERE Table_type = 'BASE TABLE'[0m
+  [4;36;1mSQL (0.000278)[0m   [0;1mSHOW CREATE TABLE authors[0m
+  [4;35;1mSQL (0.000277)[0m   [0mSHOW CREATE TABLE contents[0m
+  [4;36;1mSQL (0.000243)[0m   [0;1mSHOW CREATE TABLE diplomati[0m
+  [4;35;1mSQL (0.000246)[0m   [0mSHOW CREATE TABLE document_versions[0m
+  [4;36;1mSQL (0.000272)[0m   [0;1mSHOW CREATE TABLE documents[0m
+  [4;35;1mSQL (0.000239)[0m   [0mSHOW CREATE TABLE publishers_emblems[0m
+  [4;36;1mSQL (0.000247)[0m   [0;1mSHOW CREATE TABLE responsibilities[0m
+  [4;35;1mSQL (0.000267)[0m   [0mSHOW CREATE TABLE schema_info[0m
+  [4;36;1mSQL (0.000139)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000083)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.008153)[0m   [0;1mDROP DATABASE IF EXISTS `filo_test`[0m
+  [4;35;1mSQL (0.000219)[0m   [0mCREATE DATABASE `filo_test`[0m
+  [4;36;1mSQL (0.000050)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.000041)[0m   [0mSET foreign_key_checks = 0[0m
+  [4;36;1mSQL (0.008068)[0m   [0;1mCREATE TABLE `authors` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `id_sbn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=73458 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;[0m
+  [4;35;1mSQL (0.007935)[0m   [0mCREATE TABLE `contents` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `title` varchar(255) DEFAULT NULL,
+ `name` varchar(255) DEFAULT NULL,
+ `body` text,
+ `image` varchar(255) DEFAULT NULL,
+ `image1` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;[0m
+  [4;36;1mSQL (0.006106)[0m   [0;1mCREATE TABLE `diplomati` (
+ `Id` int(11) NOT NULL AUTO_INCREMENT,
+ `nome` varchar(50) NOT NULL DEFAULT '',
+ `cognome` varchar(100) NOT NULL DEFAULT '',
+ `img` varchar(50) NOT NULL DEFAULT '',
+ `datanascita` date NOT NULL DEFAULT '0000-00-00',
+ `indirizzo` varchar(100) DEFAULT NULL,
+ `citta` varchar(50) DEFAULT NULL,
+ `altridati` blob,
+ `caratteristiche` blob NOT NULL,
+ `annodiploma` int(4) NOT NULL DEFAULT '0',
+ `altricorsi` blob NOT NULL,
+ `curr` blob NOT NULL,
+ `web` varchar(255) NOT NULL DEFAULT '',
+ `profilo` enum('Y','N') NOT NULL DEFAULT 'N',
+ `visibile` enum('Y','N') NOT NULL DEFAULT 'Y',
+ PRIMARY KEY (`Id`)
+) ENGINE=MyISAM AUTO_INCREMENT=495 DEFAULT CHARSET=latin1;[0m
+  [4;35;1mSQL (0.007227)[0m   [0mCREATE TABLE `document_versions` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `document_id` int(11) DEFAULT NULL,
+ `version` int(11) DEFAULT NULL,
+ `parent_id` int(11) DEFAULT NULL,
+ `author_id` int(11) DEFAULT NULL,
+ `id_sbn` varchar(255) DEFAULT NULL,
+ `title` text,
+ `publication` varchar(255) DEFAULT NULL,
+ `notes` text,
+ `collocation` varchar(255) DEFAULT NULL,
+ `footprint` varchar(255) DEFAULT NULL,
+ `physical_description` varchar(255) DEFAULT NULL,
+ `national_bibliography_number` varchar(255) DEFAULT NULL,
+ `collection_name` varchar(255) DEFAULT NULL,
+ `collection_volume` varchar(255) DEFAULT NULL,
+ `responsibilities_denormalized` varchar(255) DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `admin_notes` text,
+ `value` decimal(10,0) DEFAULT NULL,
+ `year` int(11) DEFAULT NULL,
+ `place` varchar(255) DEFAULT NULL,
+ `publisher` varchar(255) DEFAULT NULL,
+ `century` int(11) DEFAULT NULL,
+ `hierarchy_type` varchar(255) DEFAULT NULL,
+ `document_type` varchar(255) DEFAULT 'monograph',
+ `original_title` varchar(255) DEFAULT NULL,
+ `month_of_serial` varchar(255) DEFAULT NULL,
+ `publishers_emblem_id` int(11) DEFAULT NULL,
+ `translator` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13415 DEFAULT CHARSET=utf8;[0m
+  [4;36;1mSQL (0.005590)[0m   [0;1mCREATE TABLE `documents` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `parent_id` int(11) DEFAULT NULL,
+ `author_id` int(11) DEFAULT NULL,
+ `id_sbn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `title` text COLLATE utf8_unicode_ci,
+ `publication` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `notes` text COLLATE utf8_unicode_ci,
+ `collocation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `footprint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `physical_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `national_bibliography_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `collection_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `collection_volume` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `responsibilities_denormalized` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `admin_notes` text COLLATE utf8_unicode_ci,
+ `value` decimal(15,2) DEFAULT NULL,
+ `year` int(11) DEFAULT NULL,
+ `place` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `publisher` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `century` int(11) DEFAULT NULL,
+ `hierarchy_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `document_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'monograph',
+ `original_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `month_of_serial` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `publishers_emblem_id` int(11) DEFAULT NULL,
+ `version` int(11) DEFAULT NULL,
+ `translator` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `index_documents_on_year` (`year`),
+ KEY `index_documents_on_century` (`century`),
+ KEY `index_documents_on_document_type` (`document_type`),
+ FULLTEXT KEY `fulltext_documents` (`title`,`publication`,`notes`,`responsibilities_denormalized`,`national_bibliography_number`,`id_sbn`)
+) ENGINE=MyISAM AUTO_INCREMENT=134017 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;[0m
+  [4;35;1mSQL (0.007165)[0m   [0mCREATE TABLE `publishers_emblems` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `description` varchar(255) DEFAULT NULL,
+ `id_sbn` varchar(255) DEFAULT NULL,
+ `code` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1;[0m
+  [4;36;1mSQL (0.005867)[0m   [0;1mCREATE TABLE `responsibilities` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `author_id` int(11) DEFAULT NULL,
+ `document_id` int(11) DEFAULT NULL,
+ `unimarc_tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `index_responsibilities_on_author_id_and_document_id` (`author_id`,`document_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=158053 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;[0m
+  [4;35;1mSQL (0.005298)[0m   [0mCREATE TABLE `schema_info` (
+ `version` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;[0m
+  [4;36;1mSQL (0.000225)[0m   [0;1mINSERT INTO schema_info (version) VALUES (38)[0m
+  [4;36;1mSQL (0.000195)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.000476)[0m   [0mSHOW FULL TABLES WHERE Table_type = 'BASE TABLE'[0m
+  [4;36;1mSQL (0.000122)[0m   [0;1mSHOW CREATE TABLE authors[0m
+  [4;35;1mSQL (0.000119)[0m   [0mSHOW CREATE TABLE contents[0m
+  [4;36;1mSQL (0.000109)[0m   [0;1mSHOW CREATE TABLE diplomati[0m
+  [4;35;1mSQL (0.000127)[0m   [0mSHOW CREATE TABLE document_versions[0m
+  [4;36;1mSQL (0.000131)[0m   [0;1mSHOW CREATE TABLE documents[0m
+  [4;35;1mSQL (0.000108)[0m   [0mSHOW CREATE TABLE publishers_emblems[0m
+  [4;36;1mSQL (0.000109)[0m   [0;1mSHOW CREATE TABLE responsibilities[0m
+  [4;35;1mSQL (0.000108)[0m   [0mSHOW CREATE TABLE schema_info[0m
+  [4;36;1mSQL (0.000137)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000051)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.005016)[0m   [0;1mDROP DATABASE IF EXISTS `filo_test`[0m
+  [4;35;1mSQL (0.000230)[0m   [0mCREATE DATABASE `filo_test`[0m
+  [4;36;1mSQL (0.000056)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.000047)[0m   [0mSET foreign_key_checks = 0[0m
+  [4;36;1mSQL (0.006138)[0m   [0;1mCREATE TABLE `authors` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `id_sbn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=73458 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;[0m
+  [4;35;1mSQL (0.007701)[0m   [0mCREATE TABLE `contents` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `title` varchar(255) DEFAULT NULL,
+ `name` varchar(255) DEFAULT NULL,
+ `body` text,
+ `image` varchar(255) DEFAULT NULL,
+ `image1` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;[0m
+  [4;36;1mSQL (0.006080)[0m   [0;1mCREATE TABLE `diplomati` (
+ `Id` int(11) NOT NULL AUTO_INCREMENT,
+ `nome` varchar(50) NOT NULL DEFAULT '',
+ `cognome` varchar(100) NOT NULL DEFAULT '',
+ `img` varchar(50) NOT NULL DEFAULT '',
+ `datanascita` date NOT NULL DEFAULT '0000-00-00',
+ `indirizzo` varchar(100) DEFAULT NULL,
+ `citta` varchar(50) DEFAULT NULL,
+ `altridati` blob,
+ `caratteristiche` blob NOT NULL,
+ `annodiploma` int(4) NOT NULL DEFAULT '0',
+ `altricorsi` blob NOT NULL,
+ `curr` blob NOT NULL,
+ `web` varchar(255) NOT NULL DEFAULT '',
+ `profilo` enum('Y','N') NOT NULL DEFAULT 'N',
+ `visibile` enum('Y','N') NOT NULL DEFAULT 'Y',
+ PRIMARY KEY (`Id`)
+) ENGINE=MyISAM AUTO_INCREMENT=495 DEFAULT CHARSET=latin1;[0m
+  [4;35;1mSQL (0.008182)[0m   [0mCREATE TABLE `document_versions` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `document_id` int(11) DEFAULT NULL,
+ `version` int(11) DEFAULT NULL,
+ `parent_id` int(11) DEFAULT NULL,
+ `author_id` int(11) DEFAULT NULL,
+ `id_sbn` varchar(255) DEFAULT NULL,
+ `title` text,
+ `publication` varchar(255) DEFAULT NULL,
+ `notes` text,
+ `collocation` varchar(255) DEFAULT NULL,
+ `footprint` varchar(255) DEFAULT NULL,
+ `physical_description` varchar(255) DEFAULT NULL,
+ `national_bibliography_number` varchar(255) DEFAULT NULL,
+ `collection_name` varchar(255) DEFAULT NULL,
+ `collection_volume` varchar(255) DEFAULT NULL,
+ `responsibilities_denormalized` varchar(255) DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `admin_notes` text,
+ `value` decimal(10,0) DEFAULT NULL,
+ `year` int(11) DEFAULT NULL,
+ `place` varchar(255) DEFAULT NULL,
+ `publisher` varchar(255) DEFAULT NULL,
+ `century` int(11) DEFAULT NULL,
+ `hierarchy_type` varchar(255) DEFAULT NULL,
+ `document_type` varchar(255) DEFAULT 'monograph',
+ `original_title` varchar(255) DEFAULT NULL,
+ `month_of_serial` varchar(255) DEFAULT NULL,
+ `publishers_emblem_id` int(11) DEFAULT NULL,
+ `translator` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13415 DEFAULT CHARSET=utf8;[0m
+  [4;36;1mSQL (0.005567)[0m   [0;1mCREATE TABLE `documents` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `parent_id` int(11) DEFAULT NULL,
+ `author_id` int(11) DEFAULT NULL,
+ `id_sbn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `title` text COLLATE utf8_unicode_ci,
+ `publication` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `notes` text COLLATE utf8_unicode_ci,
+ `collocation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `footprint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `physical_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `national_bibliography_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `collection_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `collection_volume` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `responsibilities_denormalized` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `admin_notes` text COLLATE utf8_unicode_ci,
+ `value` decimal(15,2) DEFAULT NULL,
+ `year` int(11) DEFAULT NULL,
+ `place` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `publisher` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `century` int(11) DEFAULT NULL,
+ `hierarchy_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `document_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'monograph',
+ `original_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `month_of_serial` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `publishers_emblem_id` int(11) DEFAULT NULL,
+ `version` int(11) DEFAULT NULL,
+ `translator` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `index_documents_on_year` (`year`),
+ KEY `index_documents_on_century` (`century`),
+ KEY `index_documents_on_document_type` (`document_type`),
+ FULLTEXT KEY `fulltext_documents` (`title`,`publication`,`notes`,`responsibilities_denormalized`,`national_bibliography_number`,`id_sbn`)
+) ENGINE=MyISAM AUTO_INCREMENT=134017 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;[0m
+  [4;35;1mSQL (0.007318)[0m   [0mCREATE TABLE `publishers_emblems` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `description` varchar(255) DEFAULT NULL,
+ `id_sbn` varchar(255) DEFAULT NULL,
+ `code` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1;[0m
+  [4;36;1mSQL (0.005308)[0m   [0;1mCREATE TABLE `responsibilities` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `author_id` int(11) DEFAULT NULL,
+ `document_id` int(11) DEFAULT NULL,
+ `unimarc_tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `index_responsibilities_on_author_id_and_document_id` (`author_id`,`document_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=158053 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;[0m
+  [4;35;1mSQL (0.005458)[0m   [0mCREATE TABLE `schema_info` (
+ `version` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;[0m
+  [4;36;1mSQL (0.000333)[0m   [0;1mINSERT INTO schema_info (version) VALUES (38)[0m
+
+
+Processing DocumentsController#index (for 127.0.0.1 at 2015-04-25 17:10:59) [GET]
+  Session ID: 3aeaec5b4865401c7fc063c5577730e1
+  Parameters: {"controller"=>"documents", "action"=>"index"}
+
+
+MissingSourceFile (no such file to load -- RMagick):
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:54:in `gem_original_require'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:54:in `require'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:495:in `require'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:495:in `require'
+    /Users/mvaccari/work/conconi/filo.git/vendor/plugins/file_column/lib/magick_file_column.rb:208:in `file_column'
+    /Users/mvaccari/work/conconi/filo.git/vendor/plugins/file_column/lib/file_column.rb:698:in `file_column'
+    /Users/mvaccari/work/conconi/filo.git/app/models/content.rb:6
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:203:in `load_without_new_constant_marking'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:203:in `load_file'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:202:in `load_file'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:94:in `require_or_load'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:248:in `load_missing_constant'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:452:in `const_missing'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:464:in `const_missing'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:260:in `load_missing_constant'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:468:in `const_missing'
+    /Users/mvaccari/work/conconi/filo.git/app/controllers/documents_controller.rb:13:in `index'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/base.rb:1101:in `send'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/base.rb:1101:in `perform_action_without_filters'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/filters.rb:696:in `call_filters'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/filters.rb:688:in `perform_action_without_benchmark'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/benchmarking.rb:66:in `perform_action_without_rescue'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/benchmarking.rb:66:in `perform_action_without_rescue'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/rescue.rb:83:in `perform_action'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/base.rb:435:in `send'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/base.rb:435:in `process_without_filters'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/filters.rb:684:in `process_without_session_management_support'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/session_management.rb:114:in `process'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/base.rb:334:in `process'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/rails-1.2.5/lib/dispatcher.rb:41:in `dispatch'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/rails-1.2.5/lib/webrick_server.rb:113:in `handle_dispatch'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/rails-1.2.5/lib/webrick_server.rb:79:in `service'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/rails-1.2.5/lib/webrick_server.rb:63:in `dispatch'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/rails-1.2.5/lib/commands/servers/webrick.rb:59
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:54:in `gem_original_require'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:54:in `require'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:495:in `require'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/activesupport-1.4.4/lib/active_support/dependencies.rb:495:in `require'
+    /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/rails-1.2.5/lib/commands/server.rb:39
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:54:in `gem_original_require'
+    /Users/mvaccari/.rvm/rubies/ruby-1.8.7-p358/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:54:in `require'
+    script/server:3
+
+
+Rendering /Users/mvaccari/.rvm/gems/ruby-1.8.7-p358@filo/gems/actionpack-1.13.5/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing DocumentsController#index (for 127.0.0.1 at 2015-04-25 17:20:18) [GET]
+  Session ID: 3aeaec5b4865401c7fc063c5577730e1
+  Parameters: {"action"=>"index", "controller"=>"documents"}
+  [4;36;1mSQL (0.000142)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mContent Columns (0.001225)[0m   [0mSHOW FIELDS FROM contents[0m
+  [4;36;1mContent Load (0.000191)[0m   [0;1mSELECT * FROM contents WHERE (contents.`name` = 'biblioteca') LIMIT 1[0m
+Rendering  within layouts/application
+Rendering documents/index
+  [4;35;1mAuthor Load (0.004670)[0m   [0mselect distinct upper(left(name, 1)) as initial 
+ from authors
+ where name is not null
+ order by initial[0m
+  [4;36;1mAuthor Columns (0.000975)[0m   [0;1mSHOW FIELDS FROM authors[0m
+Rendered documents/_author_initials (0.01200)
+Rendered documents/_admin_links (0.00033)
+Completed in 0.09146 (10 reqs/sec) | Rendering: 0.00982 (10%) | DB: 0.00720 (7%) | 200 OK [http://localhost/]
+
+
+Processing DocumentsController#authors (for 127.0.0.1 at 2015-04-25 17:20:27) [GET]
+  Session ID: 3aeaec5b4865401c7fc063c5577730e1
+  Parameters: {"initial"=>"P", "action"=>"authors", "controller"=>"documents"}
+  [4;35;1mAuthor Load (0.003642)[0m   [0mSELECT * FROM authors WHERE (upper(left(name, 1)) = upper('P')) ORDER BY name[0m
+Rendering  within layouts/application
+Rendering documents/authors
+  [4;36;1mAuthor Load (0.005099)[0m   [0;1mselect distinct upper(left(name, 1)) as initial 
+ from authors
+ where name is not null
+ order by initial[0m
+  [4;35;1mAuthor Columns (0.001046)[0m   [0mSHOW FIELDS FROM authors[0m
+Rendered documents/_author_initials (0.00942)
+Completed in 0.06338 (15 reqs/sec) | Rendering: 0.02355 (37%) | DB: 0.00979 (15%) | 200 OK [http://localhost/biblio/autori/P]
+
+
+Processing DocumentsController#author (for 127.0.0.1 at 2015-04-25 17:20:29) [GET]
+  Session ID: 3aeaec5b4865401c7fc063c5577730e1
+  Parameters: {"action"=>"author", "controller"=>"documents", "id"=>"69961"}
+  [4;36;1mAuthor Columns (0.001607)[0m   [0;1mSHOW FIELDS FROM authors[0m
+  [4;35;1mAuthor Load (0.000138)[0m   [0mSELECT * FROM authors WHERE (authors.`id` = 69961) [0m
+  [4;36;1mDocument Load (0.010668)[0m   [0;1mselect D.* 
+ from documents D 
+ where ((author_id is not null and author_id = 69961) or id in (select document_id from responsibilities where author_id = 69961))
+ and (parent_id is null or parent_id not in (select id from documents where ((author_id is not null and author_id = 69961) or id in (select document_id from responsibilities where author_id = 69961))))
+ order by cast(title as unsigned), trim(right(title, length(title) - locate('*', title))) LIMIT 0, 10[0m
+  [4;35;1mDocument Columns (0.001098)[0m   [0mSHOW FIELDS FROM documents[0m
+Rendering templatedocuments/listlayoutfalse within layouts/application
+Rendering documents/list
+  [4;36;1mAuthor Load (0.005013)[0m   [0;1mselect distinct upper(left(name, 1)) as initial 
+ from authors
+ where name is not null
+ order by initial[0m
+Rendered documents/_author_initials (0.00823)
+  [4;35;1mAuthor Load (0.000170)[0m   [0mSELECT * FROM authors WHERE (authors.`id` = 69961) [0m
+  [4;36;1mAuthor Load (0.005479)[0m   [0;1mSELECT authors.* FROM authors INNER JOIN responsibilities ON authors.id = responsibilities.author_id WHERE ((responsibilities.document_id = 125710)) ORDER BY name[0m
+  [4;35;1mSQL (0.006689)[0m   [0mSELECT count(*) AS count_all FROM documents WHERE (documents.parent_id = 125710) [0m
+Rendered documents/_document (0.02006)
+  [4;36;1mAuthor Load (0.000117)[0m   [0;1mSELECT * FROM authors WHERE (authors.`id` = 69961) [0m
+  [4;35;1mAuthor Load (0.004372)[0m   [0mSELECT authors.* FROM authors INNER JOIN responsibilities ON authors.id = responsibilities.author_id WHERE ((responsibilities.document_id = 127487)) ORDER BY name[0m
+  [4;36;1mSQL (0.005793)[0m   [0;1mSELECT count(*) AS count_all FROM documents WHERE (documents.parent_id = 127487) [0m
+Rendered documents/_document (0.01160)
+  [4;35;1mAuthor Load (0.000195)[0m   [0mSELECT * FROM authors WHERE (authors.`id` = 69961) [0m
+  [4;36;1mAuthor Load (0.005041)[0m   [0;1mSELECT authors.* FROM authors INNER JOIN responsibilities ON authors.id = responsibilities.author_id WHERE ((responsibilities.document_id = 126750)) ORDER BY name[0m
+  [4;35;1mSQL (0.006441)[0m   [0mSELECT count(*) AS count_all FROM documents WHERE (documents.parent_id = 126750) [0m
+Rendered documents/_document (0.04289)
+  [4;36;1mAuthor Load (0.000275)[0m   [0;1mSELECT * FROM authors WHERE (authors.`id` = 69961) [0m
+  [4;35;1mAuthor Load (0.004673)[0m   [0mSELECT authors.* FROM authors INNER JOIN responsibilities ON authors.id = responsibilities.author_id WHERE ((responsibilities.document_id = 127457)) ORDER BY name[0m
+  [4;36;1mSQL (0.005533)[0m   [0;1mSELECT count(*) AS count_all FROM documents WHERE (documents.parent_id = 127457) [0m
+Rendered documents/_document (0.01245)
+Rendered documents/_list (0.08766)
+Rendered documents/_admin_links (0.00006)
+Completed in 0.12133 (8 reqs/sec) | Rendering: 0.04758 (39%) | DB: 0.06330 (52%) | 200 OK [http://localhost/biblio/autore/69961]
