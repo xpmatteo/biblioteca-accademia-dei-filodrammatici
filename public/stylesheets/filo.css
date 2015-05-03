@@ -82,7 +82,7 @@ a.admin-link {
   white-space: nowrap;
   color: black;
   background-color: #D21D0A; /* rosso teatro */
-  padding: .6em 0 .6em 1em; 
+  padding: .6em 0 .6em 1em;
   margin: 0;
   width: 95%;
 }
@@ -93,7 +93,7 @@ a.admin-link {
 #navigation a:hover {
   text-decoration: underline;
 }
-/* end navigation */ 
+/* end navigation */
 
 /* begin forms */
 fieldset {
@@ -121,7 +121,7 @@ div.buttons {
 }
 
 #the-verbose-content img {
-  display: block; 
+  display: block;
 /*  float: left; */
 /*  margin-right: 1em;*/
 }
@@ -176,10 +176,10 @@ table.teachers td {
 
 /* documents */
 #documents p {
-  margin: 0pt;  
+  margin: 0pt;
 }
 #documents div {
-  margin: 2em 0em;  
+  margin: 2em 0em;
 }
 .document-author {
   font-weight: bold;

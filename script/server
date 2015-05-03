@@ -1,3 +1,5 @@
 #!/bin/bash
 
-bundle exec rackup -p 4567 $*
+cd "$(dirname "$0")"/..
+
+exec bundle exec ruby init.rb
