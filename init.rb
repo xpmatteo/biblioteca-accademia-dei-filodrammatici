@@ -6,7 +6,7 @@ require 'active_support/inflector'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
-Dir.glob('./app/{models,helpers,controllers}/*.rb').sort.each { |file|
+Dir.glob('./lib/*.rb').sort.each { |file|
   puts file
   require file
 }
@@ -74,20 +74,20 @@ def authorized?
 end
 
 get '/' do
-  erb :'documents/index'
+  erb :index
 end
 
 get '/biblio/autori/:initial' do
   @authors = Author.find(:all, :order => 'name', :conditions => ['upper(left(name, 1)) = upper(?)', params[:initial]])
   @page_title = "Iniziale '#{params[:initial]}': " + pluralize(@authors.size, "autore", "autori")
-  erb :'documents/authors'
+  erb :authors
 end
 
 get '/biblio/autore/:author_id' do
   author = Author.find(params[:author_id])
   @documents = paginate(:author_id => author.id)
   @page_title = author.name + ": " + pluralize_schede
-  erb :'documents/list'
+  erb :documents_list
 end
 
 # get '/biblio/find' do

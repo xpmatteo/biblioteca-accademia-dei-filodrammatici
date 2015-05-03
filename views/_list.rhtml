@@ -1,6 +1,6 @@
 <div id="documents">
   <% for document in @documents %>
-    <%= erb :'documents/_document', locals: { document: document } %>
+    <%= erb :_document, locals: { document: document } %>
   <% end %>
 </div>
 
