@@ -1,0 +1,10 @@
+
+<%= erb :"documents/_author_initials" %>
+
+<h3><%= @page_title %></h3>
+
+<ul>
+  <% for author in @authors %>
+    <li><%= link_to h(author.name), "/biblio/autore/#{author.id}" %></li>
+  <% end %>
+</ul>

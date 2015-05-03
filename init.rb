@@ -46,6 +46,10 @@ def link_to_unless_current text, href, attributes={}
   end
 end
 
+def h(text)
+  Rack::Utils.escape_html(text)
+end
+
 get '/' do
   erb :'documents/index'
 end
@@ -53,7 +57,7 @@ end
 get '/biblio/autori/:initial' do
   @authors = Author.find(:all, :order => 'name', :conditions => ['upper(left(name, 1)) = upper(?)', params[:initial]])
   @page_title = "Iniziale '#{params[:initial]}': " + pluralize(@authors.size, "autore", "autori")
-  erb :'documents/list'
+  erb :'documents/authors'
 end
 
 # get '/biblio/find' do
