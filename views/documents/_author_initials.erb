@@ -1,0 +1,14 @@
+<table width="100%">
+  <tr>
+    <td id="initials">
+      <% for initial in ('A'..'Z') %>
+        <%= link_to_unless_current initial, "/biblio/autori/#{initial}" %>
+      <% end %>
+    </td>
+    <td>
+      <form action="/biblio/find" method="get" accept-charset="utf-8">
+        Cerca: <input type="text" name="q">
+      </form>
+    </td>
+  </tr>
+</table>

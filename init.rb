@@ -11,6 +11,17 @@ Dir.glob('./app/{models,helpers,controllers}/*.rb').sort.each { |file|
   require file
 }
 
+def pluralize(count, singular, plural)
+  case count
+  when 0
+    "nessun #{singular}"
+  when 1
+    "un #{singular}"
+  else
+    "#{count} #{plural}"
+  end
+end
+
 def sidebar_menu_items
   [
     ["La Biblioteca", "/"],
@@ -36,12 +47,13 @@ def link_to_unless_current text, href, attributes={}
 end
 
 get '/' do
-  erb :index
+  erb :'documents/index'
 end
 
 get '/biblio/autori/:initial' do
   @authors = Author.find(:all, :order => 'name', :conditions => ['upper(left(name, 1)) = upper(?)', params[:initial]])
   @page_title = "Iniziale '#{params[:initial]}': " + pluralize(@authors.size, "autore", "autori")
+  erb :'documents/list'
 end
 
 # get '/biblio/find' do

@@ -1,0 +1,7 @@
+<div id="documents">
+  <% for document in @documents %>
+    <%= render :partial => 'document', :collection => @documents %>
+  <% end %>
+</div>
+
+<%#= will_paginate @documents, :previous_label => "&laquo; Precedenti", :next_label => "Prossimi &raquo;"  %>
