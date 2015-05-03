@@ -11,13 +11,13 @@ a.menubianco:hover {
   width: 80%;
 }
 #documents p {
-  margin: 0pt;  
+  margin: 0pt;
 }
 #documents p.document_type {
-  margin: 1em 0;  
+  margin: 1em 0;
 }
 #documents div {
-  margin: 2em 0em;  
+  margin: 2em 0em;
 }
 .document-author {
   font-weight: bold;
@@ -33,4 +33,15 @@ form.search input, form.search select {
 
 form.search td {
   padding-right: 1em;
+}
+
+#banner {
+  text-align: center;
+}
+
+#banner a {
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 150%;
+  color: #96190E;
 }

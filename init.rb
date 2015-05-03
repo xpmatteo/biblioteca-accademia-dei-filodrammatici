@@ -8,8 +8,7 @@ def sidebar_menu_items
   ]
 end
 
-def link_to text, options, attributes={}
-  href = href_from(options)
+def link_to text, href, attributes={}
   attrs=""
   attributes.each_pair do |attr_key, attr_value|
     attrs += " #{attr_key}='#{attr_value}'"
@@ -17,23 +16,13 @@ def link_to text, options, attributes={}
   "<a href='#{href}'#{attrs}>#{text}</a>"
 end
 
-def link_to_unless_current text, options, attributes={}
-  if request.path_info == href_from(options)
+def link_to_unless_current text, href, attributes={}
+  if request.path_info == href
     text
   else
-    link_to text, options, attributes
+    link_to text, href, attributes
   end
 end
-
-private def href_from options
-  case options
-  when String
-    options
-  when Hash
-    options[:action]
-  end
-end
-
 
 
 get '/' do
