@@ -1,4 +1,15 @@
 require 'sinatra'
+require "sinatra/activerecord"
+require "tilt/erb"
+require 'acts_as_tree_rails3'
+# require 'acts_as_versioned'
+require 'active_support/inflector'
+
+
+Dir.glob('./app/{models,helpers,controllers}/*.rb').sort.each { |file|
+  puts file
+  require file
+}
 
 def sidebar_menu_items
   [
@@ -24,7 +35,17 @@ def link_to_unless_current text, href, attributes={}
   end
 end
 
-
 get '/' do
   erb :index
 end
+
+get '/biblio/autori/:initial' do
+  @authors = Author.find(:all, :order => 'name', :conditions => ['upper(left(name, 1)) = upper(?)', params[:initial]])
+  @page_title = "Iniziale '#{params[:initial]}': " + pluralize(@authors.size, "autore", "autori")
+end
+
+# get '/biblio/find' do
+#   @documents = paginate(:keywords => params[:q])
+#   @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
+#   render :template => 'documents/list'
+# end
