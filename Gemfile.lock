@@ -18,7 +18,15 @@ GEM
     bundler-audit (0.3.1)
       bundler (~> 1.2)
       thor (~> 0.18)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
+    ffi (1.9.8)
+    hitimes (1.2.2)
     i18n (0.7.0)
+    listen (2.10.0)
+      celluloid (~> 0.16.0)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
     multi_json (1.11.0)
     mysql (2.9.1)
     puma (2.11.1)
@@ -26,6 +34,11 @@ GEM
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
+    rerun (0.10.0)
+      listen (~> 2.7, >= 2.7.3)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -35,7 +48,10 @@ GEM
       sinatra (~> 1.0)
     thor (0.19.1)
     tilt (2.0.1)
+    timers (4.0.1)
+      hitimes
     tzinfo (0.3.44)
+    will_paginate (3.0.7)
 
 PLATFORMS
   ruby
@@ -46,5 +62,7 @@ DEPENDENCIES
   bundler-audit (= 0.3.1)
   mysql
   puma (= 2.11.1)
+  rerun
   sinatra (= 1.4.6)
   sinatra-activerecord
+  will_paginate

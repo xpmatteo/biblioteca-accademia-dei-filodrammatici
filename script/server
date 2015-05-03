@@ -2,4 +2,5 @@
 
 cd "$(dirname "$0")"/..
 
-exec bundle exec ruby init.rb
+rerun -p "**/*.{rb,js,css,erb,html,rhtml,ru,yml}" 'ruby init.rb'
+#exec bundle exec ruby init.rb

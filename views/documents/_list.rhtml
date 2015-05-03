@@ -1,7 +1,7 @@
 <div id="documents">
   <% for document in @documents %>
-    <%= render :partial => 'document', :collection => @documents %>
+    <%= erb :'documents/_document', locals: { document: document } %>
   <% end %>
 </div>
 
-<%#= will_paginate @documents, :previous_label => "&laquo; Precedenti", :next_label => "Prossimi &raquo;"  %>
+<%= will_paginate @documents, :previous_label => "&laquo; Precedenti", :next_label => "Prossimi &raquo;"  %>

@@ -2,11 +2,11 @@
   <% if document["result_index"] && @documents.total_entries > Document::PAGE_SIZE %>
   <p><%= 1+document["result_index"] %>.</p>
   <% end %>
-  <% if document.author -%>
+  <% if document.author %>
     <p class="document-author">
       <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>
     </p>
-  <% end -%>
+  <% end %>
 
   <%=show document.title_without_asterisk, "", :title %>
   <%=show_publication document %>
@@ -35,7 +35,7 @@
     <%=show_names document %>
   </p>
   <%=show_parent document %>
-  <%=show_children document %>
+  <%#=show_children document %>
   <%#= show document.id_sbn %>
   <% if authorized? %>
     <%= show number_to_currency(document.value, :unit => "", :separator => ",", :delimiter => "."), "Valore: &euro;" %>
@@ -50,10 +50,10 @@
   <% if authorized? %>
   <p><%= admin_link_to "modifica", :action => :edit, :id => document %>
    | <%= admin_link_to "aggiungi un documento collegato", :action => :new, :parent_id => document %>
-   | <%= admin_link_to "aggiungi o togli un autore", 
+   | <%= admin_link_to "aggiungi o togli un autore",
         :action => :list, :controller => :responsibilities, :document_id => document %>
    <% if document.children.size == 0 %>
-   | <%= admin_link_to 'cancella la scheda', { :action => :destroy, :id => document }, :confirm => 'Sei sicura?', :post => true %>   
+   | <%= admin_link_to 'cancella la scheda', { :action => :destroy, :id => document }, :confirm => 'Sei sicura?', :post => true %>
    <% else %>
    | (non puoi cancellare questa scheda)
    <% end %>

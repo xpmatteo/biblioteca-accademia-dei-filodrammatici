@@ -72,7 +72,7 @@ class Document < ActiveRecord::Base
     options[:page] || raise("missing page parameter")
     sql = sql_for_find(options)
     return nil unless sql
-    results = Document.paginate_by_sql(sql, options)
+    results = Document.paginate_by_sql([sql, options], options)
     results.each_with_index { |doc, index| doc["result_index"] = index + offset(options) }
   end
 
