@@ -4,7 +4,13 @@
  Non funziona piu' acts_as_versioned (commentato)
  Non ho ancora restaurato i link di amministrazione
 
- show_children commentato in views/_document
+
+TODO
+ - scheda singola
+ - l'encoding e' sballato (vedi autori con la B)
+ - show_children commentato in views/_document
+ - restaurare l'orrido banner flash?
+
 
 
 == Restauro 25/04/2015

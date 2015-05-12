@@ -62,11 +62,18 @@ def h(text)
   Rack::Utils.escape_html(text)
 end
 
+def with_indifferent_access(hash)
+  hash.keys.each do |key|
+    hash[key.to_sym] = hash[key]
+  end
+  hash
+end
+
 def paginate(options)
   unless options[:page]
     options.merge!(:page => params[:page] || "1")
   end
-  Document.paginate(options)
+  Document.paginate(with_indifferent_access(options))
 end
 
 def authorized?
@@ -89,6 +96,17 @@ get '/biblio/autore/:author_id' do
   @page_title = author.name + ": " + pluralize_schede
   erb :documents_list
 end
+
+get '/biblio/search' do
+  @documents = paginate(params)
+  if @documents
+    @page_title = 'Ricerca completa: ' + pluralize_schede
+  else
+    @page_title = "Ricerca completa"
+  end
+  erb :search
+end
+
 
 # get '/biblio/find' do
 #   @documents = paginate(:keywords => params[:q])

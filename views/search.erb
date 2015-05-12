@@ -1,0 +1,53 @@
+
+<h3><%=h @page_title %></h3>
+
+<form action="" method="get">
+  <p>
+    Secolo:<br/>
+    <select name="century" id="century">
+      <option></option>
+      <% for century in %w(XVI XVII XVIII XIX XX XXI) do %>
+        <option value="<%= century %>" <%= "selected" if params[:century] == century %>><%= century %></option>
+      <% end %>
+    </select>
+  </p>
+
+  <p>
+    Tipo documento:<br/>
+    <select name="document_type" id="document_type">
+      <% for type in Document::DOCUMENT_TYPES do %>
+        <option value="<%= type.last %>" <%= "selected" if params[:document_type] == type.last %>><%= type.first %></option>
+      <% end %>
+    </select>
+  </p>
+
+  <table cellspacing="0">
+    <tr>
+      <td style="padding-right: 2em">
+        Dall'anno:<br/>
+        <input type="text" name="year_from" value="<%= params[:year_from] %>" size="10">
+      </td>
+      <td>
+        Fino all'anno:<br/>
+        <input type="text" name="year_to" value="<%= params[:year_to] %>" size="10">
+      </td>
+    </tr>
+  </table>
+  <p>
+    Parole chiave:<br/>
+    <input type="text" name="keywords" value="<%= params[:keywords] %>" >
+  </p>
+  <p>
+    Risultati ordinati per:<br/>
+    <select name="order">
+      <option value="title"  <%= "selected" if params[:order] == "title" %>>Titolo</option>
+      <option value="author" <%= "selected" if params[:order] == "author" %>>Autore</option>
+      <option value="year"   <%= "selected" if params[:order] == "year" %>>Anno</option>
+    </select>
+  </p>
+  <p><input type="submit" value="Cerca" /></p>
+</form>
+
+<% if @documents %>
+  <%= erb :_list %>
+<% end %>

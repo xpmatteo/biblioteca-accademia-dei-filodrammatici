@@ -15,12 +15,6 @@ class Document < ActiveRecord::Base
     ["Tesi di Laurea", "thesis"],
   ]
 
-  ORDER_OPTIONS = [
-    ["Titolo", "title"],
-    ["Autore", "author"],
-    ["Anno", "year"],
-  ]
-
   validates_uniqueness_of :id_sbn, :if => Proc.new {|doc| !doc.id_sbn.blank?}
   validates_presence_of :title
   validates_numericality_of :value,   :allow_nil => true
