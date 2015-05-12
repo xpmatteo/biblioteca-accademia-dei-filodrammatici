@@ -123,3 +123,10 @@ get '/biblio/find' do
   @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
   erb :documents_list
 end
+
+get '/biblio/marca/:id' do
+  emblem = PublishersEmblem.find(params[:id])
+  @documents = paginate(:publishers_emblem_id => params[:id])
+  @page_title = 'Marca "' + emblem.description + '": ' + pluralize_schede
+  erb :documents_list
+end
