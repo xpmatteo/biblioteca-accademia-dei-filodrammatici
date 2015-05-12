@@ -2,5 +2,5 @@
 
 cd "$(dirname "$0")"/..
 
-rerun -p "**/*.{rb,js,css,erb,html,rhtml,ru,yml}" 'ruby init.rb'
+bundle exec rerun -p "**/*.{rb,js,css,erb,html,rhtml,ru,yml}" 'ruby init.rb'
 #exec bundle exec ruby init.rb
