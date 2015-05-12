@@ -130,3 +130,9 @@ get '/biblio/marca/:id' do
   @page_title = 'Marca "' + emblem.description + '": ' + pluralize_schede
   erb :documents_list
 end
+
+get '/biblio/collezione' do
+  @documents = paginate(:collection_name => params[:name])
+  @page_title = 'Collezione "' + params[:name] + '": ' + pluralize_schede
+  erb :documents_list
+end
