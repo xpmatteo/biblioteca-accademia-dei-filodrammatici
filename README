@@ -6,13 +6,14 @@
 
 
 TODO
- - scheda singola
+ + scheda singola
  - l'encoding e' sballato (vedi autori con la B)
  - show_children commentato in views/_document
  - restaurare l'orrido banner flash?
  - /biblio/marca/id
- - /biblio/find (ricerca libera)
+ + /biblio/find (ricerca libera)
  - /biblio/collezione?name=Aneddotica
+ - /biblio/scheda/12345 (test con http://biblioteca.accademiadeifilodrammatici.it/biblio/autore/67547)
 
 
 

@@ -76,6 +76,10 @@ def paginate(options)
   Document.paginate(with_indifferent_access(options))
 end
 
+def singleton_collection(document)
+  WillPaginate::Collection.create(1, 10) { |pager| pager.replace [document] }
+end
+
 def authorized?
   false
 end
@@ -107,9 +111,15 @@ get '/biblio/search' do
   erb :search
 end
 
+get '/biblio/scheda/:id' do
+  document = Document.find(params[:id])
+  @page_title = document.title_without_asterisk
+  @documents = singleton_collection(document)
+  erb :documents_list
+end
 
-# get '/biblio/find' do
-#   @documents = paginate(:keywords => params[:q])
-#   @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
-#   render :template => 'documents/list'
-# end
+get '/biblio/find' do
+  @documents = paginate(:keywords => params[:q])
+  @page_title = "Ricerca \"#{params[:q]}\": " + pluralize(@documents.total_entries, "risultato", "risultati")
+  erb :documents_list
+end
