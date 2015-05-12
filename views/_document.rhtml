@@ -4,7 +4,7 @@
   <% end %>
   <% if document.author %>
     <p class="document-author">
-      <%= link_to_unless_current h(document.author.name), :action => 'author', :id => document.author %>
+      <%= link_to_unless_current h(document.author.name), "/biblio/autore/#{document.author.id}" %>
     </p>
   <% end %>
 
@@ -22,17 +22,17 @@
     <p>Traduttore: <%= document.translator %></p>
   <% end %>
   <% if document.publishers_emblem %>
-    Marca: <%= link_to document.publishers_emblem.description, :action => :publishers_emblem, :id => document.publishers_emblem.id %>
+    Marca: <%= link_to document.publishers_emblem.description, "/biblio/marca/#{document.publishers_emblem.id}" %>
     <br />
   <% end %>
   <% if document.collection %>
-    <%= link_to document.collection, :action => :collection, :name => document.collection_name %>
+    <%= link_to document.collection, "/biblio/collezione?name=#{document.collection_name}" %>
     <br />
   <% end %>
   <%=show document.notes, "", :notes %>
   <%=show document.national_bibliography_number, "Bibliografia Nazionale &ndash; " %>
   <p class='document-names'>
-    <%=show_names document %>
+    <%= show_names document %>
   </p>
   <%=show_parent document %>
   <%#=show_children document %>

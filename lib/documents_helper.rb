@@ -21,7 +21,7 @@ helpers do
     result = ""
     document.names.reject{|name| name == document.author }.each_with_index do |author, index|
       result += "; " unless 0 == index
-      result += link_to_unless_current h(author.name), :action => 'author', :id => author
+      result += link_to_unless_current h(author.name), "/biblio/autore/#{author.id}"
     end
     make_entry(result)
   end
@@ -38,7 +38,7 @@ helpers do
     volume += document.month_of_serial if document.month_of_serial
     volume += document.collection_volume if document.collection_volume
     make_entry("Pubblicato in: " +
-      link_to_unless_current(h(parent.title_without_asterisk), :action => 'show', :id => parent.id) +
+      link_to_unless_current(h(parent.title_without_asterisk),  "/biblio/scheda/#{parent.id}") +
       volume)
   end
 

@@ -10,6 +10,9 @@ TODO
  - l'encoding e' sballato (vedi autori con la B)
  - show_children commentato in views/_document
  - restaurare l'orrido banner flash?
+ - /biblio/marca/id
+ - /biblio/find (ricerca libera)
+ - /biblio/collezione?name=Aneddotica
 
 
 
