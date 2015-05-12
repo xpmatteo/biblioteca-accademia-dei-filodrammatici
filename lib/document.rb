@@ -29,8 +29,6 @@ class Document < ActiveRecord::Base
   # e se contengono un asterisco, vanno ordinati a partire dall'asterisco
   CANONICAL_ORDER = "cast(title as unsigned), #{THE_PART_OF_TITLE_BEFORE_THE_ASTERISK}"
 
-  acts_as_tree :order => CANONICAL_ORDER
-
   # acts_as_versioned
 
   has_many :responsibilities
@@ -48,6 +46,14 @@ class Document < ActiveRecord::Base
      self.find_by_sql(sql).map do |g|
        g.initial
      end
+  end
+
+  def parent
+    Document.find_by_id(self.parent_id)
+  end
+
+  def children
+    Document.find_all_by_parent_id(self.id, :order => CANONICAL_ORDER)
   end
 
   def edited_with_manuscript_form

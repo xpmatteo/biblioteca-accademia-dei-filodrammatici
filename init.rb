@@ -1,7 +1,6 @@
 require 'sinatra'
 require "sinatra/activerecord"
 require "tilt/erb"
-require 'acts_as_tree_rails3'
 require 'active_support/inflector'
 require 'will_paginate'
 require 'will_paginate/active_record'

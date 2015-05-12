@@ -35,7 +35,7 @@
     <%= show_names document %>
   </p>
   <%=show_parent document %>
-  <%#=show_children document %>
+  <%=show_children document %>
   <%#= show document.id_sbn %>
   <% if authorized? %>
     <%= show number_to_currency(document.value, :unit => "", :separator => ",", :delimiter => "."), "Valore: &euro;" %>
