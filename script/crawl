@@ -1,0 +1,3 @@
+#!/bin/bash
+
+time bundle exec rawler http://localhost:4567 -l -w 0.001 --skip /biblio/collezione --local

@@ -4,6 +4,7 @@ development:
   username: filo
   password: filo
   host: localhost
+  encoding: latin1
 
 test:
   adapter: mysql
@@ -11,6 +12,7 @@ test:
   username: filo
   password: filo
   host: localhost
+  encoding: latin1
 
 production:
   adapter: mysql
@@ -18,3 +20,4 @@ production:
   username: filo
   password: du2choo0meuF9eey
   host: localhost
+  encoding: latin1

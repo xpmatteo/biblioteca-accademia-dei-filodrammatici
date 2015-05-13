@@ -5,6 +5,18 @@ require 'active_support/inflector'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
+# Patch to avoid the dreaded "incompatible character encodings: ASCII-8BIT and UTF-8"
+# Thanks to https://github.com/sinatra/sinatra/issues/559#issuecomment-7748296
+module Tilt
+  class ERBTemplate < Template
+    def prepare
+      @outvar = options[:outvar] || self.class.default_output_variable
+      options[:trim] = '<>' if !(options[:trim] == false) && (options[:trim].nil? || options[:trim] == true)
+      @engine = ::ERB.new(data.force_encoding('ASCII-8BIT'), options[:safe], options[:trim], @outvar)
+    end
+  end
+end
+
 Dir.glob('./lib/*.rb').sort.each { |file|
   puts file
   require file
