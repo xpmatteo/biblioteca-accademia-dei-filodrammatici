@@ -45,6 +45,9 @@ ssh $host << EOF
 	cd filo-sinatra
 	git merge deployment
 	bundle
+	mkdir tmp 2> /dev/null || true
 	[ -f tmp/production.pid ] && kill \$(cat tmp/production.pid)
-	puma config.ru -d -p 4002 -e production --pidfile tmp/production.pid -C config.puma.rb
+	puma config.ru -d -b tcp://127.0.0.1:4002 -e production --pidfile tmp/production.pid -C config.puma.rb
+	sleep 1
+	tail log/production.log
 EOF
