@@ -6,9 +6,10 @@
 
 
 TODO
+ - log rotate
+ - restaurare l'orrido banner flash?
  + l'encoding e' sballato (vedi autori con la B)
  + show_children commentato in views/_document http://localhost:4567/biblio/scheda/121338
- - restaurare l'orrido banner flash?
  + /biblio/marca/id (http://localhost:4567/biblio/search?century=XVI&document_type=monograph)
  + /biblio/find (ricerca libera)
  + /biblio/collezione?name=Aneddotica
