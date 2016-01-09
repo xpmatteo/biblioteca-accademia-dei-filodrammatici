@@ -34,8 +34,8 @@ cd "$(dirname "$0")/.."
 host="matteo@178.79.140.129"
 
 bundle-audit update
-bundle-audit
-require_clean_work_tree
+bundle-audit || true
+#require_clean_work_tree
 
 # push HEAD of current branch to branch "deployment" of remote "deployment-sinatra"
 git push deployment-sinatra HEAD:deployment
@@ -46,8 +46,9 @@ ssh $host << EOF
 	git merge deployment
 	bundle
 	mkdir tmp 2> /dev/null || true
-	[ -f tmp/production.pid ] && kill \$(cat tmp/production.pid)
-	puma config.ru -d -b tcp://127.0.0.1:4002 -e production --pidfile tmp/production.pid -C config.puma.rb
+	[ -f tmp/production.pid ] && kill \$(cat tmp/production.pid) || true
+  echo "If the process does not start, ensure that /etc/inittab contains this line:"
+  echo "filo:2345:respawn:sudo -u matteo /home/matteo/filo-sinatra/script/run-production.sh"
 	sleep 1
 	tail log/production.log
 EOF
