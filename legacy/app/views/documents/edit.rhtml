@@ -1,9 +1,0 @@
-<% @page_title = "Modifica scheda \"#{@document.title}\"" %>
-<h1><%= @page_title %></h1>
-
-<% form_tag :action => 'update', :id => @document do %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag 'Modifica' %>
-<% end %>
-
-<%= link_to 'Torna indietro', :action => 'show', :id => @document %>

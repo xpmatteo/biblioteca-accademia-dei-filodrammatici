@@ -1,7 +1,0 @@
-<% @page_title = @content.title %>
-<h2><%= @content.title %></h2>
-<div id='the-verbose-content'>
-  <%= @content.body %>
-  <%= image_tag(@content.image1) if @content.image1 %>
-</div>
-<%= link_to 'edit', :action => 'edit', :id => @content if authorized? %>

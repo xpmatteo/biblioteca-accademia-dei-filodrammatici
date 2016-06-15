@@ -1,8 +1,0 @@
-<% for manuscript in manuscripts %>
-  <div>
-    <p><a href="/documents/show/<%= manuscript.id %>"><%= manuscript.title %></a></p>
-    <% if manuscript.author %>
-      <p><%= manuscript.author.name %></p>
-    <% end %>
-  </div>
-<% end %>        
