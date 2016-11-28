@@ -2,7 +2,7 @@ development:
   adapter: mysql
   database: filo_development
   username: filo
-  password: filo
+  password: 170177_Lula
   host: localhost
   encoding: latin1
 
@@ -10,7 +10,7 @@ test:
   adapter: mysql
   database: filo_test
   username: filo
-  password: filo
+  password: 170177_Lula
   host: localhost
   encoding: latin1
 

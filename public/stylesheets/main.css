@@ -47,13 +47,56 @@ form.search td {
 }
 
 td#banner {
-background-image: url("http://www.accademiadeifilodrammatici.com/biblio/bgHeader-biblio.jpg");
+background-color:transparent;
 }
-
-tr.bannerTR,td#banner {
-    background-color: transparent;
+.bannerTdSx{
+    text-align: center;
+    padding-left: 30px;
+  }
+.bannerTdSx img{
+   width:200px;
+    height:  54px;
+  }  
+tr.bannerTR{
+   background-color:#000;
+  background-image: url("http://www.accademiadeifilodrammatici.com/biblio/bgHeader-biblio.jpg");
 }
-
 td.sideBarBiblio{
   background-color: #000;
+  background-image: url("http://www.accademiadeifilodrammatici.com/biblio/bgHeader-biblio.jpg");  
+}
+td.lastTdSide{
+      background-image: url("http://www.accademiadeifilodrammatici.com/biblio/bgHeader-biblio.jpg");
+}
+
+#initials{
+  color: red;
+}
+
+/* unvisited link */
+a:link {
+    color: red;
+}
+
+/* visited link */
+a:visited {
+    color: red;
+}
+
+/* mouse over link */
+a:hover {
+    color: #b00808;
+}
+
+/* selected link */
+a:active {
+    color: #b00808;
+}
+
+.tabellaInner ul li a {
+    color: #000;
+}
+
+.menubianco a{
+   color: #fff;
 }
