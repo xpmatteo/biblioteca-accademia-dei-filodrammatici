@@ -1,29 +1,3 @@
-
-# development:
-#   adapter: mysql
-#   database: filo_development
-#   username: filo
-#   password: 170177_Lula
-#   host: localhost
-#   encoding: latin1
-
-# test:
-#   adapter: mysql
-#   database: filo_test
-#   username: filo
-#   password: 170177_Lula
-#   host: localhost
-#   encoding: latin1
-
-# production:
-#   adapter: mysql
-#   database: filo_production
-#   username: filo
-#   password: du2choo0meuF9eey
-#   host: localhost
-#   encoding: latin1
-
-
 development:
   adapter: mysql
   database: filo_development
