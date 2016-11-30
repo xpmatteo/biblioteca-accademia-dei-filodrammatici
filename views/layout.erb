@@ -26,11 +26,11 @@
           <img src="/images/mc/0_pixel.gif" alt="" width="1" height="20" />
         </td>
       </tr>
-      <tr bgcolor="#AFAEAE" class="bannerTR" >
+      <tr  class="bannerTR" >
         <!-- Banner SX -->
-        <td colspan="3" align="right" valign="middle" onmouseup="document.location='http://www.accademiadeifilodrammatici.it'" ><a href="http://www.accademiadeifilodrammatici.it"><img alt="Home" src="http://accademiadeifilodrammatici.it/biblio/logoAccademia_biblio.png" width="250" height="68" border="0"></a></td>
+        <td colspan="3" class="bannerTdSx" align="center" valign="middle" onmouseup="document.location='http://www.accademiadeifilodrammatici.it'" ><a href="http://www.accademiadeifilodrammatici.it"><img alt="Home" src="http://accademiadeifilodrammatici.it/biblio/logoAccademia_biblio.png" width="250" height="68" border="0"></a></td>
         <!-- Banner SX END-->
-        <td id="banner" valign="bottom" colspan="2" bgcolor="#AFAEAE" width="750" height="100">
+        <td id="banner" valign="bottom" colspan="2"  width="750" height="100">
           <h1><a href="http://www.accademiadeifilodrammatici.it">Accademia dei Filodrammatici</a></h1>
         </td>
       </tr>
@@ -54,7 +54,7 @@
           <img src="/images/mc/0_pixel.gif" alt="" width="1" height="230" />
         </td>
         <td align="right" valign="top" bgcolor="#20ACDA" class="sideBarBiblio">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" align="right">
+          <table width="100%" border="0"  cellspacing="0" cellpadding="0" align="right">
             <tr>
               <td height="240">
                 <img src="/images/mc/0_pixel.gif" alt="" width="1" height="1" />
@@ -69,7 +69,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td align="right" class="menubianco">
+                    <td align="center" class="menubianco">
                       <%= link_to_unless_current item.first.upcase, item.last, :class => "menubianco" %>
                     </td>
                   </tr>
@@ -94,13 +94,13 @@
           </table>
         </td>
         <td></td>
-        <td align="left" valign="top">
+        <td align="left" valign="top" class="tabellaInner">
           <%= yield %>
         </td>
       </tr>
       <tr>
         <td align="right" valign="top"></td>
-        <td align="right" valign="top" bgcolor="#000" height="100">
+        <td align="right" valign="top" class="lastTdSide" bgcolor="#000" height="100">
           &nbsp;
         </td>
         <td colspan="2" align="left" valign="bottom" class="menubianco">
@@ -117,7 +117,7 @@
         </td>
       </tr>
       <tr>
-        <td align="right" valign="top"></td>
+        <td align="right" valign="top" ></td>
         <td class="dida" align="left" valign="top">Progetto grafico MediaCompass.com</td>
         <td colspan="2" class="dida" align="right">Biblioteca online software di <a href="http://matteo.vaccari.name/" class="dida">Matteo Vaccari</a></td>
       </tr>
