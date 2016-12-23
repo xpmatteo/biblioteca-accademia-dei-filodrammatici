@@ -44,16 +44,22 @@ form.search td {
   font-weight: normal;
   font-size: 150%;
   color: #fff;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 td#banner {
 background-color:transparent;
 }
+
+
+
+
+
 .bannerTdSx{
     text-align: center;
     padding-left: 30px;
   }
-.bannerTdSx img{
+.bannerTdSx img{  
    width:200px;
     height:  54px;
   }  
