@@ -33,6 +33,7 @@ set -e
 cd "$(dirname "$0")/.."
 host="matteo@178.79.140.129"
 
+bundle
 bundle-audit update
 bundle-audit || true
 require_clean_work_tree
