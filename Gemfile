@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby '2.3.3'
+ruby '2.3.4'
 gem 'sinatra', '1.4.6'
 gem 'puma', '2.11.1'
 gem 'bundler-audit', '0.3.1'
