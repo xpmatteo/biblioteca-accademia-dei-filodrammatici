@@ -44,6 +44,7 @@ ssh $host << EOF
 	set -e
 	cd filo-sinatra
 	git merge deployment
+  gem install bundler
 	bundle
 	mkdir tmp 2> /dev/null || true
 	[ -f tmp/production.pid ] && kill \$(cat tmp/production.pid) || true
