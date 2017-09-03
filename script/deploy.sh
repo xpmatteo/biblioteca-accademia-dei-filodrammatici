@@ -35,7 +35,7 @@ host="matteo@178.79.140.129"
 
 bundle-audit update
 bundle-audit || true
-#require_clean_work_tree
+require_clean_work_tree
 
 # push HEAD of current branch to branch "deployment" of remote "deployment-sinatra"
 git push deployment-sinatra HEAD:deployment
